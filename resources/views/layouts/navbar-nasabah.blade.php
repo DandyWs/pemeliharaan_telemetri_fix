@@ -1,3 +1,4 @@
+
 <nav class="main-header navbar navbar-expand navbar-white navbar-light">
     <!-- Left navbar links -->
     <ul class="navbar-nav">
@@ -36,7 +37,7 @@
                   @if (Auth::user()->role == "admin")
                     <a class="dropdown-item btn btn-success" data-toggle="modal" data-target="" style="pointer-events: none; cursor: default; opacity: 0.5;">
                         <i class="fas fa-edit mr-2"></i> Edit
-                    </a>                    
+                    </a>
                     @elseif (Auth::user()->role == "nasabah")
                     <a class="dropdown-item btn btn-success" data-toggle="modal" data-target="#editModalNasabah{{ $nasabah->id }}">
                         <i class="fas fa-edit mr-2"></i> Edit
@@ -49,12 +50,12 @@
                   <a class="dropdown-item btn btn-success" href="{{ url('/logout') }}">
                       <i class="fas fa-sign-out-alt mr-2"></i> Logout
                   </a>
-              </div>              
+              </div>
           </div>
       </li>
   </ul>
   </nav>
-  
+
   <!-- Modal Detail-->
   <div class="modal fade" id="detailModal" tabindex="-1" role="dialog" aria-labelledby="detailModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
@@ -174,14 +175,14 @@
                   </li>
               </ul>
               @endif
-              
+
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary btn-sm btn-danger" data-dismiss="modal">Tutup</button>            
+                <button type="button" class="btn btn-secondary btn-sm btn-danger" data-dismiss="modal">Tutup</button>
             </div>
         </div>
     </div>
- </div>
+</div>
 
 <!-- Modal Edit -->
 <div class="modal fade" id="editModalNasabah{{ $nasabah->id}}" tabindex="-1" role="dialog" aria-labelledby="editModalNasabahLabel" aria-hidden="true">
@@ -243,12 +244,9 @@
           </form>
         </div>
         <div class="modal-footer">
-            <button type="button" class="btn btn-secondary btn-sm btn-danger" data-dismiss="modal">Batal</button> 
+            <button type="button" class="btn btn-secondary btn-sm btn-danger" data-dismiss="modal">Batal</button>
             <button type="submit" class="btn btn-primary btn-sm btn-success" form="editForm{{ $nasabah->id }}">{{ __('Ubah') }}</button>
         </div>
-      </div>                              
+      </div>
     </div>
-  </div>  
- </div>
- </div>
-
+  </div>
