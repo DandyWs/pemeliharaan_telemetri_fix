@@ -1,0 +1,139 @@
+body {
+    font-family: 'Poppins', sans-serif;
+}
+
+.header h1{
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: bolder;
+    color: #FFFFFF;
+    font-size: 45px;
+    line-height: 65px;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.header span{
+    font-size: 30px;
+    border: 1px solid #fff;
+    padding: 6px;
+    background-color: #fff;
+    text-align: center;
+    border-radius: 10px;
+    color: #07AA14;
+    justify-content: center;
+}
+
+.login-left{
+    background: #07AA14;
+}
+
+.login-form label{
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    margin-top: 20px;
+    color: #FFFFFF;
+}
+
+.login-form input{
+    background: rgba(255, 255, 255, 0.82);
+    border-radius: 10px;
+    color: #535353;
+}
+
+.login-form a{
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 27px;
+    display: block;
+}
+
+.login-form .signin{
+    font-family: 'Poppins';
+    justify-content: center;
+    align-items: center;
+    width: 30%;
+    height: 40px;
+    background: #fff;
+    border-radius: 10px;
+    color: #07AA14;
+    margin: 30px 0;
+    border: none;
+}
+
+.button-center{
+    text-align: center;
+    position: relative;
+    -webkit-transition-duration: 0.5s;
+    transition-duration: 0.5s;
+}
+
+.button-center button:hover, button:focus, button:active{
+    box-shadow: 0 0 10px rgba(254, 254, 254, 0.5);
+    -webkit-transform: scale(1);
+    transform: scale(1);
+}
+
+
+.login-form span{
+    font-family: 'Poppins';
+    font-style: normal;
+    font-size: 14px;
+    line-height: 27px;
+    color: #FFFFFF;
+}
+
+.login-form span a{
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 27px;
+    color: #FFFFFF;
+}
+
+.login-right img{
+    padding-left: 64px;
+}
+
+.modal-header{
+    font-family: 'Poppins';
+    color: #07AA14;
+}
+
+.modal-body .mt-3 .form-label{
+    font-family: 'Poppins';
+    color: #07AA14;
+}
+
+.form-control::-moz-placeholder{
+    font-size: 13px;
+    font-family: 'Poppins';
+}
+
+.signup{
+    font-family: 'Poppins';
+    background: #07AA14;
+    color: #FFFFFF;
+    width: 20%;
+    height: 40px;
+    border-radius: 10px;
+    margin: 30px 0;
+    border: none;
+}
+
+.modal-footer{
+    -webkit-transition-duration: 0.5s;
+    transition-duration: 0.5s;
+}
+
+.modal-footer button:hover, button:focus, button:active{
+    box-shadow: 0 0 10px rgba(47, 255, 29, 0.5);
+    -webkit-transform: scale(1);
+    transform: scale(1);
+}
