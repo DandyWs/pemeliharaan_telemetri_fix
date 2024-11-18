@@ -2,9 +2,7 @@
     <!-- Left navbar links -->
     <ul class="navbar-nav">
       <li class="nav-item">
-        <a class="navbar-brand text-primary font-weight-bold text-uppercase" href="{{ url('/') }}">
-            Jasa Tirta I
-        </a>
+        <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
     </ul>
       <!-- Right navbar links -->
@@ -38,7 +36,7 @@
                   {{-- @if (Auth::user()->role == "admin")
                     <a class="dropdown-item btn btn-success" data-toggle="modal" data-target="" style="pointer-events: none; cursor: default; opacity: 0.5;">
                         <i class="fas fa-edit mr-2"></i> Edit
-                    </a>                    
+                    </a>
                     @elseif (Auth::user()->role == "nasabah")
                     <a class="dropdown-item btn btn-success" data-toggle="modal" data-target="#editModalNasabah-{{ $nasabah->id }}">
                         <i class="fas fa-edit mr-2"></i> Edit
@@ -48,23 +46,15 @@
                         <i class="fas fa-edit mr-2"></i> Edit
                     </a>
                     @endif --}}
-                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="{{ route('logout') }}"
-                           onclick="event.preventDefault();
-                                         document.getElementById('logout-form').submit();">
-                            {{ __('Logout') }}
-                        </a>
-
-                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                            @csrf
-                        </form>
-                    </div>
-              </div>              
+                  <a class="dropdown-item btn btn-success" href="{{ url('/logout') }}">
+                      <i class="fas fa-sign-out-alt mr-2"></i> Logout
+                  </a>
+              </div>
           </div>
       </li>
   </ul>
   </nav>
-  
+
   <!-- Modal Detail-->
   <div class="modal fade" id="detailModal" tabindex="-1" role="dialog" aria-labelledby="detailModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
@@ -184,13 +174,11 @@
                   </li>
               </ul>
               @endif
-              
+
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary btn-sm btn-danger" data-dismiss="modal">Tutup</button>            
+                <button type="button" class="btn btn-secondary btn-sm btn-danger" data-dismiss="modal">Tutup</button>
             </div>
         </div>
     </div>
 </div>
-
-
