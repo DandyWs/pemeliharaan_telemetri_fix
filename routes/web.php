@@ -63,7 +63,7 @@ Route::group(['middleware' => ['auth', 'role:admin']], function(){
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     //Route::resource('user', UserController::class);
         Route::resource('/jadwalnew',TransaksibaruController::class)->parameter('transaksibaru','id');
-    Route::resource('/jadwal',JadwalController::class)->parameter('jadwal','id'); 
+    Route::resource('/jadwal',JadwalController::class)->parameter('jadwal','id');
     Route::post('jadwal/data',[JadwalController::class,'data']);
     Route::resource('/nasabah', NasabahController::class)->parameter('nasabah','id');
     Route::post('nasabah/data',[NasabahController::class,'data']);
@@ -73,7 +73,7 @@ Route::group(['middleware' => ['auth', 'role:admin']], function(){
     Route::post('sopir/data',[SopirController::class,'data']);
     Route::resource('/transaksi', TransaksiController::class)->parameter('transaksi', 'id');
     Route::get('/laporan',[CetakLaporan::class,'index']);
-    
+
     Route::post('/laporan/cetak', [CetakLaporan::class,'cetak'])->name('laporan.cetak');
     Route::get('/grafik_penjualan',[TransaksibaruController::class,'grafik']);
     Route::get('/cetakTanggal/{tanggal_awal}/{tanggal_akhir}',[CetakLaporan::class,'cetakTanggal']);
