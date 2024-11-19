@@ -19,18 +19,18 @@
     <script src="https://kit.fontawesome.com/95c066a903.js" crossorigin="anonymous"></script>
     <!-- JS -->
     <script src="assets/js/script.js" defer></script>
-    
+
 </head>
 <body>
   <!-- Navbar -->
   <section id="beranda">
     <div class="beranda">
       <header>
-        <a href="#" class="logo"><img src="assets/dist/img/logo.png" alt="logo" width="60"></a>
+        <a href="#" class="logo"><img src="assets/dist/img/logo_jastir1.jpg" alt="logo" width="60"></a>
         <ul>
           <li><a href="#beranda">Beranda</a></li>
           <li><a href="#tentang-kami">Tentang Kami</a></li>
-          <li><a href="#sampah">Jenis Sampah</a></li>
+          <li><a href="#sampah">Pemeliharaan Telemetri</a></li>
           <li><a href="#temukan-kami">Temukan Kami</a></li>
           <li><a href="#gabung">Gabung</a></li>
           <li><a href="{{ url('/login') }}" target="_blank">Login</a></li>
@@ -39,7 +39,7 @@
       <div class="head-content">
         <div class="textBox">
           <h2>Ikut lestarikan lingkungan melalui <br><span>Bank Sampah Malang</span></h2>
-          <p>Setor pilahan sampah anda, kami akan mengubahnya menjadi barang yang memiliki nilai jual. 
+          <p>Setor pilahan sampah anda, kami akan mengubahnya menjadi barang yang memiliki nilai jual.
             Menguntungkan bagi alam juga bagi manusia.
           </p>
           <a href="#gabung">Daftar Menjadi Nasabah Kami</a>
@@ -57,7 +57,7 @@
       <h3>Tentang Kami</h3>
       <img src="assets/dist/img/foto1.jpg" alt="">
       <br><span class="judul-isi">Bank Sampah Malang</span><br>
-      <p>Sampah Malang (BSM) adalah suatu lembaga yang berbadan hukum koperasi yang pendiriannya difasilitasi oleh Pemerintah Kota Malang melalui Dinas Kebersihan dan Pertamanan untuk membantu dalam hal pemberdayaan masyarakat untuk ikut serta aktif dalam pengolahan sampah dari sumbernya (rumah tangga). 
+      <p>Sampah Malang (BSM) adalah suatu lembaga yang berbadan hukum koperasi yang pendiriannya difasilitasi oleh Pemerintah Kota Malang melalui Dinas Kebersihan dan Pertamanan untuk membantu dalam hal pemberdayaan masyarakat untuk ikut serta aktif dalam pengolahan sampah dari sumbernya (rumah tangga).
       <br> <br> Seiring perjalanan waktu BSM menjadi mitra Kota Malang dalam hal membina, melatih, mendampingi dalam pengolahan sampah 3R (reduce, reuse and recycle) masyarakat Kota Malang yang mandiri.</p>
       <div class="clearfix"></div>
     </div>
@@ -469,7 +469,7 @@
   <section id="temukan-kami">
     <div class="temukan-kami-container">
       <h3>Temukan Kami</h3>
-      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3951.0337594699236!2d112.61688607530391!3d-7.9954506797507525!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e7882a9d385ba91%3A0x667db69be1ab50c9!2sBank%20Sampah%20Malang!5e0!3m2!1sen!2sid!4v1684058288621!5m2!1sen!2sid" 
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3951.0337594699236!2d112.61688607530391!3d-7.9954506797507525!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e7882a9d385ba91%3A0x667db69be1ab50c9!2sBank%20Sampah%20Malang!5e0!3m2!1sen!2sid!4v1684058288621!5m2!1sen!2sid"
       width="1100" height="600" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
     </div>
     <div class="clearfix"></div>
@@ -521,7 +521,7 @@
       Copyright ©2023 <strong>Bank Sampah Malang.</strong>
     </div>
   </footer>
-  
+
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
 

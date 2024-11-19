@@ -36,7 +36,8 @@
                     <div class="col-12">
                         <div class="header text-center">
                         <img src="https://eoffice.jasatirta1.co.id/domcfg.nsf/logo_jastir1.png" alt="Logo" class="img-fluid mx-auto d-block mb-4" width="200" height="200">
-                            <h2>Sign In <br><span> Website Telemetri </span></h2>
+                            <h4>Sign In <br>
+                        <h4> Website Telemetri </h4>
                         </div>
                         <div class="login-form">
                             <form action="{{url('/login')}}" method="post">
@@ -47,8 +48,6 @@
                                 @error('email')
                                     <small class="text-danger">{{ $message }} </small>
                                 @enderror
-                                <br>
-
                                 <label for="password" class="form-label">Password</label>
                                 <input type="password" class="form-control @error('password') is-invalid @enderror"
                                        id="floatingPassword" placeholder="Masukkan password anda" name="password">
@@ -57,7 +56,7 @@
                                 @enderror
 
                                 <div class="button-center text-center">
-                                    <button type="submit" class="btn btn-primary">Login</button>
+                                    <br><button type="submit" class="btn btn-primary">Login</button>
                                 </div>
                                 <div class="text-center">
                                     <span class="d-inline">Don't have an account? <a href="" data-bs-toggle="modal" data-bs-target="#daftar" class="d-inline text-decoration-none">Register</a></span>
@@ -72,7 +71,7 @@
                     <img src="assets/dist/img/logo_jastir1.jpg" alt="">
                 </div>
             </div> -->
-        </section> 
+        </section>
     </div>
 
     <div class="modal fade" id="daftar" data-bs-backdrop="static" tabindex="-1" aria-labelledby="daftar" aria-hidden="true">
@@ -122,14 +121,14 @@
                             @enderror
                         </div>
                         <div class="mt-3">
-                            <label for="role" class="col-md-6 col-form-label text-md-end">{{ __('Role') }}</label>
+                            <label for="role" class=" col-form-label text-md-end">{{ __('Role') }}</label>
 
                             <div class="col-md-12">
                                 <select id="role" name="role" class="form-control @error('role') is-invalid @enderror" required autocomplete="role">
                                     <option value="mekanik">Mekanik</option>
                                     <option value="manager">Ka. Tim Kalibrasi Divisi</option>
                                 </select>
-                                
+
                                 @error('role')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
