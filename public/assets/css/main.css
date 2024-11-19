@@ -83,7 +83,7 @@ body {
 .button-center button:hover,
 button:focus,
 button:active {
-  box-shadow: 0 0 10px rgba(254, 254, 254, 0.5);
+  box-shadow: 0 0 10px rgba(9, 49, 128, 0.5);
   -webkit-transform: scale(1);
   transform: scale(1);
 }
@@ -126,8 +126,8 @@ button:active {
 
 .signup {
   font-family: "Poppins";
-  background: #ffffff;
-  color: #000;
+  background: #074eff;
+  color: #ffffff;
   width: 20%;
   height: 40px;
   border-radius: 10px;
