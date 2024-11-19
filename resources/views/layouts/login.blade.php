@@ -26,14 +26,6 @@
             margin: 0;
             background-color: #f8f9fa;
         }
-        .login {
-            width: 100%;
-            max-width: 500px; 
-            background-color: white; 
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            padding: 20px;
-        }
     </style>
 </head>
 <body>
