@@ -49,7 +49,7 @@ header ul li{
 
 header ul li a{
     display: inline-block;
-    color: #07AA14;
+    color: #073bacbc;
     font-weight: 400;
     margin-left: 40px;
     text-decoration: none;
@@ -58,7 +58,7 @@ header ul li a{
 }
 
 header ul li a:hover{
-    background: #07AA14;
+    background: #073bacbc;
     border-radius: 5rem;
     color: #FFFF;
     transition: background 0.5s;
@@ -83,14 +83,14 @@ header .logo{
 }
 
 .head-content .textBox h2{
-    color: #07AA14;
+    color: #073bacbc;
     font-size: 2em;
     line-height: 1.5em;
     font-weight: 500;
 }
 
 .head-content .textBox h2 span{
-    color: #07AA14;
+    color: #073bacbc;
     font-size: 1.2em;
     font-weight: 700;
 }
@@ -105,7 +105,7 @@ header .logo{
     display: inline-block;
     margin-top: 20px;
     padding: 8px 20px;
-    background: #07AA14;
+    background: #073bacbc;
     color: #FFFF;
     border-radius: 40px;
     font-weight: 500;
@@ -130,14 +130,14 @@ header .logo{
 .tentang-kami-container h3 {
     padding-bottom: 10px;
     font-weight: 600;
-    color: #07AA14;
+    color: #073bacbc;
     font-family: 'Poppins', sans-serif;
     text-align: center;
 }
 
 .tentang-kami-container h3::after {
     content: "";
-    border-bottom: 5px solid #07AA14;
+    border-bottom: 5px solid #073bacbc;
     width: 90px;
     display: block;
     margin: 15px auto;
@@ -174,7 +174,7 @@ header .logo{
 }
 
 .layanan-container .icons{
-    background: #07AA14;
+    background: #073bacbc;
     font-family: 'Poppins', sans-serif;
     color: #FFFF;
     border: 1px solid rgb(0, 0, 0,.1);
@@ -209,14 +209,14 @@ header .logo{
 
 .sampah-container h3{
     font-weight: 600;
-    color: #07AA14;
+    color: #073bacbc;
     font-family: 'Poppins', sans-serif;
     text-align: center;
 }
 
 .sampah-container h3::after{
     content: "";
-    border-bottom: 5px solid #07AA14;
+    border-bottom: 5px solid #073bacbc;
     width: 90px;
     display: block;
     margin: 15px auto;
@@ -332,7 +332,7 @@ header .logo{
 
 .temukan-kami-container h3{
     font-weight: 600;
-    color: #07AA14;
+    color: #073bacbc;
     font-family: 'Poppins', sans-serif;
     text-align: center;
     padding-bottom: 10px;
@@ -340,7 +340,7 @@ header .logo{
 
 .temukan-kami-container h3::after{
     content: "";
-    border-bottom: 5px solid #07AA14;
+    border-bottom: 5px solid #073bacbc;
     width: 90px;
     display: block;
     margin: 15px auto;
@@ -354,14 +354,14 @@ header .logo{
     padding-top: 40px;
     padding-bottom: 10px;
     font-weight: 600;
-    color: #07AA14;
+    color: #073bacbc;
     font-family: 'Poppins', sans-serif;
     text-align: center;
 }
 
 .gabung h3::after {
     content: "";
-    border-bottom: 5px solid #07AA14;
+    border-bottom: 5px solid #073bacbc;
     width: 90px;
     display: block;
     margin: 15px auto;
@@ -375,7 +375,7 @@ header .logo{
     align-items: center;
     padding: 5rem;
     border-radius: 10px;
-    background-color: #07AA14;
+    background-color: #073bacbc;
     margin-bottom: 3rem;
 }
 
