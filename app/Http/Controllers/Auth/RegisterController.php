@@ -70,9 +70,6 @@ class RegisterController extends Controller
         NasabahModel::create([
             'id_nasabah' => $data['id_nasabah'],
             'nama' => $data['name'],
-            'alamat' => $data['alamat'],
-            'email' => $data['email_register'],
-            'phone' => $data['phone'],
             'password' => Hash::make($data['password_register']),
         ]);
 
@@ -82,7 +79,7 @@ class RegisterController extends Controller
             'role' => 'nasabah',
             'password' => Hash::make($data['password_register']),
         ]);
-        
+
     }
 
     protected function store(Request $request)

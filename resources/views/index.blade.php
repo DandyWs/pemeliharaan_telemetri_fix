@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="icon" href="assets/dist/img/logo.png">
-    <title>Bank Sampah Malang</title>
+    <link rel="icon" href="assets/dist/img/logo_jastir1.jpg">
+    <title>Perum Jasa Tirta 1</title>
 
     <!-- CSS -->
     <link rel="stylesheet" type="text/css" href="assets/css/style.css">
@@ -38,14 +38,14 @@
       </header>
       <div class="head-content">
         <div class="textBox">
-          <h2>Ikut lestarikan lingkungan melalui <br><span>Bank Sampah Malang</span></h2>
-          <p>Setor pilahan sampah anda, kami akan mengubahnya menjadi barang yang memiliki nilai jual.
-            Menguntungkan bagi alam juga bagi manusia.
+          <h2>Selamat datang di website <br><span>Pemeliharaan Telemetri</span></h2>
+          <p>Memantau perkembangan dan keadaan alat-alat telemetri yang ada di Setiap Stasiun, Anda dapat melakukan pengecekan berkala dan melakukan Pemeriksaan disini.
+            Setelahnya Form akan langsung di tinjau oleh Kami.
           </p>
-          <a href="#gabung">Daftar Menjadi Nasabah Kami</a>
+          <a href="#gabung">Daftar Menjadi Mekanik</a>
         </div>
         <div class="imgBox">
-          <img src="assets/dist/img/login.png" alt="" width="650px">
+          <img src="assets\dist\img\login5 copy.png" alt="" width="650px">
         </div>
       </div>
     </div>
@@ -66,7 +66,7 @@
         <img src="assets/dist/img/edit.svg" alt="">
         <div class="info">
           <h6>Daftar</h6>
-          <span>Mari mendaftar menjadi nasabah kami</span>
+          <span>Daftar Menjadi Mekanik</span>
         </div>
       </div>
       <div class="icons">
@@ -484,7 +484,7 @@
           <div class="col-12">
             <div class="gabung-content">
               <div class="gabung-content-kiri">
-                <h4 class="text-white">Daftar Menjadi Nasabah Kami</h4>
+                <h4 class="text-white">Daftar Menjadi Mekanik</h4>
                 <p class="text-white">Sayarat dan Ketentuan</p>
                 <ul class="text-white">
                   <li>Melakukan registrasi akun pada menu <a href="{{ url('/login') }}">Login</a></li>
