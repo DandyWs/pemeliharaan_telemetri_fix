@@ -65,7 +65,7 @@
                                 @enderror
 
                                 <div class="button-center text-center">
-                                    <button type="submit" class="btn btn-primary">Sign In</button>
+                                    <button type="submit" class="btn btn-primary">Login</button>
                                 </div>
                                 <div class="text-center">
                                     <span class="d-inline">Don't have an account? <a href="" data-bs-toggle="modal" data-bs-target="#daftar" class="d-inline text-decoration-none">Register</a></span>
