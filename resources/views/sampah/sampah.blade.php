@@ -1,9 +1,9 @@
 @extends('layouts.template')
 @section('content')
 <section class="content">
-  <div >
+  {{-- <div >
     {{Breadcrumbs::render('sampah')}}
-  </div>
+  </div> --}}
     <div class="card">
         <div class="card-header border-0">
           <div class="d-flex justify-content-between">
@@ -29,7 +29,7 @@
     </div>
 </section>
 
-@push('js')
+{{-- @push('js')
 <script>
     $(document).on('click', '.btn-delete', function () {
                 let id = $(this).data('id');
@@ -41,7 +41,7 @@
             confirmButtonColor: '#198754',
             cancelButtonColor: '#d33',
             confirmButtonText: 'Hapus',
-          
+
         }).then((result) => {
           if(result.isConfirmed){
             var form = $('<form>').attr({
@@ -51,9 +51,9 @@
                         }).append('@csrf', '@method("DELETE")');
                         form.appendTo('body').submit();
           }
-         
+
         })
-      
+
     });
     $(document).ready(function (){
       var data = $('#data_sampah').DataTable();
@@ -81,10 +81,10 @@
                     }
                 }
             ]
-        }); 
+        });
     });
 
 </script>
-@endpush
+@endpush --}}
 
 @endsection

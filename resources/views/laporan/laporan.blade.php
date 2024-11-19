@@ -2,9 +2,9 @@
 
 @section('content')
 <section class="content">
-  <div >
+  {{-- <div >
     {{Breadcrumbs::render('transaksi')}}
-  </div>
+  </div> --}}
   <div class="form-group text-left"><a href="{{url('/grafik_penjualan/')}}" class="btn btn-sm btn-success">Lihat Grafik</a></div>
 
 
@@ -22,11 +22,11 @@
       </div>
       <button class="btn btn-sm btn-primary btn-block" type="submit">Cetak Laporan PDF    <i class="fa fa-print" aria-hidden="true"></i></button>
   </form>
-  
+
   </div>
 
  </div>
-  
+
 </section>
-    
+
 @endsection

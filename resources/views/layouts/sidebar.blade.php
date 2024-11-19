@@ -2,7 +2,7 @@
 <div class="sidebar" >
   <!-- Sidebar user (optional) -->
   <!-- SidebarSearch Form -->
- 
+
   <!-- Sidebar Menu -->
   <nav class="mt-2">
     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
@@ -16,7 +16,7 @@
             </p>
           </a>
         </li>
-       
+
      <li class="nav-item ">
           <a href="{{url('/nasabah')}}" class="nav-link  {{request()->is('nasabah')?'active' : ''}}">
             <i class="nav-icon fas fa-solid fa fa-users "></i>
@@ -34,14 +34,14 @@
           </a>
         </li>
         <li class="nav-item">
-          
+
           <a href="{{url('/sampah')}}" class="nav-link {{request()->is('sampah')?'active' : ''}}">
             <i class="nav-icon fa fa-trash"></i>
             <p>
               Jenis Sampah
             </p>
           </a>
-          
+
         </li>
         <li class="nav-item">
           <a href="{{url('/jadwal')}}" class="nav-link {{request()->is('jadwal')?'active' : ''}}">
@@ -51,7 +51,7 @@
             </p>
           </a>
         </li>
-        
+
         <li class="nav-item">
           <a href="{{url('/laporan')}}" class="nav-link {{request()->is('laporan')?'active' : ''}}">
             <i class="nav-icon fa fa-sticky-note"></i>
@@ -59,7 +59,7 @@
               Laporan
             </p>
           </a>
-        </li> 
+        </li>
     </ul>
   </nav>
   <!-- /.sidebar-menu -->

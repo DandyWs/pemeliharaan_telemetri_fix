@@ -1,7 +1,7 @@
 @extends('layouts.template')
 
 @section('content')
-<section class="content">
+{{-- <section class="content">
 
     <!--Default box-->
     <div class="card">
@@ -26,10 +26,10 @@
                 <a class="btn btn-md btn-primary" href="{{ url('/nasabah') }}">Kembali</a>
             </ul>
         </div>
-        
-    </div>
-       
-      
+
+    </div> --}}
+
+
     <!-- /.card -->
 
     </section>
