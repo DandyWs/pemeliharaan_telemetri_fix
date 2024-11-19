@@ -18,47 +18,56 @@
         </li>
 
      <li class="nav-item ">
-          <a href="{{url('/nasabah')}}" class="nav-link  {{request()->is('nasabah')?'active' : ''}}">
-            <i class="nav-icon fas fa-solid fa fa-users "></i>
+          <a href="#" class="nav-link">
+          <i class="nav-icon fas fa-solid fa fa-bars"></i>
             <p >
-              Nasabah
+              CRUD
             </p>
           </a>
-        </li>
-        <li class="nav-item">
-          <a href="{{url('/sopir')}}" class="nav-link {{request()->is('sopir')?'active' : ''}}">
-            <i class="nav-icon fa fa-id-card"></i>
-            <p>
-              Sopir
-            </p>
-          </a>
-        </li>
-        <li class="nav-item">
-
-          <a href="{{url('/sampah')}}" class="nav-link {{request()->is('sampah')?'active' : ''}}">
-            <i class="nav-icon fa fa-trash"></i>
-            <p>
-              Jenis Sampah
-            </p>
-          </a>
-
-        </li>
-        <li class="nav-item">
-          <a href="{{url('/jadwal')}}" class="nav-link {{request()->is('jadwal')?'active' : ''}}">
-            <i class="nav-icon fa fa-calendar"></i>
-            <p>
-              Jadwal
-            </p>
-          </a>
-        </li>
-
-        <li class="nav-item">
-          <a href="{{url('/laporan')}}" class="nav-link {{request()->is('laporan')?'active' : ''}}">
-            <i class="nav-icon fa fa-sticky-note"></i>
-            <p>
-              Laporan
-            </p>
-          </a>
+          <ul class="nav nav-treeview">
+            <li class="nav-item">
+              <a href="#" class="nav-link">
+                <i class="nav-icon fas fa-solid fa fa-users"></i>
+                  <p>User Management</p>
+              </a>
+            </li> 
+            <li class="nav-item">
+              <a href="#" class="nav-link">
+                <i class="nav-icon fas fa-solid fa fa-check"></i>
+                  <p>Pemeriksaan</p>
+              </a>
+            </li> 
+            <li class="nav-item">
+              <a href="#" class="nav-link">
+                <i class="nav-icon fas fa-solid fa fa-pen"></i>
+                  <p>Pemeliharaan</p>
+              </a>
+            </li> 
+            <li class="nav-item">
+              <a href="#" class="nav-link">
+                <i class="nav-icon fas fa-solid fa fa-toolbox"></i>
+                  <p>Jenis Peralatan</p>
+              </a>
+            </li> 
+            <li class="nav-item">
+              <a href="#" class="nav-link">
+                <i class="nav-icon fas fa-solid fa fa-hammer"></i>
+                  <p>Peralatan Telemetri</p>
+              </a>
+            </li> 
+            <li class="nav-item">
+              <a href="#" class="nav-link">
+                <i class="nav-icon fas fa-solid fa fa-puzzle-piece"></i>
+                  <p>Komponen</p>
+              </a>
+            </li> 
+            <li class="nav-item">
+              <a href="#" class="nav-link">
+                <i class="nav-icon fas fa-solid fa fa-paperclip"></i>
+                  <p>Settings</p>
+              </a>
+            </li> 
+          </ul>
         </li>
     </ul>
   </nav>
