@@ -3,7 +3,7 @@
 @section('content')
 <section class="content">
 
-    <!-- Default Box-->
+    {{-- <!-- Default Box-->
     <div class="card">
         <div class="card-header">
             <h3 class="card-title"> Data Nasabah </h3>
@@ -36,7 +36,7 @@
                 <span class="invalid-feedback" role="alert">{{ $message }}</span>
               @enderror
             </div> --}}
-            <div class="form-group">
+            {{-- <div class="form-group">
                 <label>Alamat</label>
                 <input class="form-control @error('alamat') is-invalid @enderror" value="{{ isset($nsb)? $nsb->alamat :old('alamat') }}" name="alamat" type="text"/>
                 @error('alamat')
@@ -67,14 +67,14 @@
                 <span class="error invalid-feedback">{{ $message }} </span>
               @enderror
             </div>
-          
+
             <div class="form-group mt-3">
               <button class="btn btn-sm btn-success">Simpan</button>
               <a class="btn btn-sm btn-primary" href="{{ url('/nasabah') }}">Kembali</a>
           </div>
-        
+
           </form>
         </div>
-    </div>
+    </div>  --}}
 </section>
 @endsection

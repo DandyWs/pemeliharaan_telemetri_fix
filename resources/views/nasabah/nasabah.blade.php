@@ -1,11 +1,11 @@
 @extends ('layouts.template')
 
-@section('content')
+ @section('content')
 
 <section class="content">
-    <div >
+    {{-- <div >
         {{Breadcrumbs::render('nasabah')}}
-      </div>
+      </div> --}}
     <div class="card">
         <div class="card-header border-0">
           <div class="d-flex justify-content-between">
@@ -21,12 +21,12 @@
                         <th>#</th>
                         <th>Id Nasabah</th>
                         <th>Nama</th>
-                        {{-- <th>Foto</th> --}}
+                        <th>Foto</th>
                         <th>Alamat</th>
                         <th>No. Telp</th>
                         <th style="width: 150px">Action</th>
                     </tr>
-                </thead>   
+                </thead>
             </table>
         </div>
         </div>
@@ -34,7 +34,7 @@
     </
 </section>
 
-@push('js')
+{{-- @push('js')
 <script>
     $(document).on('click', '.btn-delete', function () {
                 let id = $(this).data('id');
@@ -46,7 +46,7 @@
             confirmButtonColor: '#198754',
             cancelButtonColor: '#d33',
             confirmButtonText: 'Hapus',
-          
+
         }).then((result) => {
           if(result.isConfirmed){
             var form = $('<form>').attr({
@@ -56,9 +56,9 @@
                         }).append('@csrf', '@method("DELETE")');
                         form.appendTo('body').submit();
           }
-         
+
         })
-      
+
     });
        $(document).ready(function (){
       var data = $('#data_nasabah').DataTable();
@@ -81,16 +81,16 @@
                 data: 'id', name: 'id', searchable: false, sortable: false,
                 render: function (data, type, row, meta) {
                     return '<a href="{{ url('nasabah') }}/' + data + '/edit" class="btn btn-warning btn-sm mr-1"><i class="fa fa-edit"></i> </a>' +
-                        '<button class="btn btn-danger btn-sm btn-delete" data-id="' + data + '"><i class="fa fa-trash"></i> </button>' + 
+                        '<button class="btn btn-danger btn-sm btn-delete" data-id="' + data + '"><i class="fa fa-trash"></i> </button>' +
                     `<a href="{{url('/nasabah/')}}/` + data +`"class="btn btn-sm btn-primary "><i class="fas fa fa-info-circle"></i></a>`;
                 }
             }
         ]
-        }); 
+        });
     });
 
 </script>
-@endpush
+@endpush --}}
 
 @endsection
 

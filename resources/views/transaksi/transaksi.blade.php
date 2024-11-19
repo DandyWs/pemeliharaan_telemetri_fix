@@ -2,9 +2,9 @@
 
 @section('content')
 <section class="content">
-  <div >
+  {{-- <div >
     {{Breadcrumbs::render('transaksi')}}
-  </div>
+  </div> --}}
     <div class="card">
         <div class="card-header border-0">
           <div class="d-flex justify-content-between">

@@ -2,7 +2,7 @@
 @section('content')
 <section class="content">
   <div >
-    {{Breadcrumbs::render('jadwal')}}
+    {{-- {{Breadcrumbs::render('jadwal')}} --}}
   </div>
     <div class="card">
         <div class="card-header border-0">
@@ -33,8 +33,8 @@
         </div>
     </div>
 </section>
-    
-@push('js')
+
+{{-- @push('js')
 <script>
     $(document).on('click', '.btn-delete', function () {
                 let id = $(this).data('id');
@@ -46,7 +46,7 @@
             confirmButtonColor: '#198754',
             cancelButtonColor: '#d33',
             confirmButtonText: 'Hapus',
-          
+
         }).then((result) => {
           if(result.isConfirmed){
             var form = $('<form>').attr({
@@ -56,9 +56,9 @@
                         }).append('@csrf', '@method("DELETE")');
                         form.appendTo('body').submit();
           }
-         
+
         })
-      
+
     });
     $(document).ready(function (){
       var data = $('#data_jadwal').DataTable();
@@ -82,17 +82,17 @@
                 render: function(data, type, row, meta){
                   if (row.konfirmasi !== 'Dibatalkan' && row.konfirmasi !== 'Selesai') {
                     return `<a href="{{url('jadwal')}}/` + data + `/edit" class="btn btn-warning btn-sm mr-1 "><i class="fa fa-edit"></i> </a>` +
-                    '<button class="btn btn-danger btn-sm btn-delete" data-id="' + data + '"><i class="fa fa-trash"></i> </button>' + 
+                    '<button class="btn btn-danger btn-sm btn-delete" data-id="' + data + '"><i class="fa fa-trash"></i> </button>' +
                     `<a href="{{url('/jadwal/')}}/` + data +`"class="btn btn-sm btn-primary "><i class="fas fa fa-info-circle"></i></a>`;
                   } else {
                     return `<a href="{{url('/jadwal/')}}/` + data +`"class="btn btn-sm btn-primary "><i class="fas fa fa-info-circle"></i></a>`
                   }
                 }
-            } 
+            }
             ]
-        }); 
+        });
     });
 </script>
-@endpush
+@endpush --}}
 
 @endsection
