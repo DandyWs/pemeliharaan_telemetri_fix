@@ -20,12 +20,12 @@ body {
     background-color: #fff;
     text-align: center;
     border-radius: 10px;
-    color: #07AA14;
+    color: #073bacbc;
     justify-content: center;
 }
 
 .login-left{
-    background: #07AA14;
+    background: #073bacbc;
 }
 
 .login-form label{
@@ -61,7 +61,7 @@ body {
     height: 40px;
     background: #fff;
     border-radius: 10px;
-    color: #07AA14;
+    color: #073bacbc;
     margin: 30px 0;
     border: none;
 }
@@ -103,12 +103,12 @@ body {
 
 .modal-header{
     font-family: 'Poppins';
-    color: #07AA14;
+    color: #073bacbc;
 }
 
 .modal-body .mt-3 .form-label{
     font-family: 'Poppins';
-    color: #07AA14;
+    color: #073bacbc;
 }
 
 .form-control::-moz-placeholder{
@@ -118,7 +118,7 @@ body {
 
 .signup{
     font-family: 'Poppins';
-    background: #07AA14;
+    background: #073bacbc;
     color: #FFFFFF;
     width: 20%;
     height: 40px;
@@ -133,7 +133,7 @@ body {
 }
 
 .modal-footer button:hover, button:focus, button:active{
-    box-shadow: 0 0 10px rgba(47, 255, 29, 0.5);
+    box-shadow: 0 0 10px rgba(10, 52, 167, 0.579);
     -webkit-transform: scale(1);
     transform: scale(1);
 }
