@@ -6,7 +6,7 @@
     <!-- Default Box-->
     <div class="card">
         <div class="card-header">
-            <h3 class="card-title">Data Sampah</h3>
+            <h3 class="card-title">Data Jenis Alat</h3>
             <br>
         </div>
         <div class="card-body">
@@ -30,11 +30,21 @@
                 </div> --}}
                 <div class="form-group">
                   <label>Setting</label>
-                  <input class="form-control @error('setting') is-invalid @enderror" value="{{isset($sampah)? $sampah->setting : old('setting') }}" name="setting" type="checkbox"/>
+                  <select class="form-control @error('setting') is-invalid @enderror" name="setting">
+                    <option value="1" {{ (isset($sampah) && $sampah->setting == 1) ? 'selected' : '' }}>True</option>
+                    <option value="0" {{ (isset($sampah) && $sampah->setting == 0) ? 'selected' : '' }}>False</option>
+                  </select>
                   @error('setting')
                     <span class="error invalid-feedback">{{ $message }} </span>
                   @enderror
                 </div>
+                {{-- <div class="form-group">
+                  <label>Setting</label>
+                  <input class="form-control @error('setting') is-invalid @enderror" value="{{isset($sampah)? $sampah->setting : old('setting') }}" name="setting" type="checkbox"/>
+                  @error('setting')
+                    <span class="error invalid-feedback">{{ $message }} </span>
+                  @enderror
+                </div> --}}
                 <div class="form-group mt-3">
                   <button class="btn btn-sm btn-success">Simpan</button>
                   <a class="btn btn-sm btn-primary" href="{{ url('/sampah') }}">Kembali</a>

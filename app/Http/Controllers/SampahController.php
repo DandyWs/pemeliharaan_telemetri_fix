@@ -64,6 +64,7 @@ class SampahController extends Controller
             'namajenis' => $request->namajenis,
             // 'foto' => $image_name,
             // 'harga' => $request->harga,
+            'setting' => $request->setting
         ]);
 
         return redirect('sampah')
