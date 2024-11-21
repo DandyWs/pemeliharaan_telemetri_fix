@@ -18,8 +18,8 @@
 
             <div class="form-group">
               <label>Nama</label>
-              <input class="form-control @error('nama') is-invalid @enderror" value="{{ isset($spr)? $spr->nama :old('nama') }}" name="nama" type="text"/>
-              @error('nama')
+              <input class="form-control @error('name') is-invalid @enderror" value="{{ isset($spr)? $spr->name :old('name') }}" name="name" type="text"/>
+              @error('name')
                 <span class="error invalid-feedback">{{ $message }} </span>
               @enderror
             </div>
@@ -32,22 +32,29 @@
               @enderror
             </div>
 
-            <div class="mt-3">
-                            <label for="role" class=" col-form-label text-md-end">{{ __('Role') }}</label>
+            <div class="form-group">
+              <label for="role" class=" col-form-label text-md-end">{{ __('Role') }}</label>
+              <div class="col-md-12">
+                  <select id="role" name="role" class="form-control @error('role') is-invalid @enderror" required autocomplete="role">
+                      <option value="mekanik">Mekanik</option>
+                      <option value="manager">Ka. Tim Kalibrasi Divisi</option>
+                  </select>
 
-                            <div class="col-md-12">
-                                <select id="role" name="role" class="form-control @error('role') is-invalid @enderror" required autocomplete="role">
-                                    <option value="mekanik">Mekanik</option>
-                                    <option value="manager">Ka. Tim Kalibrasi Divisi</option>
-                                </select>
+                  @error('role')
+                      <span class="invalid-feedback" role="alert">
+                          <strong>{{ $message }}</strong>
+                      </span>
+                  @enderror
+              </div>
+            </div>
 
-                                @error('role')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
+            <div class="form-group">
+              <label>Password</label>
+              <input class="form-control @error('password') is-invalid @enderror" value="" name="password" type="password"/>
+              @error('password')
+                <span class="error invalid-feedback">{{ $message }} </span>
+              @enderror
+            </div>
 
             {{--  --}}
             <div class="form-group mt-3">
@@ -62,10 +69,10 @@
 </section>
 @endsection
 
-@extends ('layouts.template')
+{{-- @extends ('layouts.template') --}}
 
-@section('content')
-<section class="content">
+{{-- @section('content') --}}
+{{-- <section class="content"> --}}
 
     {{-- <!-- Default Box-->
     <div class="card">
@@ -140,5 +147,5 @@
           </form>
         </div>
     </div>  --}}
-</section>
-@endsection -->
+{{-- </section> --}}
+{{-- @endsection --> --}}

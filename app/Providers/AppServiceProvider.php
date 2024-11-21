@@ -41,12 +41,6 @@ class AppServiceProvider extends ServiceProvider
             $view->with('hitungPemeliharaan', Pemeliharaan2::count());
             $view->with('hitungAlat', AlatTelemetri::count());
         });
-        // view::share('hitungNasabah', NasabahModel::count());
-
-        // View::share('hitungSopir', SopirModel::count());
-        // View::share('hitungSampah', SampahModel::count());
-
-        // View::share('hitungJadwal', TransaksiBaruModel::count());
     }
 
 }

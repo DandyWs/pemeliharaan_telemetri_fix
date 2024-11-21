@@ -32,7 +32,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/jadwalnasabah';
+    protected $redirectTo = '/dashboard';
 
     /**
      * Create a new controller instance.
@@ -67,11 +67,11 @@ class RegisterController extends Controller
      */
     protected function create(array $data):User
     {
-        NasabahModel::create([
-            'id_nasabah' => $data['id_nasabah'],
-            'nama' => $data['name'],
-            'password' => Hash::make($data['password_register']),
-        ]);
+        // NasabahModel::create([
+        //     'id_nasabah' => $data['id_nasabah'],
+        //     'nama' => $data['name'],
+        //     'password' => Hash::make($data['password_register']),
+        // ]);
 
         return User::create([
             'name' => $data['name'],
@@ -95,7 +95,7 @@ class RegisterController extends Controller
 
         self::create($request->except(['_token']));
 
-        return redirect('/jadwalnasabah')
+        return redirect('/dashboard')
             ->with('success', 'Registered Successfully');
     }
 }

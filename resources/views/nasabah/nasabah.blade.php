@@ -9,7 +9,7 @@
     <div class="card">
         <div class="card-header border-0">
           <div class="d-flex justify-content-between">
-           <h3 class="card-title"><b>Daftar Nasabah</b></h3>
+           <h3 class="card-title"><b>Daftar User</b></h3>
           </div>
           <div class="card-body">
             <div class="row d-flex justify-between" style="width: 100%; justify-content: space-between; align-items: center; margin: 0">
@@ -19,11 +19,9 @@
                 <thead>
                     <tr>
                         <th>#</th>
-                        <th>Id Nasabah</th>
                         <th>Nama</th>
-                        <th>Foto</th>
-                        <th>Alamat</th>
-                        <th>No. Telp</th>
+                        <th>Email</th>
+                        <th>Role</th>
                         <th style="width: 150px">Action</th>
                     </tr>
                 </thead>
@@ -33,8 +31,8 @@
     </div>
     </
 </section>
-
-{{-- @push('js')
+@endsection
+@section('mainjs')
 <script>
     $(document).on('click', '.btn-delete', function () {
                 let id = $(this).data('id');
@@ -72,11 +70,10 @@
                 'type': 'POST',
             },
             columns: [
-            { data: 'no', searchable: false, sortable: false },
-            { data: 'id_nasabah', name: 'id_nasabah', searchable: true, sortable: true },
-            { data: 'nama', name: 'nama', sortable: true, searchable: true },
-            { data: 'alamat', name: 'alamat', sortable: false, searchable: true },
-            { data: 'phone', name: 'phone', sortable: false, searchable: true },
+            { data: 'id', searchable: false, sortable: false },
+            { data: 'name', name: 'name', sortable: true, searchable: true },
+            { data: 'email', name: 'email', sortable: false, searchable: true },
+            { data: 'role', name: 'role', sortable: false, searchable: true },
             {
                 data: 'id', name: 'id', searchable: false, sortable: false,
                 render: function (data, type, row, meta) {
@@ -90,7 +87,5 @@
     });
 
 </script>
-@endpush --}}
-
 @endsection
 

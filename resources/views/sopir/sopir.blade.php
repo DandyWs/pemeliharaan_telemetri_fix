@@ -89,7 +89,7 @@
 </script>
 @endsection
 
-@extends ('layouts.template')
+{{-- @extends ('layouts.template')
 
  @section('content')
 
@@ -97,7 +97,7 @@
     {{-- <div >
         {{Breadcrumbs::render('nasabah')}}
       </div> --}}
-    <div class="card">
+    {{-- <div class="card">
         <div class="card-header border-0">
           <div class="d-flex justify-content-between">
            <h3 class="card-title"><b>Data User</b></h3>
@@ -122,7 +122,7 @@
         </div>
     </div>
     </
-</section>
+</section> --}}
 
 {{-- @push('js')
 <script>
