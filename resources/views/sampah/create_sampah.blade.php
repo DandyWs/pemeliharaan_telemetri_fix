@@ -29,14 +29,12 @@
                   @enderror
                 </div> --}}
                 <div class="form-group">
-                  <label>Setting</label>
-                  <select class="form-control @error('setting') is-invalid @enderror" name="setting">
-                    <option value="1" {{ (isset($sampah) && $sampah->setting == 1) ? 'selected' : '' }}>True</option>
-                    <option value="0" {{ (isset($sampah) && $sampah->setting == 0) ? 'selected' : '' }}>False</option>
-                  </select>
-                  @error('setting')
+                    <label>Setting</label>
+                    <input type="hidden" name="setting" value="0">
+                    <input class="form-control @error('setting') is-invalid @enderror" type="checkbox" name="setting" value="1" {{ (isset($sampah) && $sampah->setting == 1) ? 'checked' : '' }}>
+                    @error('setting')
                     <span class="error invalid-feedback">{{ $message }} </span>
-                  @enderror
+                    @enderror
                 </div>
                 {{-- <div class="form-group">
                   <label>Setting</label>
