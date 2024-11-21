@@ -24,7 +24,7 @@
           </a>
           <ul class="nav nav-treeview">
             <li class="nav-item">
-              <a href="#" class="nav-link">
+              <a href="{{url('/nasabah')}}" class="nav-link">
                 <i class="nav-icon fas fa-solid fa fa-users"></i>
                   <p>User Management</p>
               </a>
@@ -54,7 +54,7 @@
               </a>
             </li> 
             <li class="nav-item">
-              <a href="#" class="nav-link">
+              <a href="{{url('/sopir')}}"  class="nav-link">
                 <i class="nav-icon fas fa-solid fa fa-puzzle-piece"></i>
                   <p>Komponen</p>
               </a>
