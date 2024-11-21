@@ -9,7 +9,7 @@
     <div class="card">
         <div class="card-header border-0">
           <div class="d-flex justify-content-between">
-           <h3 class="card-title"><b>Data Komponen</b></h3>
+           <h3 class="card-title"><b>Daftar Komponen</b></h3>
           </div>
           <div class="card-body">
             <div class="row d-flex justify-between" style="width: 100%; justify-content: space-between; align-items: center; margin: 0">
