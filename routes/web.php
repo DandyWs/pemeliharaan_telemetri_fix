@@ -70,7 +70,7 @@ Route::group(['middleware' => ['auth', 'role:admin']], function(){
     Route::resource('/sampah', SampahController::class)->parameter('sampah', 'id');
     Route::post('sampah/data',[SampahController::class,'data']);
     Route::resource('/sopir', SopirController::class)->parameter('sopir', 'id');
-    Route::post('sopir/data',[SopirController::class,'data']);
+    Route::post('sopir/data',[SopirController::class,'data'])->name('datasopir');
     Route::resource('/transaksi', TransaksiController::class)->parameter('transaksi', 'id');
     Route::get('/laporan',[CetakLaporan::class,'index']);
 

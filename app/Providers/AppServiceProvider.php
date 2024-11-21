@@ -31,13 +31,13 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        Paginator::useBootstrap();
-        view::share('hitungNasabah', NasabahModel::count());
+        // Paginator::useBootstrap(); 
+        // view::share('hitungNasabah', NasabahModel::count());
 
-        View::share('hitungSopir', SopirModel::count());
-        View::share('hitungSampah', SampahModel::count());
+        // View::share('hitungSopir', SopirModel::count());
+        // View::share('hitungSampah', SampahModel::count());
 
-        View::share('hitungJadwal', TransaksiBaruModel::count());
+        // View::share('hitungJadwal', TransaksiBaruModel::count());
     }
 
 }

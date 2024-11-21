@@ -84,7 +84,7 @@
                 <form action="{{ url('register') }}" method="post">
                     @csrf
                     <div class="modal-body">
-                        <input type="hidden" value="{{ "N".$id_nasabah }}" name="id_nasabah">
+                        {{-- <input type="hidden" value="{{ "N".$id_nasabah }}" name="id_nasabah"> --}}
                         <div class="mt-3">
                             <label for="name" class="form-label">Nama Lengkap</label>
                             <input class="form-control @error('name') is-invalid @enderror" name="name" id="name"

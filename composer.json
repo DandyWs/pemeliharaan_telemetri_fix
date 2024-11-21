@@ -9,12 +9,17 @@
     "license": "MIT",
     "require": {
         "php": "^8.1",
+        "barryvdh/laravel-dompdf": "^2.0",
+        "diglactic/laravel-breadcrumbs": "^8.1",
+        "doctrine/dbal": "^3.6",
         "guzzlehttp/guzzle": "^7.2",
+        "haruncpi/laravel-id-generator": "^1.1",
         "laravel/framework": "^10.10",
         "laravel/sanctum": "^3.3",
         "laravel/tinker": "^2.8",
         "laravel/ui": "^4.0",
-        "livewire/livewire": "^2.11"
+        "livewire/livewire": "^2.11",
+        "yajra/laravel-datatables-oracle": "^10.4"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",

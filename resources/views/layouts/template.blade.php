@@ -118,5 +118,6 @@
     </script>
 @endif
 @stack('js')
+@yield('mainjs')
 </body>
 </html>

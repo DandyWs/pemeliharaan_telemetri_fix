@@ -14,7 +14,7 @@
                 @csrf
                 {!! (isset($jdw))? method_field('PUT'):''!!}
 
-                <div class="form-group">
+                {{-- <div class="form-group">
                   <label for="Id Nasabah">Id Nasabah</label>
                   <select name="id_nasabah" class="form-control @error('id_nasabah')
                     is-invalid @enderror">
@@ -56,26 +56,26 @@
                     </td>
                   </tr>
                   </table>
-                  
+                   --}}
                 <table id="tambahData"  style="margin-top: 16px">
-                  <th>Jenis Sampah</th>
-                  <th>Berat</th>
-                  <th>Action</th>
+                  {{-- <th>Jenis Sampah</th> --}}
+                  <th>komponen</th>
+                  {{-- <th>Action</th> --}}
                   <tr >
-                    <td>
+                    {{-- <td>
                      
                       <select  name="jenis_sampah_0" class="form-control @error('jenis_sampah') is-invalid @enderror">
                         @foreach($sampah as $s)
                         <option value="{{$s->id}}">{{$s->jenis_sampah}} ({{($s->harga)}}/kg)</option>
                         @endforeach
-                      </select></td>
+                      </select></td> --}}
                     <td >
                      
                       <input class="form-control @error('berat') is-invalid @enderror" name="berat_0" type="text"/>
                       @error('berat')
                         <span class="error invalid-feedback">{{ $message }} </span>
                       @enderror</td>
-                    <td> <a style="float: right"   class="btn  btn-success" onclick="tambahData()"><i class="fa  fa-plus" aria-hidden="true"></i></a></td>
+                    {{-- <td> <a style="float: right"   class="btn  btn-success" onclick="tambahData()"><i class="fa  fa-plus" aria-hidden="true"></i></a></td> --}}
                   </tr>
                  
                  </table>

@@ -29,7 +29,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/dashboard';
+    protected $redirectTo = '/sopir';
 
     /**
      * Create a new controller instance.
@@ -43,10 +43,9 @@ class LoginController extends Controller
 
     public function showLoginForm()
     {
-        $nasabah = NasabahModel::all();
-        $id_nasabah = $nasabah[count($nasabah)-1]->id+1;
-        return view('layouts.login')
-            ->with('id_nasabah', $id_nasabah);
+        // $nasabah = NasabahModel::all();
+        // $id_nasabah = $nasabah[count($nasabah)-1]->id+1;
+        return view('layouts.login');
     }
 
     public function logout(Request $request)

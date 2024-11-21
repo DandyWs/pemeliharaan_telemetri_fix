@@ -20,11 +20,7 @@
                 <thead>
                     <tr>
                         <th>#</th>
-                        <th>Id Sopir</th>
                         <th>Nama</th>
-                        {{-- <th>Foto</th> --}}
-                        <th>Alamat</th>
-                        <th>No. Telp</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -34,9 +30,10 @@
 
         </div>
     </div>
-</section>
 
-{{-- @push('js')
+</section>
+@endsection
+@section('mainjs')
 <script>
       $(document).on('click', '.btn-delete', function () {
                 let id = $(this).data('id');
@@ -70,16 +67,13 @@
             processing:true,
             serverside:true,
             ajax:{
-                'url': '{{  url('sopir/data') }}',
+                'url': '{{  route('datasopir') }}',
                 'dataType': 'json',
                 'type': 'POST',
             },
             columns: [
-            { data: 'no', searchable: false, sortable: false },
-            { data: 'id_sopir', name: 'id_sopir', searchable: true, sortable: true },
+            { data: 'id', searchable: false, sortable: false },
             { data: 'nama', name: 'nama', sortable: true, searchable: true },
-            { data: 'alamat', name: 'alamat', sortable: false, searchable: true },
-            { data: 'phone', name: 'phone', sortable: false, searchable: true },
             {
                 data: 'id', name: 'id', searchable: false, sortable: false,
                 render: function (data, type, row, meta) {
@@ -93,6 +87,6 @@
     });
 
 </script>
-@endpush --}}
-
 @endsection
+
+
