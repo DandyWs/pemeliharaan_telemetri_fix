@@ -46,7 +46,7 @@
                         <!-- small box -->
                         <div class="small-box bg-info">
                           <div class="inner">
-                            <h3>{{ $hitungNasabah }}</h3>
+                            <h3>{{ $hitungUser }}</h3>
                             <p>user</p>
                           </div>
                           <div class="icon">
@@ -60,8 +60,8 @@
                         <!-- small box -->
                         <div class="small-box bg-success">
                           <div class="inner">
-                            <h3>{{ $hitungSopir }}</h3>
-                            <p>Form Pemeriksaan</p>
+                            <h3>{{ $hitungKomponen }}</h3>
+                            <p>Komponen</p>
                           </div>
                           <div class="icon">
                             <i class="nav-icon fa fa-sticky-note"></i>
@@ -74,7 +74,7 @@
                         <!-- small box -->
                         <div class="small-box bg-warning">
                           <div class="inner">
-                            <h3>{{ $hitungSampah }}</h3>
+                            <h3>{{ $hitungPemeliharaan }}</h3>
 
                             <p>Form Pemeliharaan</p>
                           </div>
@@ -89,7 +89,7 @@
                         <!-- small box -->
                         <div class="small-box bg-danger">
                           <div class="inner">
-                            <h3>{{ $hitungJadwal }}</h3>
+                            <h3>{{ $hitungAlat }}</h3>
 
                             <p>Jumlah Alat</p>
                           </div>
