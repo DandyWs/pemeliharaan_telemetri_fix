@@ -58,7 +58,7 @@ class NasabahController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'id'=>'required|string|max:10|unique',
+            // 'id'=>'required|string|max:10|unique',
             'name'=>'required|string',
             // 'foto' => 'required|image|mimes:jpeg,png,jpg|max:2048',
             // 'email'=>'required|string|max:255',
@@ -129,7 +129,7 @@ class NasabahController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'id'=>'required|string|max:10|unique',
+            // 'id'=>'required|string|max:10|unique',
             'name'=>'required|string',
             // 'foto' => 'required|image|mimes:jpeg,png,jpg|max:2048',
             // 'email'=>'required|string|max:255',

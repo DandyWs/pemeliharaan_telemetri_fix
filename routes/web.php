@@ -9,10 +9,10 @@ use App\Http\Controllers2\Komponen2Controller;
 use App\Http\Controllers\JenisAlatController;
 use App\Http\Controllers2\PemeriksaanController;
 use App\Http\Controllers2\Pemeliharaan2Controller;
-use App\Http\Controllers2\DetailKomponenController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\CetakLaporan;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\DetailController;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\JadwalController;
 use App\Http\Controllers\NasabahController;
@@ -23,7 +23,7 @@ use App\Http\Controllers\SampahController;
 use App\Http\Controllers\SopirController;
 use App\Http\Controllers\TransaksibaruController;
 use App\Http\Controllers\TransaksiController;
-
+use App\Models\DetailKomponen;
 
 /*
 |--------------------------------------------------------------------------
@@ -61,6 +61,9 @@ Route::get('/logout',[LoginController::class,'logout']);
 
 Route::group(['middleware' => ['auth', 'role:admin']], function(){
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::resource('/detail_componen', DetailController::class)->parameter('detail_componen','id');
+    // Route::resource('/detail_componen', DetailKomponen::class)->parameter('detail_componen', 'id');
+    Route::post('detail_componen/data',[DetailController::class,'data'])->name('data_detail_componen');
     //Route::resource('user', UserController::class);
     Route::resource('/jadwalnew',TransaksibaruController::class)->parameter('transaksibaru','id');
     Route::resource('/jadwal',JadwalController::class)->parameter('jadwal','id');
@@ -85,6 +88,10 @@ Route::group(['middleware' => ['auth', 'role:nasabah']], function(){
     Route::put('/jadwalnasabah', [ProfileController::class, 'update']);
 });
 
+Route::group(['middleware' => ['auth', 'role:mekanik']], function(){
+    // Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+});
+
 Route::group(['middleware' => ['auth', 'role:sopir']], function(){
     Route::resource('/jadwalsopir', PageSopirController::class)->parameter('jadwalsopir', 'id');
     Route::post('jadwalsopir_api/{id}', [PageSopirController::class,'delete_api']);
@@ -92,4 +99,4 @@ Route::group(['middleware' => ['auth', 'role:sopir']], function(){
 
 Route::get('/index', [IndexController::class, 'index']);
 
-Route::get('/', [IndexController::class, 'index'])->name('dashboard');
+// Route::get('/', [IndexController::class, 'index'])->name('dashboard');
