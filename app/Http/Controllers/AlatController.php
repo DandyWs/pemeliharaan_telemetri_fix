@@ -2,18 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Detail_componen;
-use App\Http\Controllers\Controller;
-use App\Models\DetailKomponen;
-use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Storage;
-use Yajra\DataTables\Contracts\DataTable;
+use App\Http\Controllers\Controller;
+use App\Models\AlatTelemetri;
+use App\Models\JenisAlat;
 use Yajra\DataTables\DataTables;
-use App\Models\Komponen2;
+use App\Models\User;
 
-class DetailController extends Controller
+class AlatController extends Controller
 {
     /** 
      * Display a listing of the resource.
@@ -29,15 +25,15 @@ class DetailController extends Controller
         // }
        
         // return view('detail_componen.detail_componen')->with('detail_componen',$detail_componen);
-        return view('detail_componen.detail_componen');
+        return view('alat.alat');
     }
     public function data(){
-        $data = DetailKomponen::with('Komponen2')->get();
+        $data = AlatTelemetri::with('JenisAlat')->get();
         $data = $data->map(function ($item) {
             return [
                 'id' => $item->id,
-                'namadetail' => $item->namadetail,
-                'komponen2' => $item->Komponen2->nama,
+                'lokasiStasiun' => $item->lokasiStasiun,
+                'jenisAlat' => $item->JenisAlat->namajenis,
             ];
         });
         // $data = DetailKomponen::selectRaw('id, namadetail, komponen2_id');
@@ -54,10 +50,10 @@ class DetailController extends Controller
      */
     public function create()
     {
-        $komponen2 =  Komponen2::all();
-        return view('detail_componen.create_detail_componen')
-            ->with('komponen2', $komponen2)
-            ->with('url_form', url('/detail_componen'));
+        $jenisAlat =  JenisAlat::all();
+        return view('alat.create_alat')
+            ->with('jenisAlat', $jenisAlat)
+            ->with('url_form', url('/alat'));
     }
 
     /**
@@ -70,8 +66,8 @@ class DetailController extends Controller
     {
         $request->validate([
             
-            'namadetail'=>'required|string|max:50',
-            'komponen2_id'=>'required',
+            'lokasiStasiun'=>'required|string|max:50',
+            'jenis_alat_id'=>'required',
         ]);
 
         // if ($request->file('foto')) {
@@ -82,13 +78,12 @@ class DetailController extends Controller
         // }
 
         
-        DetailKomponen::create([
-            'namadetail' => $request->input('namadetail'),
-            'komponen2_id' => $request->input('komponen2_id'),
-            
+        AlatTelemetri::create([
+            'lokasiStasiun' => $request->input('lokasiStasiun'),
+            'jenis_alat_id' => $request->input('jenis_alat_id'),
         ]);
 
-        return redirect('detail_componen')->with('success', 'Detail_componen Berhasil Ditambahkan');
+        return redirect('alat')->with('success', 'Alat Telemetri Berhasil Ditambahkan');
     }
 
     /**
@@ -99,13 +94,13 @@ class DetailController extends Controller
      */
     public function show($id)
     {
-        $detail_componen = DetailKomponen::where('id', $id)->first();
+        $alat = AlatTelemetri::where('id', $id)->first();
         // $data = DetailKomponen::selectRaw('id, nama ');
         // return DataTables::of($data)
         //             ->addIndexColumn()
         //             ->make(true);
         // dd($detail_componen);
-        return view('detail_componen.profile_detail_componen', ['detail_componen' => $detail_componen]);
+        return view('alat.detail_alat', ['alat' => $alat]);
     }
 
     /**
@@ -116,9 +111,9 @@ class DetailController extends Controller
      */
     public function edit($id)
     {
-        $detail_componen = DetailKomponen::find($id);
-        return view('detail_componen.create_detail_componen')
-        ->with('spr', $detail_componen)->with('url_form', url('/detail_componen/'.$id));
+        $alat = AlatTelemetri::find($id);
+        return view('alat.create_alat')
+        ->with('spr', $alat)->with('url_form', url('/alat/'.$id));
     }
 
     /**
@@ -131,34 +126,15 @@ class DetailController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            // 'id_detail_componen'=>'required|string|max:10|unique:detail_componen,id_detail_componen,'.$id,
-            'nama'=>'required|string|max:50',
-            // 'foto' => 'image|mimes:jpeg,png,jpg|max:2048',
-            // 'alamat'=>'required|string|max:255',
-            // 'phone'=>'required|digits_between:5, 15'
+            'lokasiStasiun'=>'required|string|max:50',
         ]);
 
-        $detail_componen = DetailKomponen::find($id);
+        $alat = AlatTelemetri::find($id);
+        AlatTelemetri::where('id', $id)->update([
+            'lokasiStasiun' => $request->lokasiStasiun,
+        ]);   
 
-        // if ($request->hasFile('foto')) {
-        //     $foto = $request->file('foto');
-        //     $fotoName = 'detail_componenprofile/'.'detail_componen-' . $detail_componen->nama . '.' . $foto->getClientOriginalExtension();
-        //     !is_null($detail_componen->foto) && Storage::delete($detail_componen->foto);
-
-        //     $foto->storeAs('detail_componenprofile', $fotoName, 'public');
-        //     $detail_componen->foto = $fotoName;
-        // }
-
-        DetailKomponen::where('id', $id)->update([
-            // 'id_detail_componen' => $request->id_detail_componen,
-            'nama' => $request->nama,
-            // 'alamat' => $request->alamat,
-            // 'phone' => $request->phone,
-            // 'email' => $request->email,
-            // 'password' => Hash::make($request->input('password')),
-        ]);     
-
-        $detail_componen->save();
+        $alat->save();
 
         // // if ($request->filled('password')) {
         //     $user = User::where('email', $detail_componen->email)->first();
@@ -166,8 +142,8 @@ class DetailController extends Controller
         //     $user->save();
         // }
 
-        return redirect('detail_componen')
-            ->with('success', 'Detail_componen Berhasil Diubah');
+        return redirect('alat')
+            ->with('success', 'Alat Telemetri Berhasil Diubah');
     }
 
     /**
@@ -178,11 +154,11 @@ class DetailController extends Controller
      */
     public function destroy($id)
     {
-        $detail_componen = DetailKomponen::find($id);
+        $alat = AlatTelemetri::find($id);
 
-        $detail_componen->delete();
+        $alat->delete();
 
-        return redirect('detail_componen')
-            ->with('success', 'Detail Komponen Berhasil Dihapus');
+        return redirect('alat')
+            ->with('success', 'Detail_componen Berhasil Dihapus');
     }
 }

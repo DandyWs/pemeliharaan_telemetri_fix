@@ -9,6 +9,7 @@ use App\Http\Controllers2\Komponen2Controller;
 use App\Http\Controllers\JenisAlatController;
 use App\Http\Controllers2\PemeriksaanController;
 use App\Http\Controllers2\Pemeliharaan2Controller;
+use App\Http\Controllers\AlatController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\CetakLaporan;
 use App\Http\Controllers\DashboardController;
@@ -65,6 +66,8 @@ Route::group(['middleware' => ['auth', 'role:admin']], function(){
     // Route::resource('/detail_componen', DetailKomponen::class)->parameter('detail_componen', 'id');
     Route::post('detail_componen/data',[DetailController::class,'data'])->name('data_detail_componen');
     //Route::resource('user', UserController::class);
+    Route::resource('/alat', AlatController::class)->parameter('alat','id');
+    Route::post('alat/data',[AlatController::class,'data'])->name('data_alat');
     Route::resource('/jadwalnew',TransaksibaruController::class)->parameter('transaksibaru','id');
     Route::resource('/jadwal',JadwalController::class)->parameter('jadwal','id');
     // Route::resource('/jenisalat', JenisAlatController::class);

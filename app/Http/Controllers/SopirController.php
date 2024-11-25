@@ -166,17 +166,8 @@ class SopirController extends Controller
     public function destroy($id)
     {
         $sopir = Komponen2::find($id);
-        $user = User::where('email', $sopir->email)->first();
-
-        if ($sopir->foto) {
-            Storage::disk('public')->delete($sopir->foto);
-        }
 
         $sopir->delete();
-
-        if ($user) {
-            $user->delete();
-        }
 
         return redirect('sopir')
             ->with('success', 'Sopir Berhasil Dihapus');
