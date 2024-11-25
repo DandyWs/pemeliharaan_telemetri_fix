@@ -6,7 +6,7 @@
     <!-- Default Box-->
     <div class="card">
         <div class="card-header">
-            <h3 class="card-title"> Data Alat </h3>
+            <h3 class="card-title"> Data Lokasi Alat </h3>
             <br>
         </div>
         <div class="card-body">

@@ -42,13 +42,13 @@
               </a>
             </li> 
             <li class="nav-item">
-              <a href="#" class="nav-link">
+              <a href="{{url('/sampah')}}" class="nav-link">
                 <i class="nav-icon fas fa-solid fa fa-toolbox"></i>
                   <p>Jenis Peralatan</p>
               </a>
             </li> 
             <li class="nav-item">
-              <a href="#" class="nav-link">
+              <a href="{{url('/alat')}}" class="nav-link">
                 <i class="nav-icon fas fa-solid fa fa-hammer"></i>
                   <p>Peralatan Telemetri</p>
               </a>
@@ -57,6 +57,12 @@
               <a href="{{url('/sopir')}}"  class="nav-link">
                 <i class="nav-icon fas fa-solid fa fa-puzzle-piece"></i>
                   <p>Komponen</p>
+              </a>
+            </li> 
+            <li class="nav-item">
+              <a href="{{url('/detail_componen')}}" class="nav-link">
+                <i class="nav-icon fas fa-solid fa fa-paperclip"></i>
+                  <p>Detail Komponen</p>
               </a>
             </li> 
             <li class="nav-item">

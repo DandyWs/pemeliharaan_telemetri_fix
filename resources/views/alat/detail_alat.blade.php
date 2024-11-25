@@ -6,7 +6,7 @@
     <!--Default box-->
     <div class="card">
         <div class="card-header">
-            <h3 class="card-title">Data Komponen</h3>
+            <h3 class="card-title">Data Lokasi Alat</h3>
         </div>
         <div class="card-body">
             <ul class="list-group list-group-flush">
