@@ -18,16 +18,16 @@ class CheckRole
      */
     public function handle(Request $request, Closure $next, ...$roles)
     {
-        // if(in_array($request->user()->role, $roles)){
-        //     return $next($request);
-        // }
+        if(in_array($request->user()->role, $roles)){
+            return $next($request);
+        }
 
-        // if(Auth::user()->role == 'admin'){
-        //     return Redirect::to('dashboard');
-        // } elseif(Auth::user()->role == 'nasabah'){ 
-        //     return Redirect::to('jadwalnasabah');
-        // } elseif(Auth::user()->role == 'sopir'){
-        //     return Redirect::to('jadwalsopir');
-        // }
+        if(Auth::user()->role == 'admin'){
+            return Redirect::to('dashboard');
+        } elseif(Auth::user()->role == 'nasabah'){ 
+            return Redirect::to('jadwalnasabah');
+        } elseif(Auth::user()->role == 'sopir'){
+            return Redirect::to('jadwalsopir');
+        }
     }
 }

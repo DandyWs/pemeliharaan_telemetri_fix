@@ -90,7 +90,7 @@
   <section id="temukan-kami">
     <div class="temukan-kami-container">
       <h3>Temukan Kami</h3>
-      <iframe src="https://www.google.com/maps/place/Perum+Jasa+Tirta+I/@-7.9658888,112.6156322,17z/data=!3m1!4b1!4m6!3m5!1s0x2e788281b93990df:0xd788d8a4e1d290d8!8m2!3d-7.9658941!4d112.6182071!16s%2Fg%2F1hm3y8t5g?entry=ttu&g_ep=EgoyMDI0MTExOS4yIKXMDSoJLDEwMjExMjMzSAFQAw%3D%3D"
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1953.199952803385!2d112.61718799015969!3d-7.965909160383434!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e788281b93990df%3A0xd788d8a4e1d290d8!2sPerum%20Jasa%20Tirta%20I!5e0!3m2!1sen!2sid!4v1732510380517!5m2!1sen!2sid" 
       width="1100" height="600" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
     </div>
     <div class="clearfix"></div>
