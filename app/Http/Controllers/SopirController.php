@@ -31,7 +31,7 @@ class SopirController extends Controller
         return view('sopir.sopir');
     }
     public function data(){
-        $data = Komponen2::selectRaw('id, nama ');
+        $data = Komponen2::get();
         return DataTables::of($data)
                     ->addIndexColumn()
                     ->make(true);
@@ -75,7 +75,7 @@ class SopirController extends Controller
             
         ]);
 
-        return redirect('sopir')->with('success', 'Sopir Berhasil Ditambahkan');
+        return redirect('sopir')->with('success', 'Komponen Berhasil Ditambahkan');
     }
 
     /**
@@ -86,13 +86,13 @@ class SopirController extends Controller
      */
     public function show($id)
     {
-        $sopir = Komponen2::where('id', $id)->first();
+        $data = Komponen2::where('id', $id)->first();
         // $data = Komponen2::selectRaw('id, nama ');
         // return DataTables::of($data)
         //             ->addIndexColumn()
         //             ->make(true);
         // dd($sopir);
-        return view('sopir.detail_sopir', ['sopir' => $sopir]);
+        return view('sopir.detail_sopir', ['sopir' => $data]);
     }
 
     /**

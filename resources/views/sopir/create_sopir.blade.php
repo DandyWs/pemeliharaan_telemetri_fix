@@ -37,10 +37,10 @@
 </section>
 @endsection
 
-@extends ('layouts.template')
+{{-- @extends ('layouts.template') --}}
 
-@section('content')
-<section class="content">
+{{-- @section('content') --}}
+{{-- <section class="content"> --}}
 
     {{-- <!-- Default Box-->
     <div class="card">
@@ -115,5 +115,5 @@
           </form>
         </div>
     </div>  --}}
-</section>
-@endsection -->
+{{-- </section> --}}
+{{-- @endsection --> --}}

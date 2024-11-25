@@ -72,7 +72,11 @@
                 'type': 'POST',
             },
             columns: [
-            { data: 'id', searchable: false, sortable: false },
+                { data: null, searchable: false, sortable: false, 
+              render: function (data, type, row, meta) {
+                  return meta.row + 1;
+              }
+            },
             { data: 'nama', name: 'nama', sortable: true, searchable: true },
             {
                 data: 'id', name: 'id', searchable: false, sortable: false,
@@ -82,7 +86,8 @@
                     `<a href="{{url('/sopir/')}}/` + data +`"class="btn btn-sm btn-primary "><i class="fas fa fa-info-circle"></i></a>`;
                 }
                 }
-            ]{ data: 'namadetail', name: 'namadetail', sortable: true, searchable: true },
+            ]
+            // ]{ data: 'namadetail', name: 'namadetail', sortable: true, searchable: true },
             // { data: 'komponen2_id', name: 'komponen2_id', sortable: true, searchable: true },
             // {
             //     data: 'id', name: 'id', searchable: false, sortable: false,
