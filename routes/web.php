@@ -63,6 +63,7 @@ Route::get('/logout',[LoginController::class,'logout']);
 Route::group(['middleware' => ['auth', 'role:admin']], function(){
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::resource('/detail_componen', DetailController::class)->parameter('detail_componen','id');
+    Route::resource('/pemeliharaan', Pemeliharaan2Controller::class)->parameter('pemeliharaan','id');
     // Route::resource('/detail_componen', DetailKomponen::class)->parameter('detail_componen', 'id');
     Route::post('detail_componen/data',[DetailController::class,'data'])->name('data_detail_componen');
     //Route::resource('user', UserController::class);
