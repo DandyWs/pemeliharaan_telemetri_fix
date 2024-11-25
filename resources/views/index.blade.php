@@ -29,10 +29,8 @@
         <a href="#" class="logo"><img src="assets/dist/img/logo_jastir1.jpg" alt="logo" width="60"></a>
         <ul>
           <li><a href="#beranda">Beranda</a></li>
-          <li><a href="#tentang-kami">Tentang Kami</a></li>
-          <li><a href="#sampah">Pemeliharaan Telemetri</a></li>
+          <li><a href="#tentang-kami">Pemeliharaan Telemetri</a></li>
           <li><a href="#temukan-kami">Temukan Kami</a></li>
-          <li><a href="#gabung">Gabung</a></li>
           <li><a href="{{ url('/login') }}" target="_blank">Login</a></li>
         </ul>
       </header>
@@ -51,6 +49,8 @@
     </div>
   </section>
   <br>
+<br>
+<br>
 <br>
   <!--Tentang Kami-->
   <section id="tentang-kami">
@@ -90,7 +90,7 @@
   <section id="temukan-kami">
     <div class="temukan-kami-container">
       <h3>Temukan Kami</h3>
-      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3951.0337594699236!2d112.61688607530391!3d-7.9954506797507525!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e7882a9d385ba91%3A0x667db69be1ab50c9!2sBank%20Sampah%20Malang!5e0!3m2!1sen!2sid!4v1684058288621!5m2!1sen!2sid"
+      <iframe src="https://www.google.com/maps/place/Perum+Jasa+Tirta+I/@-7.9658888,112.6156322,17z/data=!3m1!4b1!4m6!3m5!1s0x2e788281b93990df:0xd788d8a4e1d290d8!8m2!3d-7.9658941!4d112.6182071!16s%2Fg%2F1hm3y8t5g?entry=ttu&g_ep=EgoyMDI0MTExOS4yIKXMDSoJLDEwMjExMjMzSAFQAw%3D%3D"
       width="1100" height="600" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
     </div>
     <div class="clearfix"></div>

@@ -99,4 +99,4 @@ Route::group(['middleware' => ['auth', 'role:sopir']], function(){
 
 Route::get('/index', [IndexController::class, 'index']);
 
-// Route::get('/', [IndexController::class, 'index'])->name('dashboard');
+Route::get('/', [IndexController::class, 'index'])->name('dashboard');
