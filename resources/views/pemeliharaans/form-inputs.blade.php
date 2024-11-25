@@ -18,7 +18,7 @@
                             type="datetime-local"
                             name="tanggal"
                             class="form-control @error('tanggal') is-invalid @enderror"
-                            value="{{ old('tanggal', isset($pemeliharaan) ? optional($spr->tanggal)->format('Y-m-d\TH:i:s') : '') }}"
+                            value="{{ old('tanggal', isset($spr) ? optional($spr->tanggal)->format('Y-m-d\TH:i:s') : '') }}"
                             required
                         />
                         @error('tanggal')
