@@ -1,149 +1,150 @@
-@php $editing = isset($pemeliharaan) @endphp
+@extends ('layouts.template')
 
-<div class="row">
-        <x-inputs.group class="col-md-6">
-            <x-inputs.datetime
-                name="tanggalPemeliharan"
-                label="Tanggal Pemeliharan"
-                value="{{ old('tanggalPemeliharan', ($editing ? optional($pemeliharaan->tanggalPemeliharan)->format('Y-m-d\TH:i:s') : '')) }}"
-                max="255"
-                required
-            ></x-inputs.datetime>
-        </x-inputs.group>
-
-        <x-inputs.group class="col-md-6">
-            <x-inputs.datetime
-                name="waktuMulaiPemeliharan"
-                label="Waktu Mulai Pemeliharan"
-                value="{{ old('waktuMulaiPemeliharan', ($editing ? optional($pemeliharaan->waktuMulaiPemeliharan)->format('Y-m-d\TH:i:s') : '')) }}"
-                max="255"
-                required
-            ></x-inputs.datetime>
-        </x-inputs.group>
-
-        <x-inputs.group class="col-md-6">
-            <x-inputs.text
-                name="periodePemeliharaan"
-                label="Periode Pemeliharaan"
-                :value="old('periodePemeliharaan', ($editing ? $pemeliharaan->periodePemeliharaan : ''))"
-                maxlength="255"
-                placeholder="Periode Pemeliharaan"
-                required
-            ></x-inputs.text>
-        </x-inputs.group>
-
-        <x-inputs.group class="col-md-6">
-            <x-inputs.text
-                name="cuaca"
-                label="Cuaca"
-                :value="old('cuaca', ($editing ? $pemeliharaan->cuaca : ''))"
-                maxlength="255"
-                placeholder="Cuaca"
-                required
-            ></x-inputs.text>
-        </x-inputs.group>
-
-        <x-inputs.group class="col-md-6">
-            <x-inputs.text
-                name="no_AlatUkur"
-                label="No Alat Ukur"
-                :value="old('no_AlatUkur', ($editing ? $pemeliharaan->no_AlatUkur : ''))"
-                maxlength="255"
-                placeholder="No Alat Ukur"
-                required
-            ></x-inputs.text>
-        </x-inputs.group>
-
-        <x-inputs.group class="col-md-6">
-            <x-inputs.text
-                name="no_GSM"
-                label="No Gsm"
-                :value="old('no_GSM', ($editing ? $pemeliharaan->no_GSM : ''))"
-                maxlength="255"
-                placeholder="No Gsm"
-                required
-            ></x-inputs.text>
-        </x-inputs.group>
-
-        <x-inputs.group class="col-md-6">
-            <x-inputs.select name="user_id" label="User" required>
-                @php $selected = old('user_id', ($editing ? $pemeliharaan->user_id : '')) @endphp
-                <option disabled {{ empty($selected) ? 'selected' : '' }}>Please select the User</option>
-                @foreach($users as $value => $label)
-                <option value="{{ $value }}" {{ $selected == $value ? 'selected' : '' }} >{{ $label }}</option>
-                @endforeach
-            </x-inputs.select>
-        </x-inputs.group>
-
-        <x-inputs.group class="col-md-6">
-            <x-inputs.select
-                name="alat_telemetri_id"
-                label="Lokasi Stasiun"
-                required
-            >
-                @php $selected = old('alat_telemetri_id', ($editing ? $pemeliharaan2->alat_telemetri_id : '')) @endphp
-                <option disabled {{ empty($selected) ? 'selected' : '' }}>Pilih Lokasi Stasiun</option>
-                @foreach($alatTelemetri as $value => $label)
-                <option value="{{ $value }}" {{ $selected == $value ? 'selected' : '' }} >{{ $label }}</option>
-                @endforeach
-            </x-inputs.select>
-        </x-inputs.group>
-
-        <x-inputs.group class="col-md-6">
-            <x-inputs.select
-                name="jenisAlat_id"
-                label="Jenis Peralatan"
-                required
-            >
-                @php $selected = old('jenis_alat_id', ($editing ? $pemeliharaan2->alat_telemetri_id : '')) @endphp
-                <option disabled {{ empty($selected) ? 'selected' : '' }}>Pilih Jenis Alat Telemetri</option>
-                @foreach($jenisAlat as $value => $label)
-                <option value="{{ $value }}" {{ $selected == $value ? 'selected' : '' }} >{{ $label }}</option>
-                @endforeach
-            </x-inputs.select>
-        </x-inputs.group>
-        @php $editing = isset($komponen) @endphp
-
-        @foreach ($komponen2 as $value)
-        <div class="col-md-6">
-            <x-inputs.group>
-                <label for="namaKomponen">{{$value->nama}}</label>
-                <span>{{ old('namaKomponen', ($editing ? $komponen2->nama : '')) }}</span>
-            </x-inputs.group>
-            @foreach ($detailKomponen->where('komponen2_id', $value->id) as $detailsKomponen)
-            <x-inputs.group>
-                <x-inputs.checkbox
-                    name="detailKomponen"
-                    label="{{ $detailsKomponen->namadetail }}"
-                    :checked="old('detailKomponen', ($editing ? $detailKomponen->namadetail : 0))"
-                ></x-inputs.checkbox>
-            </x-inputs.group>
-            @endforeach
-
-
+@section('content')
+<section class="content">
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">Form Pemeliharaan</h3>
         </div>
-        @endforeach
-        <div class="card">
-            <div class="card-header" style="align-items: center";>
-                <b>Tandatangan disini:</b>
-            </div>
-            <div class="row d-flex justify-between" style="width: 100%; justify-content: space-between; align-items: center; margin: 0">
-                  </div>
-        {{-- @if (!$pemeliharaan->hasBeenSigned()) --}}
-            {{-- <form action="{{ $pemeliharaan->getSignatureRoute() }}" method="POST">
-                @csrf --}}
-                <div style="text-align: center">
-                    <x-creagia-signature-pad
-                        border-color="#eaeaea"
-                        pad-classes="rounded-x2 border-3"
-                        button-classes="bg-gray-100 px-4 py-2 rounded-xl mt-6"
+        <div class="card-body">
+            <form method="POST" action="{{ $url_form }}" enctype="multipart/form-data">
+                @csrf
+                {!! isset($spr) ? method_field('PUT') : '' !!}
 
-                        clear-name="Clear"
-                        submit-name="Submit"
-                        :disabled-without-signature="true"
-                    />
+                <div class="row">
+                    <div class="form-group col-md-6">
+                        <label>Tanggal Pemeliharaan</label>
+                        <input
+                            type="datetime-local"
+                            name="tanggal"
+                            class="form-control @error('tanggal') is-invalid @enderror"
+                            value="{{ old('tanggal', isset($pemeliharaan) ? optional($spr->tanggal)->format('Y-m-d\TH:i:s') : '') }}"
+                            required
+                        />
+                        @error('tanggal')
+                        <span class="error invalid-feedback">{{ $message }}</span>
+                        @enderror
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        <label>Waktu Mulai Pemeliharaan</label>
+                        <input
+                            type="datetime-local"
+                            name="waktu"
+                            class="form-control @error('waktu') is-invalid @enderror"
+                            value="{{ old('waktu', isset($spr) ? optional($spr->waktu)->format('Y-m-d\TH:i:s') : '') }}"
+                            required
+                        />
+                        @error('waktu')
+                        <span class="error invalid-feedback">{{ $message }}</span>
+                        @enderror
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        <label>Periode Pemeliharaan</label>
+                        <input
+                            type="text"
+                            name="periode"
+                            class="form-control @error('periode') is-invalid @enderror"
+                            value="{{ old('periode', isset($spr) ? $spr->periode : '') }}"
+                            placeholder="Periode Pemeliharaan"
+                            required
+                        />
+                        @error('periode')
+                        <span class="error invalid-feedback">{{ $message }}</span>
+                        @enderror
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        <label>Cuaca</label>
+                        <input
+                            type="text"
+                            name="cuaca"
+                            class="form-control @error('cuaca') is-invalid @enderror"
+                            value="{{ old('cuaca', isset($spr) ? $spr->cuaca : '') }}"
+                            placeholder="Cuaca"
+                            required
+                        />
+                        @error('cuaca')
+                        <span class="error invalid-feedback">{{ $message }}</span>
+                        @enderror
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        <label>No Alat Ukur</label>
+                        <input
+                            type="text"
+                            name="no_alatUkur"
+                            class="form-control @error('no_alatUkur') is-invalid @enderror"
+                            value="{{ old('no_alatUkur', isset($spr) ? $spr->no_alatUkur : '') }}"
+                            placeholder="No Alat Ukur"
+                            required
+                        />
+                        @error('no_alatUkur')
+                        <span class="error invalid-feedback">{{ $message }}</span>
+                        @enderror
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        <label>No GSM</label>
+                        <input
+                            type="text"
+                            name="no_GSM"
+                            class="form-control @error('no_GSM') is-invalid @enderror"
+                            value="{{ old('no_GSM', isset($spr) ? $spr->no_GSM : '') }}"
+                            placeholder="No GSM"
+                            required
+                        />
+                        @error('no_GSM')
+                        <span class="error invalid-feedback">{{ $message }}</span>
+                        @enderror
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        <label>User</label>
+                        <select
+                            name="user_id"
+                            class="form-control @error('user_id') is-invalid @enderror"
+                            required
+                        >
+                            <option disabled {{ old('user_id', isset($spr) ? $spr->user_id : '') == '' ? 'selected' : '' }}>Pilih User</option>
+                            @foreach($users as $value => $label)
+                            <option value="{{ $value }}" {{ old('user_id', isset($spr) ? $spr->user_id : '') == $value ? 'selected' : '' }}>
+                                {{ $label }}
+                            </option>
+                            @endforeach
+                        </select>
+                        @error('user_id')
+                        <span class="error invalid-feedback">{{ $message }}</span>
+                        @enderror
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        <label>Lokasi Stasiun</label>
+                        <select
+                            name="alat_telemetri_id"
+                            class="form-control @error('alat_telemetri_id') is-invalid @enderror"
+                            required
+                        >
+                            <option disabled {{ old('alat_telemetri_id', isset($spr) ? $spr->alat_telemetri_id : '') == '' ? 'selected' : '' }}>Pilih Lokasi Stasiun</option>
+                            @foreach($alatTelemetri as $value => $label)
+                            <option value="{{ $value }}" {{ old('alat_telemetri_id', isset($spr) ? $spr->alat_telemetri_id : '') == $value ? 'selected' : '' }}>
+                                {{ $label }}
+                            </option>
+                            @endforeach
+                        </select>
+                        @error('alat_telemetri_id')
+                        <span class="error invalid-feedback">{{ $message }}</span>
+                        @enderror
+                    </div>
                 </div>
-            <!-- {{-- </form> --}} -->
-            <script src="{{ asset('vendor/sign-pad/sign-pad.min.js') }}"></script>
-        <!-- {{-- @endif --}} -->
-</div>
+
+                <div class="form-group mt-3">
+                    <button type="submit" class="btn btn-sm btn-success">Simpan</button>
+                    <a href="{{ url('/pemeliharaan') }}" class="btn btn-sm btn-primary">Kembali</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+@endsection
