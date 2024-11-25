@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AlatTelemetri;
 use App\Models\Pemeliharaan2;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
@@ -25,7 +26,20 @@ class PemeliharaanController extends Controller
         return view('pemeliharaans.index');
     }
     public function data(){
-        $data = Pemeliharaan2::get();
+        $data = Pemeliharaan2::with('AlatTelemetri')->get();
+        $data = $data->map(function ($item) {
+            return [
+                'id' => $item->id,
+                'tanggal' => $item->tanggal,
+                'waktu' => $item->waktu,
+                'periode' => $item->periode,
+                'cuaca' => $item->cuaca,
+                'no_alatUkur' => $item->no_alatUkur,
+                'no_GSM' => $item->no_GSM,
+                'alat_telemetri_id' => $item->AlatTelemetri->lokasiStasiun,
+                'user_id' => $item->User->name,
+            ];
+        });
         return DataTables::of($data)
                     ->addIndexColumn()
                     ->make(true);
@@ -39,7 +53,9 @@ class PemeliharaanController extends Controller
      */
     public function create()
     {
+        $alat = AlatTelemetri::all();
         return view('pemeliharaans.create')
+            ->with('alat', $alat)
             ->with('url_form', url('/pemeliharaans'));
     }
 
@@ -98,7 +114,7 @@ class PemeliharaanController extends Controller
         //             ->addIndexColumn()
         //             ->make(true);
         // dd($sopir);
-        return view('pemeliharaans.show', ['sopir' => $data]);
+        return view('pemeliharaans.show', ['pemeliharaan' => $data]);
     }
 
     /**
@@ -111,7 +127,7 @@ class PemeliharaanController extends Controller
     {
         $sopir = Pemeliharaan2::find($id);
         return view('pemeliharaans.create')
-        ->with('spr', $sopir)->with('url_form', url('/sopir/'.$id));
+        ->with('spr', $sopir)->with('url_form', url('/pemeliharaans/'.$id));
     }
 
     /**

@@ -186,11 +186,11 @@
     <div class="card">
         <div class="card-header border-0">
           <div class="d-flex justify-content-between">
-           <h3 class="card-title"><b>Daftar Setting</b></h3>
+           <h3 class="card-title"><b>Daftar Pemeliharaan</b></h3>
           </div>
           <div class="card-body">
             <div class="row d-flex justify-between" style="width: 100%; justify-content: space-between; align-items: center; margin: 0">
-              <a href="{{url('setting/create')}}" class="btn -btn sm btn-success my-2">Tambah Data</a>
+              <a href="{{url('pemeliharaans/create')}}" class="btn -btn sm btn-success my-2">Tambah Data</a>
 
             </div>
             <table class="table table-bordered table-striped " id="data_detail_componen">
@@ -270,7 +270,15 @@
             { data: 'no_GSM', name: 'no_GSM', sortable: true, searchable: true },
             { data: 'alat_telemetri_id', name: 'alat_telemetri_id', sortable: true, searchable: true },
             { data: 'user_id', name: 'user_id', sortable: true, searchable: true },
-            { data: 'keterangan', name: 'keterangan', sortable: true, searchable: true },
+            { 
+                data: 'keterangan', 
+                name: 'keterangan', 
+                sortable: true, 
+                searchable: true,
+                render: function (data, type, row, meta) {
+                    return data ? data : 'Menunggu Konfirmasi';
+                }
+            },
             {   
                 data: 'id', name: 'id', searchable: false, sortable: false,
                 render: function (data, type, row, meta) {
