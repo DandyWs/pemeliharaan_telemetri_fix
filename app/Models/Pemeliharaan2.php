@@ -18,6 +18,7 @@ class Pemeliharaan2 extends Model
         'cuaca',
         'no_alatUkur',
         'no_GSM',
+        'keterangan',
         'alat_telemetri_id',
         'user_id',
     ];
@@ -25,7 +26,8 @@ class Pemeliharaan2 extends Model
     protected $searchableFields = ['*'];
 
     protected $casts = [
-        'tanggal' => 'datetime',
+        // 'tanggal' => 'datetime',
+        // 'waktu' => 'datetime',
     ];
 
     public function alatTelemetri()

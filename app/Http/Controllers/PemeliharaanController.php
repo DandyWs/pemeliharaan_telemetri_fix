@@ -124,12 +124,13 @@ class PemeliharaanController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'tanggal' => ['required', 'date'],
+            'tanggal' => ['required', 'date_format:H:i:s'],
             'waktu' => ['required', 'date_format:H:i:s'],
             'periode' => ['required', 'max:255', 'string'],
             'cuaca' => ['required', 'max:255', 'string'],
             'no_alatUkur' => ['required', 'numeric'],
             'no_GSM' => ['required', 'numeric'],
+            'keterangan' => ['nullable', 'max:255', 'string'],
             'alat_telemetri_id' => ['required', 'exists:alat_telemetris,id'],
             'user_id' => ['required', 'exists:users,id'],
         ]);

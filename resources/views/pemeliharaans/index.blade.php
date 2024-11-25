@@ -205,6 +205,7 @@
                         <th>No GSM</th>
                         <th>Alat</th>
                         <th>User</th>
+                        <th>Keterangan</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -269,6 +270,7 @@
             { data: 'no_GSM', name: 'no_GSM', sortable: true, searchable: true },
             { data: 'alat_telemetri_id', name: 'alat_telemetri_id', sortable: true, searchable: true },
             { data: 'user_id', name: 'user_id', sortable: true, searchable: true },
+            { data: 'keterangan', name: 'keterangan', sortable: true, searchable: true },
             {   
                 data: 'id', name: 'id', searchable: false, sortable: false,
                 render: function (data, type, row, meta) {
