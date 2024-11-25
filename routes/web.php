@@ -26,7 +26,7 @@ use App\Http\Controllers\SopirController;
 use App\Http\Controllers\TransaksibaruController;
 use App\Http\Controllers\TransaksiController;
 use App\Models\DetailKomponen;
-
+use App\Models\FormKomponen;
 
 /*
 |--------------------------------------------------------------------------
@@ -61,9 +61,9 @@ use App\Models\DetailKomponen;
 
 Auth::routes();
 Route::get('/logout',[LoginController::class,'logout']);
+Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
 Route::group(['middleware' => ['auth', 'role:admin']], function(){
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::resource('/detail_componen', DetailController::class)->parameter('detail_componen','id');
     Route::resource('/pemeliharaans', PemeliharaanController::class)->parameter('pemeliharaan','id');
     Route::post('pemeliharaans/data',[PemeliharaanController::class,'data'])->name('data_pemeliharaan');
@@ -74,6 +74,8 @@ Route::group(['middleware' => ['auth', 'role:admin']], function(){
     Route::post('alat/data',[AlatController::class,'data'])->name('data_alat');
     Route::resource('/setting', SettingController::class)->parameter('setting','id');
     Route::post('setting/data',[SettingController::class,'data'])->name('data_setting');
+    Route::resource('/form_komponen', FormKomponen::class)->parameter('form_komponen','id');
+    Route::post('form_komponen/data',[FormKomponen::class,'data'])->name('data_form_komponen');
     Route::resource('/jadwalnew',TransaksibaruController::class)->parameter('transaksibaru','id');
     Route::resource('/jadwal',JadwalController::class)->parameter('jadwal','id');
     // Route::resource('/jenisalat', JenisAlatController::class);
