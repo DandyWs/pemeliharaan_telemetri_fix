@@ -154,7 +154,7 @@ class SopirController extends Controller
         // }
 
         return redirect('sopir')
-            ->with('success', 'Sopir Berhasil Diubah');
+            ->with('success', 'Komponen Berhasil Diubah');
     }
 
     /**
@@ -170,6 +170,6 @@ class SopirController extends Controller
         $sopir->delete();
 
         return redirect('sopir')
-            ->with('success', 'Sopir Berhasil Dihapus');
+            ->with('success', 'Komponen Berhasil Dihapus');
     }
 }

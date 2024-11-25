@@ -21,6 +21,7 @@ use App\Http\Controllers\PageNasabahController;
 use App\Http\Controllers\PageSopirController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SampahController;
+use App\Http\Controllers\SettingController;
 use App\Http\Controllers\SopirController;
 use App\Http\Controllers\TransaksibaruController;
 use App\Http\Controllers\TransaksiController;
@@ -69,6 +70,8 @@ Route::group(['middleware' => ['auth', 'role:admin']], function(){
     //Route::resource('user', UserController::class);
     Route::resource('/alat', AlatController::class)->parameter('alat','id');
     Route::post('alat/data',[AlatController::class,'data'])->name('data_alat');
+    Route::resource('/setting', SettingController::class)->parameter('setting','id');
+    Route::post('setting/data',[SettingController::class,'data'])->name('data_setting');
     Route::resource('/jadwalnew',TransaksibaruController::class)->parameter('transaksibaru','id');
     Route::resource('/jadwal',JadwalController::class)->parameter('jadwal','id');
     // Route::resource('/jenisalat', JenisAlatController::class);
