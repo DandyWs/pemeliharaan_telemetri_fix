@@ -20,8 +20,8 @@
                 <thead>
                     <tr>
                         <th>No.</th>
-                        <th>Namadetaildetail</th>
-                        <th>Komponen2_id</th>
+                        <th>Nama Detail Komponen</th>
+                        <th>Nama Komponen</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -73,9 +73,13 @@
                 'type': 'POST',
             },
             columns: [
-            { data: 'id', searchable: false, sortable: false },
+            { data: null, searchable: false, sortable: false, 
+              render: function (data, type, row, meta) {
+                  return meta.row + 1;
+              }
+            },
             { data: 'namadetail', name: 'namadetail', sortable: true, searchable: true },
-            { data: 'nama', name: 'nama', sortable: true, searchable: true },
+            { data: 'komponen2', name: 'komponen2', sortable: true, searchable: true },
             {   
                 data: 'id', name: 'id', searchable: false, sortable: false,
                 render: function (data, type, row, meta) {

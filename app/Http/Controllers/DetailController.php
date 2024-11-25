@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Yajra\DataTables\Contracts\DataTable;
 use Yajra\DataTables\DataTables;
+use App\Models\Komponen2;
 
 class DetailController extends Controller
 {
@@ -32,6 +33,13 @@ class DetailController extends Controller
     }
     public function data(){
         $data = DetailKomponen::with('Komponen2')->get();
+        $data = $data->map(function ($item) {
+            return [
+                'id' => $item->id,
+                'namadetail' => $item->namadetail,
+                'komponen2' => $item->Komponen2->nama,
+            ];
+        });
         // $data = DetailKomponen::selectRaw('id, namadetail, komponen2_id');
         return DataTables::of($data)
                     ->addIndexColumn()
@@ -46,7 +54,9 @@ class DetailController extends Controller
      */
     public function create()
     {
+        $komponen2 =  Komponen2::all();
         return view('detail_componen.create_detail_componen')
+            ->with('komponen2', $komponen2)
             ->with('url_form', url('/detailcomponen'));
     }
 

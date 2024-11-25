@@ -17,7 +17,7 @@
             
 
             <div class="form-group">
-              <label>Namadetail komponen</label>
+              <label>Nama Detail komponen</label>
               <input class="form-control @error('namadetail') is-invalid @enderror" value="{{ isset($spr)? $spr->namadetail :old('namadetail') }}" name="namadetail" type="text"/>
               @error('namadetail')
                 <span class="error invalid-feedback">{{ $message }} </span>
@@ -25,11 +25,16 @@
             </div>
 
             <div class="form-group">
-              <label>Namadetail komponen</label>
-              <input class="form-control @error('komponen2_id') is-invalid @enderror" value="{{ isset($spr)? $spr->komponen2_id :old('komponen2_id') }}" name="komponen2_id" type="select"/>
-              @error('komponen2_id')
+              <label>Nama Komponen</label>
+                <select class="form-control @error('komponen2_id') is-invalid @enderror" name="komponen2_id">
+                {{-- <option value="" Pilih Komponen </option> --}}
+                @foreach($komponen2 as $komp)
+                  <option value="{{ $komp->id }}" {{ (isset($spr) && $spr->komponen2_id == $komp->id) ? 'selected' : '' }}>{{ $komp->nama }}</option>
+                @endforeach
+                </select>
+                @error('komponen2_id')
                 <span class="error invalid-feedback">{{ $message }} </span>
-              @enderror
+                @enderror
             </div>
 
             {{--  --}}
@@ -45,10 +50,10 @@
 </section>
 @endsection
 
-@extends ('layouts.template')
+{{-- @extends ('layouts.template') --}}
 
-@section('content')
-<section class="content">
+{{-- @section('content') --}}
+{{-- <section class="content"> --}}
 
     {{-- <!-- Default Box-->
     <div class="card">
@@ -123,5 +128,5 @@
           </form>
         </div>
     </div>  --}}
-</section>
-@endsection -->
+{{-- </section> --}}
+{{-- @endsection --}}
