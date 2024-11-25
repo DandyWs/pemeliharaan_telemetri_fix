@@ -8,7 +8,7 @@ use App\Http\Controllers2\Setting2Controller;
 use App\Http\Controllers2\Komponen2Controller;
 use App\Http\Controllers\JenisAlatController;
 use App\Http\Controllers2\PemeriksaanController;
-use App\Http\Controllers2\Pemeliharaan2Controller;
+use App\Http\Controllers\PemeliharaanController;
 use App\Http\Controllers\AlatController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\CetakLaporan;
@@ -26,6 +26,7 @@ use App\Http\Controllers\SopirController;
 use App\Http\Controllers\TransaksibaruController;
 use App\Http\Controllers\TransaksiController;
 use App\Models\DetailKomponen;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -64,7 +65,8 @@ Route::get('/logout',[LoginController::class,'logout']);
 Route::group(['middleware' => ['auth', 'role:admin']], function(){
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::resource('/detail_componen', DetailController::class)->parameter('detail_componen','id');
-    Route::resource('/pemeliharaan', Pemeliharaan2Controller::class)->parameter('pemeliharaan','id');
+    Route::resource('/pemeliharaans', PemeliharaanController::class)->parameter('pemeliharaan','id');
+    Route::post('pemeliharaans/data',[PemeliharaanController::class,'data'])->name('data_pemeliharaan');
     // Route::resource('/detail_componen', DetailKomponen::class)->parameter('detail_componen', 'id');
     Route::post('detail_componen/data',[DetailController::class,'data'])->name('data_detail_componen');
     //Route::resource('user', UserController::class);

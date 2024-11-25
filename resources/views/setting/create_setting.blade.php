@@ -47,7 +47,7 @@
             {{--  --}}
             <div class="form-group mt-3">
               <button class="btn btn-sm btn-success">Simpan</button>
-              <a class="btn btn-sm btn-primary" href="{{ url('/detail_componen') }}">Kembali</a>
+              <a class="btn btn-sm btn-primary" href="{{ url('/setting') }}">Kembali</a>
           </div>
           </form>
         </div>
