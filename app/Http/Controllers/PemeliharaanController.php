@@ -77,7 +77,7 @@ class PemeliharaanController extends Controller
     {
         $request->validate([
             'tanggal' => ['required', 'date'],
-            'waktu' => ['required', 'date_format:H:i:s'],
+            'waktu' => ['required', 'date'],
             'periode' => ['required', 'max:255', 'string'],
             'cuaca' => ['required', 'max:255', 'string'],
             'no_alatUkur' => ['required', 'numeric'],
@@ -148,8 +148,8 @@ class PemeliharaanController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'tanggal' => ['required', 'date_format:H:i:s'],
-            'waktu' => ['required', 'date_format:H:i:s'],
+            'tanggal' => ['required', 'date'],
+            'waktu' => ['required', 'date'],
             'periode' => ['required', 'max:255', 'string'],
             'cuaca' => ['required', 'max:255', 'string'],
             'no_alatUkur' => ['required', 'numeric'],

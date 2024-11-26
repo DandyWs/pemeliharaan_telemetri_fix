@@ -55,7 +55,7 @@
                   type="datetime-local"
                   name="tanggal"
                   class="form-control @error('tanggal') is-invalid @enderror"
-                  value="{{ old('tanggal', isset($spr) ? optional($spr->tanggal)->format('Y-m-d\TH:i:s') : '') }}"
+                  value="{{ old('tanggal', isset($spr) ? optional($spr->tanggal)->format('Y-m-d\TH') : '') }}"
                   required
                 />
                 @error('tanggal')
@@ -69,7 +69,7 @@
                   type="datetime-local"
                   name="waktu"
                   class="form-control @error('waktu') is-invalid @enderror"
-                  value="{{ old('waktu', isset($spr) ? optional($spr->waktu)->format('Y-m-d\TH:i:s') : '') }}"
+                  value="{{ old('waktu', isset($spr) ? optional($spr->waktu)->format('Y-m-d\TH') : '') }}"
                   required
                 />
                 @error('waktu')
@@ -156,7 +156,7 @@
                 @enderror
             </div>
 
-            <div class="form-group col-md-6">
+            {{-- <div class="form-group col-md-6">
               <label>Lokasi Stasiun -- Jenis Alat</label>
               <select
                 name="alat_telemetri_id"
@@ -173,9 +173,17 @@
               @error('alat_telemetri_id')
               <span class="error invalid-feedback">{{ $message }}</span>
               @enderror
+            </div> --}}
+
+            <div class="form-group col-md-6">
+              <label>Lokasi Stasiun</label>
+              <input class="form-control @error('lokasiStasiun') is-invalid @enderror" value="{{ isset($spr)? $spr->alat->lokasiStasiun :old('lokasiStasiun') }}" name="lokasiStasiun" type="text"/>
+              @error('lokasiStasiun')
+                <span class="error invalid-feedback">{{ $message }} </span>
+              @enderror
             </div>
 
-            {{-- <div class="form-group col-md-6">
+            <div class="form-group col-md-6">
               <label>Jenis Peralatan</label>
               <select
                 name="jenis_alat"
@@ -192,7 +200,7 @@
               @error('alat_telemetri_id')
               <span class="error invalid-feedback">{{ $message }}</span>
               @enderror
-            </div> --}}
+            </div>
 
             </div>
             <!-- <div class="form-group col-md-6">
