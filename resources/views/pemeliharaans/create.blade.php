@@ -157,7 +157,7 @@
             </div>
 
             <div class="form-group col-md-6">
-              <label>Lokasi Stasiun</label>
+              <label>Lokasi Stasiun -- Jenis Alat</label>
               <select
                 name="alat_telemetri_id"
                 class="form-control @error('alat_telemetri_id') is-invalid @enderror"
@@ -166,7 +166,7 @@
                 <option value="">Pilih Peralatan Telemetri</option>
                 @foreach( $alat as $alat)
                 <option value="{{ $alat->id }}" {{ old('alat_telemetri_id', isset($spr) && $spr->alat_telemetri_id == $alat->id) ? 'selected' : '' }}>
-                  {{ $alat->lokasiStasiun }}
+                  {{ $alat->lokasiStasiun }} -- {{ $alat->jenisAlat->namajenis }}
                 </option>
                 @endforeach
               </select>
@@ -175,7 +175,7 @@
               @enderror
             </div>
 
-            <div class="form-group col-md-6">
+            {{-- <div class="form-group col-md-6">
               <label>Jenis Peralatan</label>
               <select
                 name="jenis_alat"
@@ -192,7 +192,7 @@
               @error('alat_telemetri_id')
               <span class="error invalid-feedback">{{ $message }}</span>
               @enderror
-            </div>
+            </div> --}}
 
             </div>
             <!-- <div class="form-group col-md-6">
