@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\AlatTelemetri;
+use App\Models\User;
 use App\Models\Pemeliharaan2;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
@@ -56,8 +57,10 @@ class PemeliharaanController extends Controller
     public function create()
     {
         $alat = AlatTelemetri::all();
+        $user = User::all();
         return view('pemeliharaans.create')
             ->with('alat', $alat)
+            ->with('user', $user)
             ->with('url_form', url('/pemeliharaans'));
     }
 

@@ -137,7 +137,43 @@
                 @enderror
             </div>
 
-            
+            <div class="form-group col-md-6">
+                <label>User ID</label>
+                <select
+                name="user_id"
+                class="form-control @error('user_id') is-invalid @enderror"
+                required
+                >
+                <option value="">Pilih User</option>
+                @foreach($user as $user)
+                <option value="{{ $user->id }}" {{ old('user_id', isset($spr) && $spr->user_id == $user->id) ? 'selected' : '' }}>
+                  {{ $user->name }}
+                </option>
+                @endforeach
+                </select>
+                @error('user_id')
+                <span class="error invalid-feedback">{{ $message }}</span>
+                @enderror
+            </div>
+
+            <div class="form-group col-md-6">
+              <label>Lokasi Stasiun</label>
+              <select
+                name="alat_telemetri_id"
+                class="form-control @error('alat_telemetri_id') is-invalid @enderror"
+                required
+              >
+                <option value="">Pilih Peralatan Telemetri</option>
+                @foreach( $alat as $alat)
+                <option value="{{ $alat->id }}" {{ old('alat_telemetri_id', isset($spr) && $spr->alat_telemetri_id == $alat->id) ? 'selected' : '' }}>
+                  {{ $alat->lokasiStasiun }}
+                </option>
+                @endforeach
+              </select>
+              @error('alat_telemetri_id')
+              <span class="error invalid-feedback">{{ $message }}</span>
+              @enderror
+            </div>
             </div>
             <!-- <div class="form-group col-md-6">
               <label>Tanggal Pemeliharaan</label>
