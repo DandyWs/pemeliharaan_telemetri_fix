@@ -39,7 +39,7 @@
 <section class="content">
     <div class="card">
         <div class="card-header">
-            <h3 class="card-title"> Data Pemeliharaan </h3>
+            <h3 class="card-title"> Form Pemeliharaan Telemetri </h3>
             <br>
         </div>
         <div class="card-body">
@@ -48,40 +48,116 @@
             {!!(isset($spr))? method_field('PUT') : '' !!}
 
             
+            <div class="row">
+            <div class="form-group col-md-6">
+              <label>Tanggal Pemeliharaan</label>
+                <input
+                  type="datetime-local"
+                  name="tanggal"
+                  class="form-control @error('tanggal') is-invalid @enderror"
+                  value="{{ old('tanggal', isset($spr) ? optional($spr->tanggal)->format('Y-m-d\TH:i:s') : '') }}"
+                  required
+                />
+                @error('tanggal')
+                <span class="error invalid-feedback">{{ $message }}</span>
+                @enderror
+            </div>
 
-            <div class="form-group">
-              <label>Nilai Simulasi</label>
+            <div class="form-group col-md-6">
+              <label>Waktu Mulai Pemeliharaan</label>
+                <input
+                  type="datetime-local"
+                  name="waktu"
+                  class="form-control @error('waktu') is-invalid @enderror"
+                  value="{{ old('waktu', isset($spr) ? optional($spr->waktu)->format('Y-m-d\TH:i:s') : '') }}"
+                  required
+                />
+                @error('waktu')
+                <span class="error invalid-feedback">{{ $message }}</span>
+                @enderror
+            </div>
+
+            <div class="form-group col-md-6">
+              <label>Periode Pemeliharaan</label>
+                <input
+                  type="text"
+                  name="periode"
+                  class="form-control @error('periode') is-invalid @enderror"
+                  value="{{ old('periode', isset($spr) ? $spr->periode : '') }}"
+                  placeholder="Periode Pemeliharaan"
+                  required
+                />
+                @error('periode')
+                <span class="error invalid-feedback">{{ $message }}</span>
+                @enderror
+            </div>
+
+            <div class="form-group col-md-6">
+              <label>Cuaca</label>
+                <input
+                  type="text"
+                  name="cuaca"
+                  class="form-control @error('cuaca') is-invalid @enderror"
+                  value="{{ old('cuaca', isset($spr) ? $spr->cuaca : '') }}"
+                  placeholder="Cuaca"
+                  required
+                />
+                @error('cuaca')
+                <span class="error invalid-feedback">{{ $message }}</span>
+                @enderror
+            </div>
+
+            <div class="form-group col-md-6">
+              <label>No Alat Ukur</label>
+                <input
+                  type="text"
+                  name="no_alatUkur"
+                  class="form-control @error('no_alatUkur') is-invalid @enderror"
+                  value="{{ old('no_alatUkur', isset($spr) ? $spr->no_alatUkur : '') }}"
+                  placeholder="No Alat Ukur"
+                  required
+                />
+                @error('no_alatUkur')
+                <span class="error invalid-feedback">{{ $message }}</span>
+                @enderror
+            </div>
+
+            <div class="form-group col-md-6">
+              <label>No GSM</label>
+                <input
+                  type="text"
+                  name="no_GSM"
+                  class="form-control @error('no_GSM') is-invalid @enderror"
+                  value="{{ old('no_GSM', isset($spr) ? $spr->no_GSM : '') }}"
+                  placeholder="No GSM"
+                  required
+                />
+                @error('no_GSM')
+                <span class="error invalid-feedback">{{ $message }}</span>
+                @enderror
+            </div>
+
+            
+            </div>
+            <!-- <div class="form-group col-md-6">
+              <label>Tanggal Pemeliharaan</label>
               <input class="form-control @error('simulasi') is-invalid @enderror" value="{{ isset($spr)? $spr->simulasi :old('simulasi') }}" name="simulasi" type="text"/>
               @error('simulasi')
                 <span class="error invalid-feedback">{{ $message }} </span>
               @enderror
-            </div>
+            </div> -->
 
-            <div class="form-group">
+            <!-- <div class="form-group">
               <label>Nilai Display</label>
               <input class="form-control @error('display') is-invalid @enderror" value="{{ isset($spr)? $spr->display :old('display') }}" name="display" type="text"/>
               @error('display')
                 <span class="error invalid-feedback">{{ $message }} </span>
               @enderror
-
-            {{-- <div class="form-group"> --}}
-              {{-- <label>Form Komponen ID</label> --}}
-                {{-- <select class="form-control @error('form_komponen_id') is-invalid @enderror" name="form_komponen_id"> --}}
-                {{-- <option value="" Pilih Komponen </option> --}}
-                {{-- @foreach($sopir as $komp) --}}
-                  {{-- <option value="{{ $komp->id }}" {{ (isset($spr) && $spr->form_komponen_id == $komp->id) ? 'selected' : '' }}>{{ $komp->id }}</option> --}}
-                {{-- @endforeach --}}
-                {{-- </select> --}}
-                {{-- @error('form_komponen_id') --}}
-                  {{-- <span class="error invalid-feedback">{{ $message }} </span> --}}
-                {{-- @enderror --}}
-            {{-- </div> --}}
-
-            {{--  --}}
+            </div> -->
             <div class="form-group mt-3">
               <button class="btn btn-sm btn-success">Simpan</button>
               <a class="btn btn-sm btn-primary" href="{{ url('/pemeliharaans') }}">Kembali</a>
-          </div>
+            </div>
           </form>
         </div>
 @endsection
