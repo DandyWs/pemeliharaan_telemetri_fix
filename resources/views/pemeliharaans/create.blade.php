@@ -138,13 +138,13 @@
             </div>
 
             <div class="form-group col-md-6">
-                <label>User ID</label>
+                <label>Nama Mekanik</label>
                 <select
                 name="user_id"
                 class="form-control @error('user_id') is-invalid @enderror"
                 required
                 >
-                <option value="">Pilih User</option>
+                <option value="">Pilih Mekanik</option>
                 @foreach($user as $user)
                 <option value="{{ $user->id }}" {{ old('user_id', isset($spr) && $spr->user_id == $user->id) ? 'selected' : '' }}>
                   {{ $user->name }}
