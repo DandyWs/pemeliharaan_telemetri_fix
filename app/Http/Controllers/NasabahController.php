@@ -135,8 +135,8 @@ class NasabahController extends Controller
             // 'email'=>'required|string|max:255',
             // 'role'=>'required|digits_between:5, 15',
             'role'=>'required|string',
-            'email'=>'required|string|unique:users,email',
-            'password' => 'required|string|min:4'
+            'email'=>'required|string',
+            // 'password' => 'required|string|min:4'
         ]);
 
         $nasabah = User::find($id);
@@ -158,18 +158,18 @@ class NasabahController extends Controller
             'email' => $request->email,
         ]);
 
-        $nsb = User::where('email', $nasabah->email)->first();
+        // $nsb = User::where('email', $nasabah->email)->first();
         
-        User::where('email', $nsb->email)->update([
-            'name' => $request->name,
-            'email' => $request->email,
-        ]);  
+        // User::where('email', $nsb->email)->update([
+        //     // 'name' => $request->name,
+        //     'email' => $request->email,
+        // ]);  
         
         $nasabah->save();
 
         if ($request->filled('password')) {
-            $user = User::where('email', $nasabah->email)->first();
-            $user->password = Hash::make($request->input('password'));
+            $user = User::where('email', $request->email)->first();
+            $user->password = Hash::make($request->password);
             $user->save();
         }
 

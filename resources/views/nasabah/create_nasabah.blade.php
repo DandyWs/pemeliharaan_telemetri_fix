@@ -12,13 +12,13 @@
         <div class="card-body">
           <form method="POST" action="{{ $url_form }}" enctype="multipart/form-data">
             @csrf
-            {!!(isset($spr))? method_field('PUT') : '' !!}
+            {!!(isset($nsb))? method_field('PUT') : '' !!}
 
             
 
             <div class="form-group">
               <label>Nama</label>
-              <input class="form-control @error('name') is-invalid @enderror" value="{{ isset($spr)? $spr->name :old('name') }}" name="name" type="text"/>
+              <input class="form-control @error('name') is-invalid @enderror" value="{{ isset($nsb)? $nsb->name :old('name') }}" name="name" type="text"/>
               @error('name')
                 <span class="error invalid-feedback">{{ $message }} </span>
               @enderror
@@ -59,7 +59,7 @@
             {{--  --}}
             <div class="form-group mt-3">
               <button class="btn btn-sm btn-success">Simpan</button>
-              <a class="btn btn-sm btn-primary" href="{{ url('/sopir') }}">Kembali</a>
+              <a class="btn btn-sm btn-primary" href="{{ url('/nasabah') }}">Kembali</a>
           </div>
           </form>
         </div>

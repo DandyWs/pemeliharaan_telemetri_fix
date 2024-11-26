@@ -50,7 +50,7 @@
         }).then((result) => {
           if(result.isConfirmed){
             var form = $('<form>').attr({
-                            action: "{{url('data_alat')}}/" + id,
+                            action: "{{url('alat')}}/" + id,
                             method: 'POST',
                             class: 'delete-form'
                         }).append('@csrf', '@method("DELETE")');

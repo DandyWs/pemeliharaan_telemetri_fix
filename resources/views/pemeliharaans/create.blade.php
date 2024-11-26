@@ -49,7 +49,25 @@
 
             
             <div class="row">
-            <div class="form-group col-md-6">
+              <div class="form-group col-md-6">
+                <label>Nama Stasiun -- Jenis Alat</label>
+                <select
+                  name="alat_telemetri_id"
+                  class="form-control @error('alat_telemetri_id') is-invalid @enderror"
+                  required
+                >
+                  <option value="">Pilih Peralatan Telemetri</option>
+                  @foreach( $alat as $alat)
+                  <option value="{{ $alat->id }}" {{ old('alat_telemetri_id', isset($spr) && $spr->alat_telemetri_id == $alat->id) ? 'selected' : '' }}>
+                    {{ $alat->lokasiStasiun }} -- {{ $alat->jenisAlat->namajenis }}
+                  </option>
+                  @endforeach
+                </select>
+                @error('alat_telemetri_id')
+                <span class="error invalid-feedback">{{ $message }}</span>
+                @enderror
+              </div>
+              <div class="form-group col-md-6">
               <label>Tanggal Pemeliharaan</label>
                 <input
                   type="datetime-local"
@@ -63,19 +81,7 @@
                 @enderror
             </div>
 
-            <div class="form-group col-md-6">
-              <label>Waktu Mulai Pemeliharaan</label>
-                <input
-                  type="datetime-local"
-                  name="waktu"
-                  class="form-control @error('waktu') is-invalid @enderror"
-                  value="{{ old('waktu', isset($spr) ? optional($spr->waktu)->format('Y-m-d\TH') : '') }}"
-                  required
-                />
-                @error('waktu')
-                <span class="error invalid-feedback">{{ $message }}</span>
-                @enderror
-            </div>
+            
 
             <div class="form-group col-md-6">
               <label>Periode Pemeliharaan</label>
@@ -91,7 +97,37 @@
                 <span class="error invalid-feedback">{{ $message }}</span>
                 @enderror
             </div>
-
+            <div class="form-group col-md-6">
+              <label>Waktu Mulai Pemeliharaan</label>
+                <input
+                  type="datetime-local"
+                  name="waktu"
+                  class="form-control @error('waktu') is-invalid @enderror"
+                  value="{{ old('waktu', isset($spr) ? optional($spr->waktu)->format('Y-m-d\TH') : '') }}"
+                  required
+                />
+                @error('waktu')
+                <span class="error invalid-feedback">{{ $message }}</span>
+                @enderror
+            </div>
+            <div class="form-group col-md-6">
+              <label>Pelaksana Pemeliharaan</label>
+              <select
+              name="user_id"
+              class="form-control @error('user_id') is-invalid @enderror"
+              required
+              >
+              <option value="">Pilih Mekanik</option>
+              @foreach($user as $user)
+              <option value="{{ $user->id }}" {{ old('user_id', isset($spr) && $spr->user_id == $user->id) ? 'selected' : '' }}>
+                {{ $user->name }}
+              </option>
+              @endforeach
+              </select>
+              @error('user_id')
+              <span class="error invalid-feedback">{{ $message }}</span>
+              @enderror
+          </div>
             <div class="form-group col-md-6">
               <label>Cuaca</label>
                 <input
@@ -106,7 +142,7 @@
                 <span class="error invalid-feedback">{{ $message }}</span>
                 @enderror
             </div>
-
+            
             <div class="form-group col-md-6">
               <label>No Alat Ukur</label>
                 <input
@@ -137,53 +173,19 @@
                 @enderror
             </div>
 
-            <div class="form-group col-md-6">
-                <label>Nama Mekanik</label>
-                <select
-                name="user_id"
-                class="form-control @error('user_id') is-invalid @enderror"
-                required
-                >
-                <option value="">Pilih Mekanik</option>
-                @foreach($user as $user)
-                <option value="{{ $user->id }}" {{ old('user_id', isset($spr) && $spr->user_id == $user->id) ? 'selected' : '' }}>
-                  {{ $user->name }}
-                </option>
-                @endforeach
-                </select>
-                @error('user_id')
-                <span class="error invalid-feedback">{{ $message }}</span>
-                @enderror
-            </div>
+      
+
+            
 
             {{-- <div class="form-group col-md-6">
-              <label>Lokasi Stasiun -- Jenis Alat</label>
-              <select
-                name="alat_telemetri_id"
-                class="form-control @error('alat_telemetri_id') is-invalid @enderror"
-                required
-              >
-                <option value="">Pilih Peralatan Telemetri</option>
-                @foreach( $alat as $alat)
-                <option value="{{ $alat->id }}" {{ old('alat_telemetri_id', isset($spr) && $spr->alat_telemetri_id == $alat->id) ? 'selected' : '' }}>
-                  {{ $alat->lokasiStasiun }} -- {{ $alat->jenisAlat->namajenis }}
-                </option>
-                @endforeach
-              </select>
-              @error('alat_telemetri_id')
-              <span class="error invalid-feedback">{{ $message }}</span>
-              @enderror
-            </div> --}}
-
-            <div class="form-group col-md-6">
               <label>Lokasi Stasiun</label>
               <input class="form-control @error('lokasiStasiun') is-invalid @enderror" value="{{ isset($spr)? $spr->alat->lokasiStasiun :old('lokasiStasiun') }}" name="lokasiStasiun" type="text"/>
               @error('lokasiStasiun')
                 <span class="error invalid-feedback">{{ $message }} </span>
               @enderror
-            </div>
+            </div> --}}
 
-            <div class="form-group col-md-6">
+            {{-- <div class="form-group col-md-6">
               <label>Jenis Peralatan</label>
               <select
                 name="jenis_alat"
@@ -200,7 +202,7 @@
               @error('alat_telemetri_id')
               <span class="error invalid-feedback">{{ $message }}</span>
               @enderror
-            </div>
+            </div> --}}
 
             </div>
             <!-- <div class="form-group col-md-6">

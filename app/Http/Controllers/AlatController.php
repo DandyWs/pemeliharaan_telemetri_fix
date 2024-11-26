@@ -112,7 +112,9 @@ class AlatController extends Controller
     public function edit($id)
     {
         $alat = AlatTelemetri::find($id);
+        $jenisAlat =  JenisAlat::all();
         return view('alat.create_alat')
+            ->with('jenisAlat', $jenisAlat)
         ->with('spr', $alat)->with('url_form', url('/alat/'.$id));
     }
 
@@ -132,6 +134,7 @@ class AlatController extends Controller
         $alat = AlatTelemetri::find($id);
         AlatTelemetri::where('id', $id)->update([
             'lokasiStasiun' => $request->lokasiStasiun,
+            'jenis_alat_id' => $request->jenis_alat_id,
         ]);   
 
         $alat->save();

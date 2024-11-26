@@ -117,7 +117,9 @@ class DetailController extends Controller
     public function edit($id)
     {
         $detail_componen = DetailKomponen::find($id);
+        $komponen2 =  Komponen2::all();
         return view('detail_componen.create_detail_componen')
+        ->with('komponen2', $komponen2)
         ->with('spr', $detail_componen)->with('url_form', url('/detail_componen/'.$id));
     }
 
@@ -132,7 +134,8 @@ class DetailController extends Controller
     {
         $request->validate([
             // 'id_detail_componen'=>'required|string|max:10|unique:detail_componen,id_detail_componen,'.$id,
-            'nama'=>'required|string|max:50',
+            'namadetail'=>'required|string|max:50',
+            'komponen2_id'=>'required',
             // 'foto' => 'image|mimes:jpeg,png,jpg|max:2048',
             // 'alamat'=>'required|string|max:255',
             // 'phone'=>'required|digits_between:5, 15'
@@ -151,7 +154,8 @@ class DetailController extends Controller
 
         DetailKomponen::where('id', $id)->update([
             // 'id_detail_componen' => $request->id_detail_componen,
-            'nama' => $request->nama,
+            'namadetail' => $request->namadetail,
+            'komponen2_id' => $request->komponen2_id,
             // 'alamat' => $request->alamat,
             // 'phone' => $request->phone,
             // 'email' => $request->email,
