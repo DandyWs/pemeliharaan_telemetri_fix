@@ -174,6 +174,26 @@
               <span class="error invalid-feedback">{{ $message }}</span>
               @enderror
             </div>
+
+            <div class="form-group col-md-6">
+              <label>Jenis Peralatan</label>
+              <select
+                name="jenis_alat"
+                class="form-control @error('jenis_alat') is-invalid @enderror"
+                required
+              >
+                <option value="">Pilih Jenis Alat</option>
+                @foreach( $jenisAlat as $jenis)
+                <option value="{{ $jenis->id }}" {{ old('jenis_alat', isset($spr) && $spr->alat_telemetri_id == $alat->id) ? 'selected' : '' }}>
+                  {{ $jenis->namajenis }}
+                </option>
+                @endforeach
+              </select>
+              @error('alat_telemetri_id')
+              <span class="error invalid-feedback">{{ $message }}</span>
+              @enderror
+            </div>
+
             </div>
             <!-- <div class="form-group col-md-6">
               <label>Tanggal Pemeliharaan</label>
