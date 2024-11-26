@@ -198,12 +198,12 @@
                     <tr>
                         <th>No.</th>
                         <th>Tanggal</th>
-                        <th>Waktu Mulai</th>
                         <th>Periode</th>
                         <th>Cuaca</th>
                         <th>No Alat Ukur</th>
                         <th>No GSM</th>
-                        <th>Alat</th>
+                        <th>Jenis Alat</th>
+                        <th>Lokasi Stasiun</th>
                         <th>User</th>
                         <th>Keterangan</th>
                         <th>Action</th>
@@ -263,11 +263,12 @@
               }
             },
             { data: 'tanggal', name: 'tanggal', sortable: true, searchable: true },
-            { data: 'waktu', name: 'waktu', sortable: true, searchable: true },
+            // { data: 'waktu', name: 'waktu', sortable: true, searchable: true },
             { data: 'periode', name: 'periode', sortable: true, searchable: true },
             { data: 'cuaca', name: 'cuaca', sortable: true, searchable: true },
             { data: 'no_alatUkur', name: 'no_alatUkur', sortable: true, searchable: true },
             { data: 'no_GSM', name: 'no_GSM', sortable: true, searchable: true },
+            { data: 'jenis_alat', name: 'jenis_alat', sortable: true, searchable: true },
             { data: 'alat_telemetri_id', name: 'alat_telemetri_id', sortable: true, searchable: true },
             { data: 'user_id', name: 'user_id', sortable: true, searchable: true },
             { 

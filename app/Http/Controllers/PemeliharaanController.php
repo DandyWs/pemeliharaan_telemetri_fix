@@ -37,6 +37,8 @@ class PemeliharaanController extends Controller
                 'no_alatUkur' => $item->no_alatUkur,
                 'no_GSM' => $item->no_GSM,
                 'alat_telemetri_id' => $item->AlatTelemetri->lokasiStasiun,
+                'jenis_alat' => $item->AlatTelemetri->JenisAlat->namajenis,
+                'keterangan' => $item->keterangan,
                 'user_id' => $item->User->name,
             ];
         });
