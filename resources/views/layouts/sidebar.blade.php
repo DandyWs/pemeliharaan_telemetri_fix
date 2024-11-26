@@ -61,7 +61,7 @@
             </li>
             <li class="nav-item">
               <a href="{{url('/detail_componen')}}" class="nav-link">
-                <i class="nav-icon fas fa-solid fa fa-paperclip"></i>
+                <i class="nav-icon fas fa-solid fa fa-microchip"></i>
                   <p>Detail Komponen</p>
               </a>
             </li>
