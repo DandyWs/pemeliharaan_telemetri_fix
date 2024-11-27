@@ -122,7 +122,7 @@ class SampahController extends Controller
         ]);
 
         return redirect('sampah')
-            ->with('success', 'Sampah Berhasil Diubah');
+            ->with('success', 'Jenis Alat Berhasil Diubah');
     }
 
     /**
@@ -136,6 +136,6 @@ class SampahController extends Controller
         
         JenisAlat::where('id','=',$id)->delete();
         return redirect('sampah')
-        ->with('success','Sampah Berhasil Dihapus');
+        ->with('success','Jenis Alat Berhasil Dihapus');
     }
 }

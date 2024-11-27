@@ -68,12 +68,12 @@
                 @enderror
               </div>
               <div class="form-group col-md-6">
-              <label>Tanggal Pemeliharaan</label>
+                <label>Tanggal Pemeliharaan</label>
                 <input
-                  type="datetime-local"
+                  type="date"
                   name="tanggal"
                   class="form-control @error('tanggal') is-invalid @enderror"
-                  value="{{ old('tanggal', isset($spr) ? optional($spr->tanggal)->format('Y-m-d\TH') : '') }}"
+                  value="{{ old('tanggal', isset($spr) ? optional($spr->tanggal)->format('Y-m-d') : '') }}"
                   required
                 />
                 @error('tanggal')
@@ -100,10 +100,10 @@
             <div class="form-group col-md-6">
               <label>Waktu Mulai Pemeliharaan</label>
                 <input
-                  type="datetime-local"
+                  type="time"
                   name="waktu"
                   class="form-control @error('waktu') is-invalid @enderror"
-                  value="{{ old('waktu', isset($spr) ? optional($spr->waktu)->format('Y-m-d\TH') : '') }}"
+                  value="{{ old('waktu', isset($spr) ? optional($spr->waktu)->format('TH:i') : '') }}"
                   required
                 />
                 @error('waktu')

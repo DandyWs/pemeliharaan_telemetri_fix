@@ -234,7 +234,7 @@
         }).then((result) => {
           if(result.isConfirmed){
             var form = $('<form>').attr({
-                            action: "{{url('data_pemeliharaan')}}/" + id,
+                            action: "{{url('pemeliharaans')}}/" + id,
                             method: 'POST',
                             class: 'delete-form'
                         }).append('@csrf', '@method("DELETE")');
@@ -262,7 +262,15 @@
                   return meta.row + 1;
               }
             },
-            { data: 'tanggal', name: 'tanggal', sortable: true, searchable: true },
+            { 
+                data: null, 
+                name: 'tanggal_waktu', 
+                sortable: true, 
+                searchable: true,
+                render: function (data, type, row, meta) {
+                    return row.tanggal + ' ' + row.waktu;
+                }
+            },
             // { data: 'waktu', name: 'waktu', sortable: true, searchable: true },
             { data: 'periode', name: 'periode', sortable: true, searchable: true },
             { data: 'cuaca', name: 'cuaca', sortable: true, searchable: true },

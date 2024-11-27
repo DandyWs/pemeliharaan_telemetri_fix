@@ -77,7 +77,7 @@ class PemeliharaanController extends Controller
     {
         $request->validate([
             'tanggal' => ['required', 'date'],
-            'waktu' => ['required', 'date'],
+            'waktu' => ['required', 'date_format:H:i'],
             'periode' => ['required', 'max:255', 'string'],
             'cuaca' => ['required', 'max:255', 'string'],
             'no_alatUkur' => ['required', 'numeric'],
@@ -149,7 +149,7 @@ class PemeliharaanController extends Controller
     {
         $request->validate([
             'tanggal' => ['required', 'date'],
-            'waktu' => ['required', 'date'],
+            'waktu' => ['required', 'date_format:H:i'],
             'periode' => ['required', 'max:255', 'string'],
             'cuaca' => ['required', 'max:255', 'string'],
             'no_alatUkur' => ['required', 'numeric'],
@@ -185,7 +185,7 @@ class PemeliharaanController extends Controller
 
 
         return redirect('pemeliharaans')
-            ->with('success', 'Komponen Berhasil Diubah');
+            ->with('success', 'Pemeliharaan Berhasil Diubah');
     }
 
     /**
@@ -200,7 +200,7 @@ class PemeliharaanController extends Controller
 
         $sopir->delete();
 
-        return redirect('sopir')
-            ->with('success', 'Komponen Berhasil Dihapus');
+        return redirect('pemeliharaans')
+            ->with('success', 'Pemeliharaan Berhasil Dihapus');
     }
 }

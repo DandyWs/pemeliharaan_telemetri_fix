@@ -174,7 +174,7 @@ class NasabahController extends Controller
         }
 
         return redirect('nasabah')
-            ->with('success', 'Nasabah Berhasil Diubah');
+            ->with('success', 'User Berhasil Diubah');
     }
 
     /**
@@ -199,25 +199,25 @@ class NasabahController extends Controller
         }
 
         return redirect('nasabah')
-            ->with('success', 'Nasabah Berhasil Dihapus');
+            ->with('success', 'User Berhasil Dihapus');
     }
 
-    public function saldo()
-    {
-        $jadwal = User::all();
+    // public function saldo()
+    // {
+    //     $jadwal = User::all();
     
-        $total = 0;
-        $jumlah = 0;
+    //     $total = 0;
+    //     $jumlah = 0;
     
-        if ($jadwal->count() > 0) {
-            foreach ($jadwal as $i => $k) {
-                // Calculate the total
-                $total += $k->harga;
-            }
-        }
+    //     if ($jadwal->count() > 0) {
+    //         foreach ($jadwal as $i => $k) {
+    //             // Calculate the total
+    //             $total += $k->harga;
+    //         }
+    //     }
     
-        return view('nasabah.blade', compact('jadwal', 'total'));
-    }
+    //     return view('nasabah.blade', compact('jadwal', 'total'));
+    // }
     
 
 }

@@ -83,7 +83,7 @@ class AlatController extends Controller
             'jenis_alat_id' => $request->input('jenis_alat_id'),
         ]);
 
-        return redirect('alat')->with('success', 'Alat Telemetri Berhasil Ditambahkan');
+        return redirect('alat')->with('success', 'Lokasi Stasiun Berhasil Ditambahkan');
     }
 
     /**
@@ -146,7 +146,7 @@ class AlatController extends Controller
         // }
 
         return redirect('alat')
-            ->with('success', 'Alat Telemetri Berhasil Diubah');
+            ->with('success', 'Lokasi Stasiun Berhasil Diubah');
     }
 
     /**
@@ -162,6 +162,6 @@ class AlatController extends Controller
         $alat->delete();
 
         return redirect('alat')
-            ->with('success', 'Detail_componen Berhasil Dihapus');
+            ->with('success', 'Lokasi Stasiun Berhasil Dihapus');
     }
 }

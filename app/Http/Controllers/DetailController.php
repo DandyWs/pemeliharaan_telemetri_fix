@@ -88,7 +88,7 @@ class DetailController extends Controller
             
         ]);
 
-        return redirect('detail_componen')->with('success', 'Detail_componen Berhasil Ditambahkan');
+        return redirect('detail_componen')->with('success', 'Detail Komponen Berhasil Ditambahkan');
     }
 
     /**
@@ -171,7 +171,7 @@ class DetailController extends Controller
         // }
 
         return redirect('detail_componen')
-            ->with('success', 'Detail_componen Berhasil Diubah');
+            ->with('success', 'Detail Komponen Berhasil Diubah');
     }
 
     /**
