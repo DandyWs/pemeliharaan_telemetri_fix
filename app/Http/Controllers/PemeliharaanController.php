@@ -111,7 +111,7 @@ class PemeliharaanController extends Controller
             'user_id' => $request->input('user_id'),
         ]);
 
-        return redirect('pemeliharaans')->with('success', 'Komponen Berhasil Ditambahkan');
+        return redirect('pemeliharaans')->with('success', 'Form Pemeliharaan Berhasil Ditambahkan');
     }
 
     /**
