@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\AlatTelemetri;
+use App\Models\DetailKomponen;
 use App\Models\User;
 use App\Models\JenisAlat;
+use App\Models\Komponen2;
 use App\Models\Pemeliharaan2;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
@@ -60,10 +62,14 @@ class PemeliharaanController extends Controller
         $alat = AlatTelemetri::all();
         $user = User::all();
         $jenisAlat =  JenisAlat::all();
+        $komponen = Komponen2::all();
+        $detailKomponen = DetailKomponen::all();
         return view('pemeliharaans.create')
             ->with('alat', $alat)
             ->with('user', $user)
             ->with('jenisAlat', $jenisAlat)
+            ->with('komponen', $komponen)
+            ->with('detailKomponen', $detailKomponen)
             ->with('url_form', url('/pemeliharaans'));
     }
 

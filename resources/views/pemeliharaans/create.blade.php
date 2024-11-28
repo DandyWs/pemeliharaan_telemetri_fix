@@ -173,8 +173,30 @@
                 @enderror
             </div>
 
-      
-
+            <div class="row">
+            @foreach ($komponen as $komp)
+            <div class="form-group col-md-6">
+              <label>
+                {{ $komp->nama }}
+              </label>
+              @foreach ($detailKomponen->where('komponen2_id', $komp->id) as $detail)
+                <div class="form-check">
+                  <input
+                    type="checkbox"
+                    name="komponen2_id"
+                    value="{{ $detail->id }}"
+                    class="form-check-input"
+                    {{ in_array($detail->id, old('komponen2_id', isset($spr) ? $spr->komponen->pluck('id')->toArray() : [])) ? 'checked' : '' }}
+                  />
+                  <label class="form-check-label">{{ $detail->namadetail }}</label>
+                </div>
+              @endforeach
+              @error('komponen2_id')
+              <span class="error invalid-feedback">{{ $message }}</span>
+              @enderror
+            </div>
+            @endforeach
+            </div>
             
 
             {{-- <div class="form-group col-md-6">
@@ -226,4 +248,6 @@
             </div>
           </form>
         </div>
+      </div>
+</section>
 @endsection
