@@ -7,7 +7,7 @@
     <div class="card">
         <div class="card-header border-0">
           <div class="d-flex justify-content-between">
-           <h3 class="card-title"><b><br>Daftar Jenis Sampah</b></h3>
+           <h3 class="card-title"><b><br>Daftar Jenis Alat</b></h3>
           </div>
           <div class="card-body">
             <div class="row d-flex justify-between" style="width: 100%; justify-content: space-between; align-items: center; margin: 0">
@@ -17,9 +17,9 @@
               <thead>
                 <tr>
                   <th>#</th>
-                  <th>Jenis Sampah</th>
-                  <th>Gambar</th>
-                  <th>Harga</th>
+                  <th>Jenis Alat</th>
+                  <th>Setting</th>
+                  {{-- <th>Harga</th> --}}
                   <th>Aksi</th>
                 </tr>
               </thead>
@@ -28,8 +28,8 @@
       </div>
     </div>
 </section>
-
-{{-- @push('js')
+@endsection
+@section('mainjs')
 <script>
     $(document).on('click', '.btn-delete', function () {
                 let id = $(this).data('id');
@@ -67,13 +67,14 @@
                 'type': 'POST',
             },
             columns:[
-                {data:'no',searchable:false,sortable:false},
-                {data:'jenis_sampah',name:'jenis_sampah',searchable:true,sortable:true},
-                 {data: 'foto',name: 'foto',sortable: false,searchable: false,render: function(data, type, row, meta) {return "<img src=\"{{ asset('storage') }}/" + data +
-                     "\" height=\"auto\" width=\"100px\" alt=\"foto sampah\">";
-                   }
-                  },
-                {data:'harga',name:'harga',searchable:true,sortable:true},
+                {data:'id',searchable:false,sortable:false},
+                {data:'namajenis',name:'namajenis',searchable:true,sortable:true},
+                {data:'setting',name:'setting',searchable:true,sortable:true},
+                //  {data: 'foto',name: 'foto',sortable: false,searchable: false,render: function(data, type, row, meta) {return "<img src=\"{{ asset('storage') }}/" + data +
+                //      "\" height=\"auto\" width=\"100px\" alt=\"foto sampah\">";
+                //    }
+                //   },
+                // {data:'harga',name:'harga',searchable:true,sortable:true},
                 {data:'id',name:'id',searchable:false,sortable:false,
                 render: function(data, type, row, meta){
                   return '<a href="{{url('sampah')}}/' + data + '/edit" class="btn btn-warning btn-sm mr-1"><i class="fa fa-edit"></i> </a>' +
@@ -85,6 +86,5 @@
     });
 
 </script>
-@endpush --}}
 
 @endsection

@@ -6,60 +6,41 @@
     <!-- Default Box-->
     <div class="card">
         <div class="card-header">
-            <h3 class="card-title"> Data User </h3>
+            <h3 class="card-title"> Data Lokasi Alat </h3>
             <br>
         </div>
         <div class="card-body">
           <form method="POST" action="{{ $url_form }}" enctype="multipart/form-data">
             @csrf
-            {!!(isset($nsb))? method_field('PUT') : '' !!}
+            {!!(isset($spr))? method_field('PUT') : '' !!}
 
             
 
             <div class="form-group">
-              <label>Nama</label>
-              <input class="form-control @error('name') is-invalid @enderror" value="{{ isset($nsb)? $nsb->name :old('name') }}" name="name" type="text"/>
-              @error('name')
+              <label>Lokasi Stasiun</label>
+              <input class="form-control @error('lokasiStasiun') is-invalid @enderror" value="{{ isset($spr)? $spr->lokasiStasiun :old('lokasiStasiun') }}" name="lokasiStasiun" type="text"/>
+              @error('lokasiStasiun')
                 <span class="error invalid-feedback">{{ $message }} </span>
               @enderror
             </div>
 
             <div class="form-group">
-              <label>Email</label>
-              <input class="form-control @error('email') is-invalid @enderror" value="{{ isset($nsb)? $nsb->email :old('email') }}" name="email" type="text"/>
-              @error('email')
-                <span class="error invalid-feedback">{{ $message }} </span>
-              @enderror
-            </div>
-
-            <div class="form-group">
-              <label for="role" class=" col-form-label text-md-end">{{ __('Role') }}</label>
-              <div class="col-md-12">
-                  <select id="role" name="role" class="form-control @error('role') is-invalid @enderror" required autocomplete="role">
-                      <option value="mekanik">Mekanik</option>
-                      <option value="manager">Ka. Tim Kalibrasi Divisi</option>
-                  </select>
-
-                  @error('role')
-                      <span class="invalid-feedback" role="alert">
-                          <strong>{{ $message }}</strong>
-                      </span>
-                  @enderror
-              </div>
-            </div>
-
-            <div class="form-group">
-              <label>Password</label>
-              <input class="form-control @error('password') is-invalid @enderror" value="" name="password" type="password"/>
-              @error('password')
-                <span class="error invalid-feedback">{{ $message }} </span>
-              @enderror
+              <label>Nama Jenis Alat</label>
+                <select class="form-control @error('jenis_alat_id') is-invalid @enderror" name="jenis_alat_id">
+                {{-- <option value="" Pilih Komponen </option> --}}
+                @foreach($jenisAlat as $komp)
+                  <option value="{{ $komp->id }}" {{ (isset($spr) && $spr->jenis_alat_id == $komp->id) ? 'selected' : '' }}>{{ $komp->namajenis }}</option>
+                @endforeach
+                </select>
+                @error('jenis_alat_id')
+                  <span class="error invalid-feedback">{{ $message }} </span>
+                @enderror
             </div>
 
             {{--  --}}
             <div class="form-group mt-3">
               <button class="btn btn-sm btn-success">Simpan</button>
-              <a class="btn btn-sm btn-primary" href="{{ url('/nasabah') }}">Kembali</a>
+              <a class="btn btn-sm btn-primary" href="{{ url('/detail_componen') }}">Kembali</a>
           </div>
           </form>
         </div>
@@ -94,9 +75,9 @@
             </div>
 
             <div class="form-group">
-              <label>Nama</label>
-              <input class="form-control @error('nama') is-invalid @enderror" value="{{ isset($nsb)? $nsb->nama :old('nama') }}" name="nama" type="text"/>
-              @error('nama')
+              <label>Namadetail</label>
+              <input class="form-control @error('namadetail') is-invalid @enderror" value="{{ isset($nsb)? $nsb->namadetail :old('namadetail') }}" name="namadetail" type="text"/>
+              @error('namadetail')
                 <span class="error invalid-feedback">{{ $message }} </span>
               @enderror
             </div>
@@ -148,4 +129,4 @@
         </div>
     </div>  --}}
 {{-- </section> --}}
-{{-- @endsection --> --}}
+{{-- @endsection --}}

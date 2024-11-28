@@ -1,12 +1,12 @@
 @extends('layouts.template')
 
 @section('content')
-{{-- <section class="content">
+<section class="content">
 
     <!--Default box-->
     <div class="card">
         <div class="card-header">
-            <h3 class="card-title">DATA NASABAH</h3>
+            <h3 class="card-title">DATA USER</h3>
 
             <div class="card-tools">
                 <button type="button" class="btn btn-tool" data-card-widge="collapse" title="Collapse">
@@ -19,15 +19,15 @@
         </div>
         <div class="card-body">
             <ul class="list-group list-group-flush">
-                <li class="list-group-item"><b>Id Nasabah : </b>{{$nasabah->id_nasabah}}</li>
-                <li class="list-group-item"><b>Nama : </b>{{$nasabah->nama}}</li>
-                <li class="list-group-item"><b>Alamat : </b>{{$nasabah->alamat}}</li>
-                <li class="list-group-item"><b>No. Telepon : </b>{{$nasabah->phone}}</li>
+                <li class="list-group-item"><b>Id User : </b>{{$nasabah->id}}</li>
+                <li class="list-group-item"><b>Nama : </b>{{$nasabah->name}}</li>
+                <li class="list-group-item"><b>Email : </b>{{$nasabah->email}}</li>
+                <li class="list-group-item"><b>Role : </b>{{$nasabah->role}}</li>
                 <a class="btn btn-md btn-primary" href="{{ url('/nasabah') }}">Kembali</a>
             </ul>
         </div>
 
-    </div> --}}
+    </div>
 
 
     <!-- /.card -->

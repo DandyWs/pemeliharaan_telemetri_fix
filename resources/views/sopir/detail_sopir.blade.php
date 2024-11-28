@@ -6,12 +6,12 @@
     <!--Default box-->
     <div class="card">
         <div class="card-header">
-            <h3 class="card-title">DATA SOPIR</h3>
+            <h3 class="card-title">Data Komponen</h3>
         </div>
         <div class="card-body">
             <ul class="list-group list-group-flush">
                 {{-- <li class="list-group-item"><b>Id Sopir : </b>{{$sopir->id}}</li> --}}
-                <li class="list-group-item"><b>Nam : </b>{{$sopir->nama}}</li>
+                <li class="list-group-item"><b>Nama : </b>{{$sopir->nama}}</li>
                 {{-- <li class="list-group-item"><b>Alamat : </b>{{$sopir->alamat}}</li>
                 <li class="list-group-item"><b>No. Telepon : </b>{{$sopir->phone}}</li> --}}
                 <a class="btn btn-md btn-primary" href="{{ url('/sopir') }}">Kembali</a>

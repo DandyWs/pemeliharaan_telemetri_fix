@@ -29,10 +29,8 @@
         <a href="#" class="logo"><img src="assets/dist/img/logo_jastir1.jpg" alt="logo" width="60"></a>
         <ul>
           <li><a href="#beranda">Beranda</a></li>
-          <li><a href="#tentang-kami">Tentang Kami</a></li>
-          <li><a href="#sampah">Pemeliharaan Telemetri</a></li>
+          <li><a href="#tentang-kami">Pemeliharaan Telemetri</a></li>
           <li><a href="#temukan-kami">Temukan Kami</a></li>
-          <li><a href="#gabung">Gabung</a></li>
           <li><a href="{{ url('/login') }}" target="_blank">Login</a></li>
         </ul>
       </header>
@@ -51,6 +49,8 @@
     </div>
   </section>
   <br>
+<br>
+<br>
 <br>
   <!--Tentang Kami-->
   <section id="tentang-kami">

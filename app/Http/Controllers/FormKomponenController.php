@@ -2,17 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Sopir;
-use App\Http\Controllers\Controller;
-use App\Models\Komponen2;
-use App\Models\User;
+use App\Models\FormKomponen;
+use App\Models\DetailKomponen;
+use App\Models\Pemeliharaan2;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Storage;
-use Yajra\DataTables\Contracts\DataTable;
-use Yajra\DataTables\DataTables;
+use Yajra\DataTables\Facades\DataTables;
 
-class SopirController extends Controller
+class FormKomponenController extends Controller
 {
     /** 
      * Display a listing of the resource.
@@ -28,10 +24,19 @@ class SopirController extends Controller
         // }
        
         // return view('sopir.sopir')->with('sopir',$sopir);
-        return view('sopir.sopir');
+        return view('form_komponen.form_komponen');
     }
     public function data(){
-        $data = Komponen2::get();
+        $data = FormKomponen::with('DetailKomponen','Komponen2')->get();
+        $data = $data->map(function ($item) {
+            return [
+                'id' => $item->id,
+                'cheked' => $item->cheked,
+                'pemeliharaan2_id' => $item->pemeliharaan2_id,
+                'detail_komponen' => $item->DetailKomponen->namadetail,
+                'namakomponen' => $item->DetailKomponen->Komponen2->nama,
+            ];
+        });
         return DataTables::of($data)
                     ->addIndexColumn()
                     ->make(true);
@@ -45,8 +50,12 @@ class SopirController extends Controller
      */
     public function create()
     {
-        return view('sopir.create_sopir')
-            ->with('url_form', url('/sopir'));
+        $detail_komponen =  DetailKomponen::all();
+        $pemeliharaan2 =  Pemeliharaan2::all();
+        return view('form_komponen.create_form_komponen')
+            ->with('detail_komponen', $detail_komponen)
+            ->with('pemeliharaan2', $pemeliharaan2)
+            ->with('url_form', url('/form_komponen'));
     }
 
     /**
@@ -58,24 +67,18 @@ class SopirController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            
-            'nama'=>'required|string|max:50',
+            'pemeliharaan2_id' => 'required',
+            'detail_komponen_id' => 'required',
+            'cheked' => 'required|boolean',
         ]);
-
-        // if ($request->file('foto')) {
-        //     $file = $request->file('foto');
-        //     $extension = $file->getClientOriginalExtension();
-        //     $filename = 'sopir-' . 'nama' . '.' . $extension;
-        //     $image_name = $file->storeAs('sopirprofile', $filename, 'public');
-        // }
-
         
-        Komponen2::create([
-            'nama' => $request->input('nama'),
-            
+        FormKomponen::create([
+            'pemeliharaan2_id' => $request->pemeliharaan2_id,
+            'detail_komponen_id' => $request->detail_komponen_id,
+            'cheked' => $request->cheked,
         ]);
 
-        return redirect('sopir')->with('success', 'Komponen Berhasil Ditambahkan');
+        return redirect('form_komponen')->with('success', 'Komponen Berhasil Ditambahkan');
     }
 
     /**
@@ -86,13 +89,13 @@ class SopirController extends Controller
      */
     public function show($id)
     {
-        $data = Komponen2::where('id', $id)->first();
+        $data = FormKomponen::where('id', $id)->first();
         // $data = Komponen2::selectRaw('id, nama ');
         // return DataTables::of($data)
         //             ->addIndexColumn()
         //             ->make(true);
         // dd($sopir);
-        return view('sopir.detail_sopir', ['sopir' => $data]);
+        return view('form_komponen.detail_form_komponen', ['form' => $data]);
     }
 
     /**
@@ -103,9 +106,8 @@ class SopirController extends Controller
      */
     public function edit($id)
     {
-        $sopir = Komponen2::find($id);
-        return view('sopir.create_sopir')
-        ->with('spr', $sopir)->with('url_form', url('/sopir/'.$id));
+        $form = FormKomponen::find($id);
+        return view('form_komponen.create_form_komponen')->with('form', $form)->with('url_form', url('/form_komponen/'.$id));
     }
 
     /**
@@ -118,14 +120,12 @@ class SopirController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            // 'id_sopir'=>'required|string|max:10|unique:sopir,id_sopir,'.$id,
-            'nama'=>'required|string|max:50',
-            // 'foto' => 'image|mimes:jpeg,png,jpg|max:2048',
-            // 'alamat'=>'required|string|max:255',
-            // 'phone'=>'required|digits_between:5, 15'
+            'pemeliharaan2_id' => 'required',
+            'detail_komponen_id' => 'required',
+            'cheked' => 'required|boolean',
         ]);
 
-        $sopir = Komponen2::find($id);
+        $form = FormKomponen::find($id);
 
         // if ($request->hasFile('foto')) {
         //     $foto = $request->file('foto');
@@ -136,16 +136,13 @@ class SopirController extends Controller
         //     $sopir->foto = $fotoName;
         // }
 
-        Komponen2::where('id', $id)->update([
-            // 'id_sopir' => $request->id_sopir,
-            'nama' => $request->nama,
-            // 'alamat' => $request->alamat,
-            // 'phone' => $request->phone,
-            // 'email' => $request->email,
-            // 'password' => Hash::make($request->input('password')),
+        FormKomponen::where('id', $id)->update([
+            'pemeliharaan2_id' => $request->pemeliharaan2_id,
+            'detail_komponen_id' => $request->detail_komponen_id,
+            'cheked' => $request->cheked,
         ]);     
 
-        $sopir->save();
+        $form->save();
 
         // // if ($request->filled('password')) {
         //     $user = User::where('email', $sopir->email)->first();
@@ -153,7 +150,7 @@ class SopirController extends Controller
         //     $user->save();
         // }
 
-        return redirect('sopir')
+        return redirect('form_komponen')
             ->with('success', 'Komponen Berhasil Diubah');
     }
 
@@ -165,11 +162,11 @@ class SopirController extends Controller
      */
     public function destroy($id)
     {
-        $sopir = Komponen2::find($id);
+        $sopir = FormKomponen::find($id);
 
         $sopir->delete();
 
-        return redirect('sopir')
+        return redirect('form_komponen')
             ->with('success', 'Komponen Berhasil Dihapus');
     }
 }

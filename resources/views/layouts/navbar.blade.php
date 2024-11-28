@@ -140,25 +140,13 @@
                     <li class="list-group-item">
                         <div class="d-flex justify-content-between align-items-center">
                             <b>Nama</b>
-                            <span>{{ $nasabah->nama }}</span>
+                            <span>{{Auth::user()->nama}}</span>
                         </div>
                     </li>
                     <li class="list-group-item">
                         <div class="d-flex justify-content-between align-items-center">
                             <b>Email</b>
-                            <span>{{ $nasabah->email }}</span>
-                        </div>
-                    </li>
-                    <li class="list-group-item">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <b>Alamat</b>
-                            <span>{{ $nasabah->alamat }}</span>
-                        </div>
-                    </li>
-                    <li class="list-group-item">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <b>Nomor Handphone</b>
-                            <span>{{ $nasabah->phone }}</span>
+                            <span>{{Auth::user()->email}}</span>
                         </div>
                     </li>
                 </ul>

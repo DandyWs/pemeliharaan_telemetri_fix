@@ -4,7 +4,7 @@
 
 <section class="content">
     {{-- <div >
-        {{Breadcrumbs::render('sopir')}}
+        {{Breadcrumbs::render('detail_componen')}}
       </div> --}}
     <div class="card">
         <div class="card-header border-0">
@@ -13,14 +13,15 @@
           </div>
           <div class="card-body">
             <div class="row d-flex justify-between" style="width: 100%; justify-content: space-between; align-items: center; margin: 0">
-              <a href="{{url('sopir/create')}}" class="btn -btn sm btn-success my-2">Tambah Data</a>
+              <a href="{{url('detail_componen/create')}}" class="btn -btn sm btn-success my-2">Tambah Data</a>
 
             </div>
-            <table class="table table-bordered table-striped " id="data_sopir">
+            <table class="table table-bordered table-striped " id="data_detail_componen">
                 <thead>
                     <tr>
                         <th>No.</th>
-                        <th>Nama</th>
+                        <th>Nama Detail Komponen</th>
+                        <th>Nama Komponen</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -49,7 +50,7 @@
         }).then((result) => {
           if(result.isConfirmed){
             var form = $('<form>').attr({
-                            action: "{{url('sopir')}}/" + id,
+                            action: "{{url('detail_componen')}}/" + id,
                             method: 'POST',
                             class: 'delete-form'
                         }).append('@csrf', '@method("DELETE")');
@@ -61,42 +62,33 @@
     });
 
     $(document).ready(function (){
-      var data = $('#data_sopir').DataTable();
+      var data = $('#data_detail_componen').DataTable();
       data.destroy();
-        var data = $('#data_sopir').DataTable({
+        var data = $('#data_detail_componen').DataTable({
             processing:true,
             serverside:true,
             ajax:{
-                'url': '{{  route('datasopir') }}',
+                'url': '{{  route('data_detail_componen') }}',
                 'dataType': 'json',
                 'type': 'POST',
             },
             columns: [
-                { data: null, searchable: false, sortable: false, 
+            { data: null, searchable: false, sortable: false, 
               render: function (data, type, row, meta) {
                   return meta.row + 1;
               }
             },
-            { data: 'nama', name: 'nama', sortable: true, searchable: true },
-            {
+            { data: 'namadetail', name: 'namadetail', sortable: true, searchable: true },
+            { data: 'komponen2', name: 'komponen2', sortable: true, searchable: true },
+            {   
                 data: 'id', name: 'id', searchable: false, sortable: false,
                 render: function (data, type, row, meta) {
-                    return '<a href="{{ url('sopir') }}/' + data + '/edit" class="btn btn-warning btn-sm mr-1"><i class="fa fa-edit"></i> </a>' +
+                    return '<a href="{{ url('detail_componen') }}/' + data + '/edit" class="btn btn-warning btn-sm mr-1"><i class="fa fa-edit"></i> </a>' +
                         '<button class="btn btn-danger btn-sm btn-delete" data-id="' + data + '"><i class="fa fa-trash"></i> </button>' +
-                    `<a href="{{url('/sopir/')}}/` + data +`"class="btn btn-sm btn-primary "><i class="fas fa fa-info-circle"></i></a>`;
+                    `<a href="{{url('/detail_componen/')}}/` + data +`"class="btn btn-sm btn-primary "><i class="fas fa fa-info-circle"></i></a>`;
                 }
                 }
             ]
-            // ]{ data: 'namadetail', name: 'namadetail', sortable: true, searchable: true },
-            // { data: 'komponen2_id', name: 'komponen2_id', sortable: true, searchable: true },
-            // {
-            //     data: 'id', name: 'id', searchable: false, sortable: false,
-            //     render: function (data, type, row, meta) {
-            //         return '<a href="{{ url('detail_componen') }}/' + data + '/edit" class="btn btn-warning btn-sm mr-1"><i class="fa fa-edit"></i> </a>' +
-            //             '<button class="btn btn-danger btn-sm btn-delete" data-id="' + data + '"><i class="fa fa-trash"></i> </button>' +
-            //         `<a href="{{url('/detail_componen/')}}/` + data +`"class="btn btn-sm btn-primary "><i class="fas fa fa-info-circle"></i></a>`;
-            //     }
-            //     }
         });
     });
 
@@ -125,7 +117,7 @@
                     <tr>
                         <th>No.</th>
                         <th>Id</th>
-                        <th>Nama</th>
+                        <th>Namadetaildetail</th>
                         <th>Email</th>
                         <th>Role</th>
                         <th style="width: 150px">Action</th>
@@ -178,7 +170,7 @@
             columns: [
             { data: 'no', searchable: false, sortable: false },
             { data: 'id_nasabah', name: 'id_nasabah', searchable: true, sortable: true },
-            { data: 'nama', name: 'nama', sortable: true, searchable: true },
+            { data: 'namadetaildetail', name: 'namadetaildetail', sortable: true, searchable: true },
             { data: 'email', name: 'email', sortable: false, searchable: true },
             { data: 'role', name: 'role', sortable: false, searchable: true },
             {

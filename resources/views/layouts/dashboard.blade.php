@@ -46,7 +46,7 @@
                         <!-- small box -->
                         <div class="small-box bg-info">
                           <div class="inner">
-                            <h3>{{ $hitungNasabah }}</h3>
+                            <h3>{{ $hitungUser }}</h3>
                             <p>user</p>
                           </div>
                           <div class="icon">
@@ -60,8 +60,8 @@
                         <!-- small box -->
                         <div class="small-box bg-success">
                           <div class="inner">
-                            <h3>{{ $hitungSopir }}</h3>
-                            <p>Form Pemeriksaan</p>
+                            <h3>{{ $hitungKomponen }}</h3>
+                            <p>Komponen</p>
                           </div>
                           <div class="icon">
                             <i class="nav-icon fa fa-sticky-note"></i>
@@ -74,14 +74,14 @@
                         <!-- small box -->
                         <div class="small-box bg-warning">
                           <div class="inner">
-                            <h3>{{ $hitungSampah }}</h3>
+                            <h3>{{ $hitungPemeliharaan }}</h3>
 
                             <p>Form Pemeliharaan</p>
                           </div>
                           <div class="icon">
                             <i class="nav-icon fa fa-id-card"></i>
                           </div>
-                          <a href="{{ url('/sampah') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                          <a href="{{ url('/pemeliharaans') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                         </div>
                       </div>
                       <!-- ./col -->
@@ -89,14 +89,14 @@
                         <!-- small box -->
                         <div class="small-box bg-danger">
                           <div class="inner">
-                            <h3>{{ $hitungJadwal }}</h3>
+                            <h3>{{ $hitungAlat }}</h3>
 
                             <p>Jumlah Alat</p>
                           </div>
                           <div class="icon">
                             <i class="fa fa-calendar"></i>
                           </div>
-                          <a href="{{ url('/jadwal') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                          <a href="{{ url('/alat') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                         </div>
                       </div>
                       <!-- ./col -->
@@ -123,29 +123,32 @@
                                       <th>Cuaca</th>
                                       <th>User</th>
                                       <th>Peralatan Telemetri</th>
+                                      <th>Status</th>
                                     </tr>
                                   </thead>
                                   <tbody>
-                                    {{-- @if ($transaksi ->count() > 0)
+                                    @if ($transaksi ->count() > 0)
                                       @foreach ($transaksi as $i => $k)
                                         <tr>
                                           <td>{{++$i}}</td>
-                                          <td>{{$k->id_jadwal}}</td>
-                                          <td>{{$k->nasabah->nama}}</td>
-                                          <td>{{$k->sopir->id_sopir ?? "Sopir tidak ada"}}</td>
-                                          @if($k->tanggal_pengambilan != NULL)
-                                            <td>{{$k->tanggal_pengambilan}}</td>
+                                          <td>{{$k->tanggal}}</td>
+                                          <td>{{$k->periode}}</td>
+                                          <td>{{$k->cuaca}}</td>
+                                          <td>{{$k->user->name}}</td>
+                                          <td>{{$k->alatTelemetri->lokasiStasiun}}</td>
+                                          @if($k->keterangan != NULL)
+                                            <td>{{$k->keterangan}}</td>
                                           @else
                                             <td>Menunggu Konfirmasi</td>
                                           @endif
-                                          <td>{{$k->konfirmasi}}</td>
+                                          {{-- <td>{{$k->konfirmasi}}</td> --}}
                                         </tr>
                                       @endforeach
-                                    @else --}}
+                                    @else
                                       <tr>
                                         <td colspan="6" class="text-center">Data tidak ada</td>
                                       </tr>
-                                    {{-- @endif --}}
+                                    @endif
                                   </tbody>
                                 </table>
                               </div>

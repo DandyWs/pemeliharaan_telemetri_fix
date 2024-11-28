@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\JenisAlat;
 use App\Models\SampahModel;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Contracts\DataTable;
@@ -26,7 +27,7 @@ class SampahController extends Controller
         return view('sampah.sampah');
     }
     public function data(){
-        $data = SampahModel::selectRaw('id, jenis_sampah, foto ,harga');
+        $data = JenisAlat::selectRaw('id, namajenis, setting');
         return DataTables::of($data)
                     ->addIndexColumn()
                     ->make(true);
@@ -51,21 +52,23 @@ class SampahController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'jenis_sampah'=>'required|string|max:30',
-            'foto' => 'required|image|mimes:jpeg,png,jpg|max:2048',
-            'harga'=>'required|integer',
+            'namajenis'=>'required|string|max:30',
+            // 'foto' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+            // 'harga'=>'required|integer',
+            'setting'=>'required|boolean'
         ]);
 
-        $image_name = $request->file('foto')->store('fotosampah', 'public');
+        // $image_name = $request->file('foto')->store('fotosampah', 'public');
 
-        SampahModel::create([
-            'jenis_sampah' => $request->jenis_sampah,
-            'foto' => $image_name,
-            'harga' => $request->harga,
+        JenisAlat::create([
+            'namajenis' => $request->namajenis,
+            // 'foto' => $image_name,
+            // 'harga' => $request->harga,
+            'setting' => $request->setting
         ]);
 
         return redirect('sampah')
-            ->with('success','Sampah Berhasil Ditambahkan');
+            ->with('success','Jenis Alat Berhasil Ditambahkan');
     }
 
     /**
@@ -87,7 +90,7 @@ class SampahController extends Controller
      */
     public function edit($id)
     {
-        $sampah=SampahModel::find($id);
+        $sampah=JenisAlat::find($id);
         return view('sampah.create_sampah')
             ->with('sampah', $sampah)
             ->with('url_form',url('/sampah/'. $id));
@@ -103,21 +106,23 @@ class SampahController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'jenis_sampah'=>'required|string|max:30',
-            'foto' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
-            'harga'=>'required|integer'
+            'namajenis'=>'required|string|max:30',
+            // 'foto' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+            // 'harga'=>'required|integer'
+            'setting'=>'required|boolean'
         ]);
 
-        $image_name = $request->file('foto')->store('fotosampah', 'public');
+        // $image_name = $request->file('foto')->store('fotosampah', 'public');
 
-        SampahModel::where('id', $id)->update([
-            'jenis_sampah' => $request->jenis_sampah,
-            'foto' => $image_name,
-            'harga' => $request->harga,
+        JenisAlat::where('id', $id)->update([
+            'namajenis' => $request->namajenis,
+            // 'foto' => $image_name,
+            // 'harga' => $request->harga,
+            'setting' => $request->setting
         ]);
 
         return redirect('sampah')
-            ->with('success', 'Sampah Berhasil Diubah');
+            ->with('success', 'Jenis Alat Berhasil Diubah');
     }
 
     /**
@@ -129,8 +134,8 @@ class SampahController extends Controller
     public function destroy($id)
     {
         
-        SampahModel::where('id','=',$id)->delete();
+        JenisAlat::where('id','=',$id)->delete();
         return redirect('sampah')
-        ->with('success','Sampah Berhasil Dihapus');
+        ->with('success','Jenis Alat Berhasil Dihapus');
     }
 }
