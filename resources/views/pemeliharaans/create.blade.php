@@ -39,8 +39,8 @@
 <section class="content">
     <div class="card">
     <div class="card-header text-center">
-            <h2>LAPORAN PEMELIHARAAN DAN</h2>
-            <h2>KALIBRASI INTERNAL PERALATAN TELEMETRI GSM</h2>
+            <h2><strong>LAPORAN PEMELIHARAAN DAN</strong></h2>
+            <h2><strong>KALIBRASI INTERNAL PERALATAN TELEMETRI GSM</strong></h2>
             </h2>
             <br>
         </div>
