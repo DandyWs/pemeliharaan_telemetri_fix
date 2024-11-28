@@ -38,8 +38,10 @@
 </div> --}}
 <section class="content">
     <div class="card">
-        <div class="card-header">
-            <h3 class="card-title"> Form Pemeliharaan Telemetri </h3>
+    <div class="card-header text-center">
+            <h2>LAPORAN PEMELIHARAAN DAN</h2>
+            <h2>KALIBRASI INTERNAL PERALATAN TELEMETRI GSM</h2>
+            </h2>
             <br>
         </div>
         <div class="card-body">
