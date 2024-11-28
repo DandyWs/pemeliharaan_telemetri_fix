@@ -47,7 +47,7 @@
                         <div class="small-box bg-info">
                           <div class="inner">
                             <h3>{{ $hitungUser }}</h3>
-                            <p>user</p>
+                            <p>User</p>
                           </div>
                           <div class="icon">
                             <i class="fas fa-users fa-2x"></i>
@@ -64,7 +64,7 @@
                             <p>Komponen</p>
                           </div>
                           <div class="icon">
-                            <i class="nav-icon fa fa-sticky-note"></i>
+                            <i class="nav-icon fas fa-solid fa fa-puzzle-piece"></i>
                           </div>
                           <a href="{{ url('/sopir') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                         </div>
@@ -79,7 +79,7 @@
                             <p>Form Pemeliharaan</p>
                           </div>
                           <div class="icon">
-                            <i class="nav-icon fa fa-id-card"></i>
+                            <i class="nav-icon fas fa-solid fa fa-pen"></i>
                           </div>
                           <a href="{{ url('/pemeliharaans') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                         </div>
@@ -94,7 +94,7 @@
                             <p>Jumlah Alat</p>
                           </div>
                           <div class="icon">
-                            <i class="fa fa-calendar"></i>
+                            <i class="nav-icon fas fa-solid fa fa-toolbox"></i>
                           </div>
                           <a href="{{ url('/alat') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                         </div>
