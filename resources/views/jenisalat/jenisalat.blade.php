@@ -2,7 +2,7 @@
 @section('content')
 <section class="content">
   {{-- <div >
-    {{Breadcrumbs::render('sampah')}}
+    {{Breadcrumbs::render('jenisalat')}}
   </div> --}}
     <div class="card">
         <div class="card-header border-0">
@@ -11,9 +11,9 @@
           </div>
           <div class="card-body">
             <div class="row d-flex justify-between" style="width: 100%; justify-content: space-between; align-items: center; margin: 0">
-              <a href="{{url('sampah/create')}}" class="btn -btn sm btn-success my-2">Tambah Data</a>
+              <a href="{{url('jenisalat/create')}}" class="btn -btn sm btn-success my-2">Tambah Data</a>
             </div>
-            <table class="table table-bordered table-striped " id="data_sampah">
+            <table class="table table-bordered table-striped " id="data_jenisalat">
               <thead>
                 <tr>
                   <th>#</th>
@@ -45,7 +45,7 @@
         }).then((result) => {
           if(result.isConfirmed){
             var form = $('<form>').attr({
-                            action: "{{url('sampah')}}/" + id,
+                            action: "{{url('jenisalat')}}/" + id,
                             method: 'POST',
                             class: 'delete-form'
                         }).append('@csrf', '@method("DELETE")');
@@ -56,13 +56,13 @@
 
     });
     $(document).ready(function (){
-      var data = $('#data_sampah').DataTable();
+      var data = $('#data_jenisalat').DataTable();
       data.destroy();
-        var data = $('#data_sampah').DataTable({
+        var data = $('#data_jenisalat').DataTable({
             processing:true,
             serverside:true,
             ajax:{
-                'url': '{{  url('sampah/data') }}',
+                'url': '{{  url('jenisalat/data') }}',
                 'dataType': 'json',
                 'type': 'POST',
             },
@@ -71,13 +71,13 @@
                 {data:'namajenis',name:'namajenis',searchable:true,sortable:true},
                 {data:'setting',name:'setting',searchable:true,sortable:true},
                 //  {data: 'foto',name: 'foto',sortable: false,searchable: false,render: function(data, type, row, meta) {return "<img src=\"{{ asset('storage') }}/" + data +
-                //      "\" height=\"auto\" width=\"100px\" alt=\"foto sampah\">";
+                //      "\" height=\"auto\" width=\"100px\" alt=\"foto jenisalat\">";
                 //    }
                 //   },
                 // {data:'harga',name:'harga',searchable:true,sortable:true},
                 {data:'id',name:'id',searchable:false,sortable:false,
                 render: function(data, type, row, meta){
-                  return '<a href="{{url('sampah')}}/' + data + '/edit" class="btn btn-warning btn-sm mr-1"><i class="fa fa-edit"></i> </a>' +
+                  return '<a href="{{url('jenisalat')}}/' + data + '/edit" class="btn btn-warning btn-sm mr-1"><i class="fa fa-edit"></i> </a>' +
                                 '<button class="btn btn-danger btn-sm btn-delete" data-id="' + data + '"><i class="fa fa-trash"></i> </button>';
                     }
                 }

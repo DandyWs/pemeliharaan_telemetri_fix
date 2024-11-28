@@ -12,11 +12,11 @@
         <div class="card-body">
           <form method="POST" action="{{ $url_form }}" enctype="multipart/form-data">
                 @csrf
-                {!! (isset($sampah))? method_field('PUT'):''!!}
+                {!! (isset($jenisalat))? method_field('PUT'):''!!}
                 
                 <div class="form-group">
                   <label>Nama Jenis</label>
-                  <input class="form-control @error('namajenis') is-invalid @enderror" value="{{isset($sampah)? $sampah->namajenis : old('namajenis') }}" name="namajenis" type="text"/>
+                  <input class="form-control @error('namajenis') is-invalid @enderror" value="{{isset($jenisalat)? $jenisalat->namajenis : old('namajenis') }}" name="namajenis" type="text"/>
                   @error('namajenis')
                     <span class="error invalid-feedback">{{ $message }} </span>
                   @enderror
@@ -31,21 +31,21 @@
                 <div class="form-group">
                     <label>Setting</label>
                     <input type="hidden" name="setting" value="0">
-                    <input class="form-control @error('setting') is-invalid @enderror" type="checkbox" name="setting" value="1" {{ (isset($sampah) && $sampah->setting == 1) ? 'checked' : '' }}>
+                    <input class="form-control @error('setting') is-invalid @enderror" type="checkbox" name="setting" value="1" {{ (isset($jenisalat) && $jenisalat->setting == 1) ? 'checked' : '' }}>
                     @error('setting')
                     <span class="error invalid-feedback">{{ $message }} </span>
                     @enderror
                 </div>
                 {{-- <div class="form-group">
                   <label>Setting</label>
-                  <input class="form-control @error('setting') is-invalid @enderror" value="{{isset($sampah)? $sampah->setting : old('setting') }}" name="setting" type="checkbox"/>
+                  <input class="form-control @error('setting') is-invalid @enderror" value="{{isset($jenisalat)? $jenisalat->setting : old('setting') }}" name="setting" type="checkbox"/>
                   @error('setting')
                     <span class="error invalid-feedback">{{ $message }} </span>
                   @enderror
                 </div> --}}
                 <div class="form-group mt-3">
                   <button class="btn btn-sm btn-success">Simpan</button>
-                  <a class="btn btn-sm btn-primary" href="{{ url('/sampah') }}">Kembali</a>
+                  <a class="btn btn-sm btn-primary" href="{{ url('/jenisalat') }}">Kembali</a>
               </div>
               </form>
       

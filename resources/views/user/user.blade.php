@@ -4,7 +4,7 @@
 
 <section class="content">
     {{-- <div >
-        {{Breadcrumbs::render('nasabah')}}
+        {{Breadcrumbs::render('user')}}
       </div> --}}
     <div class="card">
         <div class="card-header border-0">
@@ -13,9 +13,9 @@
           </div>
           <div class="card-body">
             <div class="row d-flex justify-between" style="width: 100%; justify-content: space-between; align-items: center; margin: 0">
-              <a href="{{url('nasabah/create')}}" class="btn -btn sm btn-success my-2">Tambah Data</a>
+              <a href="{{url('user/create')}}" class="btn -btn sm btn-success my-2">Tambah Data</a>
             </div>
-              <table class="table table-bordered table-striped " id="data_nasabah">
+              <table class="table table-bordered table-striped " id="data_user">
                 <thead>
                     <tr>
                         <th>#</th>
@@ -48,7 +48,7 @@
         }).then((result) => {
           if(result.isConfirmed){
             var form = $('<form>').attr({
-                            action: "{{url('nasabah')}}/" + id,
+                            action: "{{url('user')}}/" + id,
                             method: 'POST',
                             class: 'delete-form'
                         }).append('@csrf', '@method("DELETE")');
@@ -59,13 +59,13 @@
 
     });
        $(document).ready(function (){
-      var data = $('#data_nasabah').DataTable();
+      var data = $('#data_user').DataTable();
       data.destroy();
-        var data = $('#data_nasabah').DataTable({
+        var data = $('#data_user').DataTable({
             processing:true,
             serverside:true,
             ajax:{
-                'url': '{{  url('nasabah/data') }}',
+                'url': '{{  url('user/data') }}',
                 'dataType': 'json',
                 'type': 'POST',
             },
@@ -77,9 +77,9 @@
             {
                 data: 'id', name: 'id', searchable: false, sortable: false,
                 render: function (data, type, row, meta) {
-                    return '<a href="{{ url('nasabah') }}/' + data + '/edit" class="btn btn-warning btn-sm mr-1"><i class="fa fa-edit"></i> </a>' +
+                    return '<a href="{{ url('user') }}/' + data + '/edit" class="btn btn-warning btn-sm mr-1"><i class="fa fa-edit"></i> </a>' +
                         '<button class="btn btn-danger btn-sm btn-delete" data-id="' + data + '"><i class="fa fa-trash"></i> </button>' +
-                    `<a href="{{url('/nasabah/')}}/` + data +`"class="btn btn-sm btn-primary "><i class="fas fa fa-info-circle"></i></a>`;
+                    `<a href="{{url('/user/')}}/` + data +`"class="btn btn-sm btn-primary "><i class="fas fa fa-info-circle"></i></a>`;
                 }
             }
         ]

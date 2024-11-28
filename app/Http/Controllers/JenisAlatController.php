@@ -3,12 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\JenisAlat;
-use App\Models\SampahModel;
+use App\Models\JenisAlatModel;
+// use App\Models\JenisAlatModel;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Contracts\DataTable;
 use Yajra\DataTables\DataTables;
 
-class SampahController extends Controller
+class JenisAlatController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,13 +19,13 @@ class SampahController extends Controller
     public function index(Request $request)
     {
        /**if($request->has('search')){
-            $sampah = SampahModel::where('jenis_sampah','LIKE','%'.$request->search.'%')->paginate(10);
+            $jenis_alat = Jenis_alatModel::where('jenis_jenisalat','LIKE','%'.$request->search.'%')->paginate(10);
         }else{
-            $sampah = SampahModel::paginate(25);
+            $jenisalat = JenisAlatModel::paginate(25);
         }
        
-        return view('sampah.sampah')->with('sampah',$sampah); */ 
-        return view('sampah.sampah');
+        return view('jenisalat.jenisalat')->with('jenisalat',$jenisalat); */ 
+        return view('jenisalat.jenisalat');
     }
     public function data(){
         $data = JenisAlat::selectRaw('id, namajenis, setting');
@@ -39,8 +40,8 @@ class SampahController extends Controller
      */
     public function create()
     {
-        return view ('sampah.create_sampah')
-        ->with('url_form',url('/sampah'));
+        return view ('jenisalat.create_jenisalat')
+        ->with('url_form',url('/jenisalat'));
     }
 
     /**
@@ -58,7 +59,7 @@ class SampahController extends Controller
             'setting'=>'required|boolean'
         ]);
 
-        // $image_name = $request->file('foto')->store('fotosampah', 'public');
+        // $image_name = $request->file('foto')->store('fotojenisalat', 'public');
 
         JenisAlat::create([
             'namajenis' => $request->namajenis,
@@ -67,7 +68,7 @@ class SampahController extends Controller
             'setting' => $request->setting
         ]);
 
-        return redirect('sampah')
+        return redirect('jenisalat')
             ->with('success','Jenis Alat Berhasil Ditambahkan');
     }
 
@@ -90,10 +91,10 @@ class SampahController extends Controller
      */
     public function edit($id)
     {
-        $sampah=JenisAlat::find($id);
-        return view('sampah.create_sampah')
-            ->with('sampah', $sampah)
-            ->with('url_form',url('/sampah/'. $id));
+        $jenisalat=JenisAlat::find($id);
+        return view('jenisalat.create_jenisalat')
+            ->with('jenisalat', $jenisalat)
+            ->with('url_form',url('/jenisalat/'. $id));
     }
 
     /**
@@ -112,7 +113,7 @@ class SampahController extends Controller
             'setting'=>'required|boolean'
         ]);
 
-        // $image_name = $request->file('foto')->store('fotosampah', 'public');
+        // $image_name = $request->file('foto')->store('fotojenisalat', 'public');
 
         JenisAlat::where('id', $id)->update([
             'namajenis' => $request->namajenis,
@@ -121,7 +122,7 @@ class SampahController extends Controller
             'setting' => $request->setting
         ]);
 
-        return redirect('sampah')
+        return redirect('jenisalat')
             ->with('success', 'Jenis Alat Berhasil Diubah');
     }
 
@@ -135,7 +136,7 @@ class SampahController extends Controller
     {
         
         JenisAlat::where('id','=',$id)->delete();
-        return redirect('sampah')
+        return redirect('jenisalat')
         ->with('success','Jenis Alat Berhasil Dihapus');
     }
 }
