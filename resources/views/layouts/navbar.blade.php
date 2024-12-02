@@ -76,9 +76,9 @@
             <div class="modal-body">
                 <div class="d-flex justify-content-center">
                     <div class="image-preview">
-                        @if (Auth::user()->role == "admin")
+                        {{-- @if (Auth::user()->role == "admin") --}}
                             <img src="assets/dist/img/profile.png" class="rounded-circle" width="100px" alt="User Image">
-                        @elseif(Auth::user()->role == "nasabah")
+                        {{-- @elseif(Auth::user()->role == "nasabah")
                             @if (empty($nasabah->foto))
                                 <img src="assets/dist/img/profile.png" class="" alt="User Image" width="100px">
                             @else
@@ -89,11 +89,11 @@
                                 <img src="assets/dist/img/profile.png" class="" alt="User Image" width="40px">
                             @else
                                 <img src="{{asset('storage/sopirprofile/'.$sopir->foto)}}" class="elevation-2 img-fluid img-thumbnail rounded-circle" width="40px" alt="User Image">
-                            @endif
-                        @endif
+                            @endif --}}
+                        {{-- @endif --}}
                     </div>
                 </div>
-                @if (Auth::user()->role == "admin")
+                
                 <ul class="list-group list-group-flush">
                     <li class="list-group-item">
                         <div class="d-flex justify-content-between align-items-center">
@@ -108,49 +108,7 @@
                         </div>
                     </li>
                 </ul>
-                @elseif (Auth::user()->role == "sopir")
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <b>Nama</b>
-                            <span>{{ Auth::user()->sopir->nama }}</span>
-                        </div>
-                    </li>
-                    <li class="list-group-item">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <b>Email</b>
-                            <span>{{ Auth::user()->sopir->email }}</span>
-                        </div>
-                    </li>
-                    <li class="list-group-item">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <b>Alamat</b>
-                            <span>{{ Auth::user()->sopir->alamat }}</span>
-                        </div>
-                    </li>
-                    <li class="list-group-item">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <b>Nomor Handphone</b>
-                            <span>{{ Auth::user()->sopir->phone }}</span>
-                        </div>
-                    </li>
-                </ul>
-                @else
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <b>Nama</b>
-                            <span>{{Auth::user()->nama}}</span>
-                        </div>
-                    </li>
-                    <li class="list-group-item">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <b>Email</b>
-                            <span>{{Auth::user()->email}}</span>
-                        </div>
-                    </li>
-                </ul>
-                @endif
+                
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary btn-sm btn-danger" data-dismiss="modal">Tutup</button>
