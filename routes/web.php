@@ -27,6 +27,7 @@ use App\Http\Controllers\TransaksibaruController;
 use App\Http\Controllers\TransaksiController;
 use App\Models\DetailKomponen;
 use App\Models\FormKomponen;
+use Doctrine\DBAL\Driver\Middleware;
 
 /*
 |--------------------------------------------------------------------------
@@ -90,6 +91,34 @@ Route::group(['middleware' => ['auth', 'role:admin']], function(){
 
 Route::group(['middleware' => ['auth', 'role:mekanik']], function(){
     // Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::resource('/pemeliharaans', PemeliharaanController::class)->parameter('pemeliharaan','id');
+    Route::post('pemeliharaans/data',[PemeliharaanController::class,'data'])->name('data_pemeliharaan');
+    Route::resource('/alat', AlatController::class)->parameter('alat','id');
+    Route::post('alat/data',[AlatController::class,'data'])->name('data_alat');
+    Route::resource('/jenisalat', JenisAlatController::class)->parameter('jenisalat', 'id');
+    Route::post('jenisalat/data',[JenisAlatController::class,'data']);
+    Route::resource('/komponen', KomponenController::class)->parameter('komponen', 'id');
+    Route::post('komponen/data',[KomponenController::class,'data'])->name('datakomponen');
 });
 
+Route::group(['middleware' => ['auth', 'role:manager']], function(){
+    // Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    // Route::resource('/pemeliharaans', PemeliharaanController::class)->parameter('pemeliharaan','id');
+    // Route::post('pemeliharaans/data',[PemeliharaanController::class,'data'])->name('data_pemeliharaan');
+    Route::resource('/pemeliharaans', PemeliharaanController::class)->parameter('pemeliharaan','id');
+    Route::post('pemeliharaans/data',[PemeliharaanController::class,'data'])->name('data_pemeliharaan');
+    // Route::resource('/alat', AlatController::class)->parameter('alat','id');
+    // Route::post('alat/data',[AlatController::class,'data'])->name('data_alat');
+    // Route::resource('/jenisalat', JenisAlatController::class)->parameter('jenisalat', 'id');
+    // Route::post('jenisalat/data',[JenisAlatController::class,'data']);
+    // Route::resource('/komponen', KomponenController::class)->parameter('komponen', 'id');
+    // Route::post('komponen/data',[KomponenController::class,'data'])->name('datakomponen');
+    // Route::resource('/detail_componen', DetailController::class)->parameter('detail_componen','id');
+    // Route::post('detail_componen/data',[DetailController::class,'data'])->name('data_detail_componen');
+    // Route::resource('/alat', AlatController::class)->parameter('alat','id');
+    // Route::post('alat/data',[AlatController::class,'data'])->name('data_alat');
+    // Route::resource('/setting', SettingController::class)->parameter('setting','id');
+    // Route::post('setting/data',[SettingController::class,'data'])->name('data_setting');
+    // Route::resource('/form_komponen', FormKomponen::class)->parameter('form_komponen','id');
+});
 Route::get('/', [IndexController::class, 'index'])->name('dashboard');
