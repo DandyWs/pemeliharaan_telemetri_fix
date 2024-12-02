@@ -7,8 +7,9 @@ use App\Http\Controllers2\HomeController;
 use App\Http\Controllers2\Setting2Controller;
 use App\Http\Controllers2\Komponen2Controller;
 use App\Http\Controllers\JenisAlatController;
-use App\Http\Controllers2\PemeriksaanController;
+// use App\Http\Controllers2\PemeriksaanController;
 use App\Http\Controllers\PemeliharaanController;
+use App\Http\Controllers\PemeriksaanController;
 use App\Http\Controllers\AlatController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\CetakLaporan;
@@ -65,6 +66,9 @@ Route::get('/logout',[LoginController::class,'logout']);
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 Route::resource('/pemeliharaans', PemeliharaanController::class)->parameter('pemeliharaan','id');
     Route::post('pemeliharaans/data',[PemeliharaanController::class,'data'])->name('data_pemeliharaan');
+
+Route::resource('/pemeriksaan', PemeriksaanController::class)->parameter('pemeriksaan','id');
+    Route::post('pemeriksaan/data',[PemeriksaanController::class,'data'])->name('data_pemeriksaan');
 
 Route::resource('/alat', AlatController::class)->parameter('alat','id');
     Route::post('alat/data',[AlatController::class,'data'])->name('data_alat'); 

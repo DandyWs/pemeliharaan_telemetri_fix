@@ -27,7 +27,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
+                            <a href="{{ url('/pemeriksaan') }}" class="nav-link">
                                 <i class="nav-icon fas fa-solid fa-check"></i>
                                 <p>Pemeriksaan</p>
                             </a>
@@ -74,7 +74,7 @@
 
             @if (Auth::user()->role == 'manager')
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a href="{{ url('/pemeriksaan') }}" class="nav-link">
                         <i class="nav-icon fas fa-solid fa-pen"></i>
                           <p>Pemeriksaan</p>
                     </a>

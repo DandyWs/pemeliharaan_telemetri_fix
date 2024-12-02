@@ -11,12 +11,16 @@ class Pemeriksaan extends Model
     use HasFactory;
     use Searchable;
 
-    protected $fillable = ['ttd', 'catatan', 'pemeliharaan2_id'];
+    protected $fillable = ['ttd', 'catatan', 'pemeliharaan2_id', 'user_id'];
 
     protected $searchableFields = ['*'];
 
     public function pemeliharaan2()
     {
         return $this->belongsTo(Pemeliharaan2::class);
+    }
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 }
