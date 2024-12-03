@@ -13,7 +13,7 @@
           </div>
           <div class="card-body">
             <div class="row d-flex justify-between" style="width: 100%; justify-content: space-between; align-items: center; margin: 0">
-              <a href="{{url('pemeliharaans/create')}}" class="btn -btn sm btn-success my-2">Tambah Data</a>
+              <a href="{{url('pemeriksaan/create')}}" class="btn -btn sm btn-success my-2">Tambah Data</a>
 
             </div>
             <table class="table table-bordered table-striped " id="data_detail_componen">

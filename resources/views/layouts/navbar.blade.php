@@ -36,9 +36,9 @@
             <div class="dropdown">
                 <div class="mt-1 d-flex" role="button" id="profileDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <div class="profile rounded-circle mr-2">
-                        @if (Auth::user()->role == "admin")
+                        {{-- @if (Auth::user()) --}}
                             <img src="assets/dist/img/profile.png" class="" alt="User Image" width="40px">
-                        @elseif(Auth::user()->role == "nasabah")
+                        {{-- @elseif(Auth::user()->role == "nasabah")
                             @if (empty($nasabah->foto))
                                 <img src="assets/dist/img/profile.png" class="" alt="User Image" width="40px">
                             @else
@@ -49,8 +49,8 @@
                                 <img src="assets/dist/img/profile.png" class="" alt="User Image" width="40px">
                             @else
                                 <img src="{{asset('storage/sopirprofile/'.$sopir->foto)}}" class="elevation-2 img-fluid img-thumbnail rounded-circle" width="40px" alt="User Image">
-                            @endif
-                        @endif
+                            @endif --}}
+                        {{-- @endif --}}
                     </div>
                 </div>
                 <div class="dropdown-menu dropdown-menu-right fade" style="min-width: 0; border: none; padding: 0;">

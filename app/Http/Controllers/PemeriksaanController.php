@@ -2,8 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AlatTelemetri;
+use App\Models\DetailKomponen;
+use App\Models\JenisAlat;
+use App\Models\Komponen2;
 use App\Models\Pemeriksaan;
 use App\Models\Pemeliharaan2;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -55,18 +60,22 @@ class PemeriksaanController extends Controller
      */
     public function create()
     {
-        // $alat = AlatTelemetri::all();
-        // $user = User::all();
-        // $jenisAlat =  JenisAlat::all();
-        // $komponen = Komponen2::all();
-        // $detailKomponen = DetailKomponen::all();
-        // return view('pemeliharaans.create')
-        //     ->with('alat', $alat)
-        //     ->with('user', $user)
-        //     ->with('jenisAlat', $jenisAlat)
-        //     ->with('komponen', $komponen)
-        //     ->with('detailKomponen', $detailKomponen)
-        //     ->with('url_form', url('/pemeliharaans'));
+        $alat = AlatTelemetri::all();
+        $pemelihaaran = Pemeliharaan2::all();
+        $pemeriksaan = Pemeriksaan::all();
+        $user = User::all();
+        $jenisAlat =  JenisAlat::all();
+        $komponen = Komponen2::all();
+        $detailKomponen = DetailKomponen::all();
+        return view('pemeriksaan.create')
+            ->with('alat', $alat)
+            ->with('user', $user)
+            ->with('pemeliharaan', $pemelihaaran)
+            ->with('pemeriksaan', $pemeriksaan)
+            ->with('jenisAlat', $jenisAlat)
+            ->with('komponen', $komponen)
+            ->with('detailKomponen', $detailKomponen)
+            ->with('url_form', url('/pemeriksaan'));
     }
 
     /**
