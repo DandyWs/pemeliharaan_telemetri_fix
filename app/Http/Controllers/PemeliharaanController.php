@@ -139,9 +139,25 @@ class PemeliharaanController extends Controller
      */
     public function edit($id)
     {
-        $sopir = Pemeliharaan2::find($id);
+        $pemeliharaan = Pemeliharaan2::find($id);
+        $alat = AlatTelemetri::all();
+        $user = User::all();
+        $jenisAlat =  JenisAlat::all();
+        $komponen = Komponen2::all();
+        $detailKomponen = DetailKomponen::all();
+
+        // Debugging statements
+        if (is_null($pemeliharaan)) {
+            dd("Pemeliharaan with ID $id not found");
+        }
+
         return view('pemeliharaans.create')
-        ->with('spr', $sopir)->with('url_form', url('/pemeliharaans/'.$id));
+            ->with('alat', $alat)
+            ->with('user', $user)
+            ->with('jenisAlat', $jenisAlat)
+            ->with('komponen', $komponen)
+            ->with('detailKomponen', $detailKomponen)
+        ->with('pemeliharaan', $pemeliharaan)->with('url_form', url('/pemeliharaans/'.$id));
     }
 
     /**
