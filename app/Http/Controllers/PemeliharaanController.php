@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\AlatTelemetri;
 use App\Models\DetailKomponen;
+use App\Models\FormKomponen;
 use App\Models\User;
 use App\Models\JenisAlat;
 use App\Models\Komponen2;
@@ -123,12 +124,15 @@ class PemeliharaanController extends Controller
     public function show($id)
     {
         $data = Pemeliharaan2::where('id', $id)->first();
-        // $data = Komponen2::selectRaw('id, nama ');
-        // return DataTables::of($data)
-        //             ->addIndexColumn()
-        //             ->make(true);
-        // dd($sopir);
-        return view('pemeliharaans.show', ['pemeliharaan' => $data]);
+        $formKomponen = FormKomponen::where('pemeliharaan2_id', $id)->get();
+        $detailKomponen = DetailKomponen::where('id', $data->detail_komponen_id)->get();
+        $komponen = Komponen2::where('id', $data->komponen_id)->get();
+        return view('pemeliharaans.show', [
+            'pemeliharaan' => $data, 
+            'formKomponen' => $formKomponen,
+            'detailKomponen' => $detailKomponen,
+            'komponen' => $komponen
+        ]);
     }
 
     /**

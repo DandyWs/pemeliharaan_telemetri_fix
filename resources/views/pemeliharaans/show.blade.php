@@ -94,8 +94,17 @@
                 <li class="list-group-item"><b>Lokasi Stasiun : </b>{{$pemeliharaan->alatTelemetri->lokasiStasiun}}</li>
                 <li class="list-group-item"><b>Jenis Peralatan : </b>{{$pemeliharaan->alatTelemetri->jenisAlat->namajenis}}</li>
                 <li class="list-group-item"><b>Keterangan : </b>{{$pemeliharaan->keterangan ?? 'Menunggu Konfirmasi'}}</li>
-                <a class="btn btn-md btn-primary" href="{{ url('/pemeliharaans') }}">Kembali</a>
             </ul>
+            <div class="row">
+                @foreach ($komponen as $komponen)
+                <div class="col-md-6">
+                    <h3 class="card-title">{{ $komponen->nama }}</h3>
+                    {{-- @foreach ($komponen->detailKomponen as $detail)
+                    @endforeach --}}
+                </div>
+                @endforeach
+            </div>
+            <a class="btn btn-md btn-primary" href="{{ url('/pemeliharaans') }}">Kembali</a>
         </div>
         
     </div>
