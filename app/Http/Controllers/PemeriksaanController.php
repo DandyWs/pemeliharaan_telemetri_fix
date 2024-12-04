@@ -9,12 +9,15 @@ use App\Models\Komponen2;
 use App\Models\Pemeriksaan;
 use App\Models\Pemeliharaan2;
 use App\Models\User;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\PemeriksaanExport;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
 
 class PemeriksaanController extends Controller
 {
-    // ///** 
+    // ///**
     //  * Display a listing of the resource.
     //  *
     //  * @return \Illuminate\Http\Response
@@ -26,7 +29,7 @@ class PemeriksaanController extends Controller
         // }else{
         //     $sopir = Komponen2::paginate(25);
         // }
-       
+
         // return view('sopir.sopir')->with('sopir',$sopir);
         return view('pemeriksaan.index');
     }
@@ -104,7 +107,7 @@ class PemeriksaanController extends Controller
         //     $image_name = $file->storeAs('sopirprofile', $filename, 'public');
         // }
 
-        
+
         Pemeliharaan2::create([
             'tanggal' => $request->input('tanggal'),
             'waktu' => $request->input('waktu'),
@@ -190,7 +193,7 @@ class PemeriksaanController extends Controller
             'no_GSM' => $request->input('no_GSM'),
             'alat_telemetri_id' => $request->input('alat_telemetri_id'),
             'user_id' => $request->input('user_id'),
-        ]);     
+        ]);
 
         $sopir->save();
 
@@ -214,4 +217,22 @@ class PemeriksaanController extends Controller
         return redirect('pemeliharaans')
             ->with('success', 'Pemeliharaan Berhasil Dihapus');
     }
+
+    public function export(Request $request, $format)
+    {
+        $this->authorize('view-any', Pemeliharaan2::class);
+
+        $pemeriksaans = Pemeriksaan::all();
+
+        if ($format === 'pdf') {
+            $pdf = Pdf::loadView('app.pemeriksaans.export_pdf', compact('pemeriksaans'));
+            return $pdf->download('pemeriksaan_list.pdf');
+        } elseif ($format === 'xlsx') {
+            return Excel::download(new PemeriksaanExport, 'pemeriksaan_list.xlsx');
+        }
+
+        return redirect()->route('pemeriksaans.index')
+            ->withErrors(__('crud.common.export_failed'));
+    }
+
 }

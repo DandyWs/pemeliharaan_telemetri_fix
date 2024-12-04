@@ -14,7 +14,14 @@
           <div class="card-body">
             <div class="row d-flex justify-between" style="width: 100%; justify-content: space-between; align-items: center; margin: 0">
               <a href="{{url('pemeriksaan/create')}}" class="btn -btn sm btn-success my-2">Tambah Data</a>
-
+              <div class="col-md-6 text-right">
+                <a href="{{ route('pemeliharaans.export', ['format' => 'pdf']) }}" class="btn btn-danger ml-2">
+                    <i class="icon ion-md-download"></i> Export PDF
+                </a>
+                <a href="{{ route('pemeliharaans.export', ['format' => 'xlsx']) }}" class="btn btn-success ml-2">
+                    <i class="icon ion-md-download"></i> Export XLSX
+                </a>
+            </div>
             </div>
             <table class="table table-bordered table-striped " id="data_detail_componen">
                 <thead>
@@ -80,15 +87,15 @@
                 'type': 'POST',
             },
             columns: [
-            { data: null, searchable: false, sortable: false, 
+            { data: null, searchable: false, sortable: false,
               render: function (data, type, row, meta) {
                   return meta.row + 1;
               }
             },
-            { 
-                data: null, 
-                name: 'tanggal_waktu', 
-                sortable: true, 
+            {
+                data: null,
+                name: 'tanggal_waktu',
+                sortable: true,
                 searchable: true,
                 render: function (data, type, row, meta) {
                     return row.tanggal + ' ' + row.waktu;
@@ -102,16 +109,16 @@
             { data: 'jenis_alat', name: 'jenis_alat', sortable: true, searchable: true },
             { data: 'alat_telemetri_id', name: 'alat_telemetri_id', sortable: true, searchable: true },
             { data: 'user_id', name: 'user_id', sortable: true, searchable: true },
-            { 
-                data: 'keterangan', 
-                name: 'keterangan', 
-                sortable: true, 
+            {
+                data: 'keterangan',
+                name: 'keterangan',
+                sortable: true,
                 searchable: true,
                 render: function (data, type, row, meta) {
                     return data ? data : 'Menunggu Konfirmasi';
                 }
             },
-            {   
+            {
                 data: 'id', name: 'id', searchable: false, sortable: false,
                 render: function (data, type, row, meta) {
                     return '<a href="{{ url('pemeliharaans') }}/' + data + '/edit" class="btn btn-warning btn-sm mr-1"><i class="fa fa-edit"></i> </a>' +
