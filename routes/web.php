@@ -71,7 +71,7 @@ Route::resource('/pemeriksaan', PemeriksaanController::class)->parameter('pemeri
     Route::post('pemeriksaan/data',[PemeriksaanController::class,'data'])->name('data_pemeriksaan');
 
 Route::resource('/alat', AlatController::class)->parameter('alat','id');
-    Route::post('alat/data',[AlatController::class,'data'])->name('data_alat'); 
+    Route::post('alat/data',[AlatController::class,'data'])->name('data_alat');
 
  Route::resource('/komponen', KomponenController::class)->parameter('komponen', 'id');
     Route::post('komponen/data',[KomponenController::class,'data'])->name('datakomponen');
@@ -83,7 +83,7 @@ Route::group(['middleware' => ['auth', 'role:admin']], function(){
     Route::post('detail_componen/data',[DetailController::class,'data'])->name('data_detail_componen');
     // Route::resource('/alat', AlatController::class)->parameter('alat','id');
     // Route::post('alat/data',[AlatController::class,'data'])->name('data_alat');
-    // Route::resource('/setting', SettingController::class)->parameter('setting','id');
+    Route::resource('/setting', SettingController::class)->parameter('setting','id');
     Route::post('setting/data',[SettingController::class,'data'])->name('data_setting');
     Route::resource('/form_komponen', FormKomponen::class)->parameter('form_komponen','id');
     Route::post('form_komponen/data',[FormKomponen::class,'data'])->name('data_form_komponen');
@@ -99,6 +99,7 @@ Route::group(['middleware' => ['auth', 'role:admin']], function(){
     // Route::post('/laporan/cetak', [CetakLaporan::class,'cetak'])->name('laporan.cetak');
     // Route::get('/grafik_penjualan',[TransaksibaruController::class,'grafik']);
     // Route::get('/cetakTanggal/{tanggal_awal}/{tanggal_akhir}',[CetakLaporan::class,'cetakTanggal']);
+    Route::get('pemeriksaans/export/{format}', [PemeriksaanController::class, 'export'])->name('pemeliharaans.export');
 });
 
 Route::group(['middleware' => ['auth', 'role:mekanik']], function(){
