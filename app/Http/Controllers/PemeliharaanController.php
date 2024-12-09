@@ -145,10 +145,11 @@ class PemeliharaanController extends Controller
     {
         $pemeliharaan = Pemeliharaan2::find($id);
         $alat = AlatTelemetri::all();
+        $formKomponen = FormKomponen::where('pemeliharaan2_id', $id)->get();
         $user = User::all();
         $jenisAlat =  JenisAlat::all();
-        $komponen = Komponen2::all();
-        $detailKomponen = DetailKomponen::all();
+        $detailKomponen = DetailKomponen::where('id', $pemeliharaan->detail_komponen_id)->get();
+        $komponen = Komponen2::where('id', $pemeliharaan->komponen_id)->get();
 
         // Debugging statements
         if (is_null($pemeliharaan)) {
@@ -157,6 +158,7 @@ class PemeliharaanController extends Controller
 
         return view('pemeliharaans.create')
             ->with('alat', $alat)
+            ->with('formKomponen', $formKomponen)
             ->with('user', $user)
             ->with('jenisAlat', $jenisAlat)
             ->with('komponen', $komponen)
