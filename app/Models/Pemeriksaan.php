@@ -23,26 +23,6 @@ class Pemeriksaan extends Model implements CanBeSigned
 
     protected $searchableFields = ['*'];
 
-    public function getSignatureDocumentTemplate(): SignatureDocumentTemplate
-    {
-        return new SignatureDocumentTemplate(
-            outputPdfPrefix: 'document', // optional
-            // template: new BladeDocumentTemplate('pdf/my-pdf-blade-template'), // Uncomment for Blade template
-            // template: new PdfDocumentTemplate(storage_path('pdf/template.pdf')), // Uncomment for PDF template
-            signaturePositions: [
-                new SignaturePosition(
-                    signaturePage: 1,
-                    signatureX: 20,
-                    signatureY: 25,
-                ),
-                new SignaturePosition(
-                    signaturePage: 2,
-                    signatureX: 25,
-                    signatureY: 50,
-                ),
-            ]               
-        );
-    }
 
     public function pemeliharaan2()
     {

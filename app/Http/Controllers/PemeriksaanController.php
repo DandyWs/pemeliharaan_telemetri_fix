@@ -39,6 +39,9 @@ class PemeriksaanController extends Controller
         $data = $data->map(function ($item) {
             return [
                 'id' => $item->id,
+                'ttd' => $item->ttd,
+                'catatan' => $item->catatan,
+                'pemeliharaan2_id' => $item->Pemeliharaan2->id,
                 'tanggal' => $item->Pemeliharaan2->tanggal,
                 'waktu' => $item->Pemeliharaan2->waktu,
                 'periode' => $item->Pemeliharaan2->periode,
@@ -140,9 +143,21 @@ class PemeriksaanController extends Controller
      */
     public function edit($id)
     {
-        $sopir = Pemeliharaan2::find($id);
-        return view('pemeliharaans.create')
-        ->with('spr', $sopir)->with('url_form', url('/pemeliharaans/'.$id));
+        $pemelihaaran = Pemeliharaan2::find($id);
+        $alat = AlatTelemetri::all();
+        $pemeriksaan = Pemeriksaan::all();
+        $user = User::all();
+        $jenisAlat =  JenisAlat::all();
+        $komponen = Komponen2::all();
+        $detailKomponen = DetailKomponen::all();
+        return view('pemeriksaan.create')
+            ->with('alat', $alat)
+            ->with('user', $user)
+            ->with('pemeriksaan', $pemeriksaan)
+            ->with('jenisAlat', $jenisAlat)
+            ->with('komponen', $komponen)
+            ->with('detailKomponen', $detailKomponen)
+        ->with('pemeliharaan', $pemelihaaran)->with('url_form', url('/pemeriksaan/'.$id));
     }
 
     /**

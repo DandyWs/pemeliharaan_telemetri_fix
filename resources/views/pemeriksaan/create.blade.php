@@ -14,16 +14,6 @@
 
             
             <div class="row">
-              <div class="form-group col-md-6">
-                <label>Data Pemeliharaan</label>
-                <input
-                  type="text"
-                  name="pemeliharaan2_id"
-                  class="form-control"
-                  value="{{ isset($spr) ? $spr->pemeliharaan2->id :old('pemeliharaan2_id') }}"
-                  readonly
-                >
-              </div>
                 <div class="form-group col-md-6">
                 <label>Pilih Pemeliharaan</label>
                 <select
@@ -33,7 +23,7 @@
                 >
                   <option value="">Pilih Pemeliharaan</option>
                   @foreach( $pemeliharaan as $pemeliharaan)
-                  <option value="{{ $pemeliharaan->id }}" {{ old('pemeliharaan2_id', isset($spr) && $spr->pemeliharaan2_id == $pemeliharaan->id) ? 'selected' : '' }}>
+                  <option value="{{ $pemeliharaan->id }}" {{ old('id', isset($spr) && $spr->pemeliharaan2_id == $pemeliharaan->id) ? 'selected' : '' }}>
                     {{ $pemeliharaan->tanggal }}
                   </option>
                   @endforeach
@@ -42,7 +32,14 @@
                 <span class="error invalid-feedback">{{ $message }}</span>
                 @enderror
                 </div>
-                
+                  <div class="form-group col-md-6">
+                    <label>Data Pemeliharaan</label>
+                    <ul>
+                          <li>Tanggal : {{ $pemeliharaan->tanggal }}</li>
+                          <li>Waktu   : {{ $pemeliharaan->waktu }}</li>
+                          <li>Periode : {{ $pemeliharaan->periode }}</li>
+                    </ul>
+                  </div>
                 <div class="form-group col-md-6">
                     <label>Pilih User Pemeriksa</label>
                     <select
@@ -52,7 +49,7 @@
                     >
                       <option value="">Pilih User</option>
                       @foreach( $user as $user)
-                      <option value="{{ $user->id }}" {{ old('pemeliharaan2_id', isset($spr) && $spr->user_id == $user->id) ? 'selected' : '' }}>
+                      <option value="{{ $user->id }}" {{ old('user_id', isset($spr) && $spr->user_id == $user->id) ? 'selected' : '' }}>
                         {{ $user->name }}
                       </option>
                       @endforeach
@@ -65,11 +62,11 @@
                 <div class="form-group col-md-6">
                     <label>Keterangan</label>
                     <textarea
-                      name="keterangan"
-                      class="form-control @error('keterangan') is-invalid @enderror"
+                      name="catatan"
+                      class="form-control @error('catatan') is-invalid @enderror"
                       required
-                    >{{ old('keterangan', isset($spr) ? $spr->keterangan : '') }}</textarea>
-                    @error('keterangan')
+                    >{{ old('catatan', isset($spr) ? $spr->keterangan : '') }}</textarea>
+                    @error('catatan')
                     <span class="error invalid-feedback">{{ $message }}</span>
                     @enderror
                 </div>
@@ -77,12 +74,12 @@
                 <div class="form-group col-md-6">
                   <label>Tanda Tangan</label>
                   <div id="signature-pad" class="signature-pad">
-                    <div class="signature-pad--body">
-                        <canvas id="myCanvas" width="300" height="300" style="border: 1px solid #000;"></canvas>
-                    </div>
-                    <div class="signature-pad--footer">
-                      <button type="button" class="btn btn-sm btn-secondary" id="clear-signature">Hapus</button>
-                    </div>
+                  <div class="signature-pad--body">
+                    <canvas id="myCanvas" width="300" height="300" style="border: 1px solid #000;"></canvas>
+                  </div>
+                  <div class="signature-pad--footer">
+                    <button type="button" class="btn btn-sm btn-secondary" id="clear-signature">Hapus</button>
+                  </div>
                   </div>
                   <input type="hidden" name="ttd" id="signature">
                   @error('ttd')
