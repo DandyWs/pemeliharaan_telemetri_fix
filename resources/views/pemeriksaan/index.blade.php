@@ -13,8 +13,8 @@
           </div>
           <div class="card-body">
             <div class="row d-flex justify-between" style="width: 100%; justify-content: space-between; align-items: center; margin: 0">
-              <a href="{{url('pemeriksaan/create')}}" class="btn -btn sm btn-success my-2">Tambah Data</a>
-              <div class="col-md-6 text-right">
+              {{-- <a href="{{url('pemeriksaan/create')}}" class="btn -btn sm btn-success my-2">Tambah Data</a> --}}
+              <div class="col-md-12 text-right mb-3" style="width: 100%">
                 <a href="{{ route('pemeliharaans.export', ['format' => 'pdf']) }}" class="btn btn-danger ml-2">
                     <i class="icon ion-md-download"></i> Export PDF
                 </a>
@@ -39,10 +39,8 @@
                         <th>Action</th>
                     </tr>
                 </thead>
-
-
             </table>
-
+            </div>
         </div>
     </div>
 
@@ -123,7 +121,8 @@
                 render: function (data, type, row, meta) {
                     return '<a href="{{ url('pemeliharaans') }}/' + data + '/edit" class="btn btn-warning btn-sm mr-1"><i class="fa fa-edit"></i> </a>' +
                         '<button class="btn btn-danger btn-sm btn-delete" data-id="' + data + '"><i class="fa fa-trash"></i> </button>' +
-                    `<a href="{{url('/pemeliharaans/')}}/` + data +`"class="btn btn-sm btn-primary "><i class="fas fa fa-info-circle"></i></a>`;
+                    '<a href="{{ url('pemeriksaan/create') }}?pemeliharaan2_id=' + row.id + '" class="btn btn-success btn-sm mr-1"><i class="fa fa-plus"></i> </a>';
+                    // `<a href="{{url('/pemeliharaans/')}}/` + data +`"class="btn btn-sm btn-primary "><i class="fas fa fa-info-circle"></i></a>`;
                 }
                 }
             ]

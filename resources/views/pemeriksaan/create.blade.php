@@ -14,6 +14,16 @@
 
             
             <div class="row">
+              <div class="form-group col-md-6">
+                <label>Data Pemeliharaan</label>
+                <input
+                  type="text"
+                  name="pemeliharaan2_id"
+                  class="form-control"
+                  value="{{ isset($spr) ? $spr->pemeliharaan2->id :old('pemeliharaan2_id') }}"
+                  readonly
+                >
+              </div>
                 <div class="form-group col-md-6">
                 <label>Pilih Pemeliharaan</label>
                 <select
@@ -21,10 +31,10 @@
                   class="form-control @error('pemeliharaan2_id') is-invalid @enderror"
                   required
                 >
-                  <option value="">Pilih Tanggal dan Lokasi Stasiun</option>
+                  <option value="">Pilih Pemeliharaan</option>
                   @foreach( $pemeliharaan as $pemeliharaan)
                   <option value="{{ $pemeliharaan->id }}" {{ old('pemeliharaan2_id', isset($spr) && $spr->pemeliharaan2_id == $pemeliharaan->id) ? 'selected' : '' }}>
-                    {{ $pemeliharaan->tanggal }} -- {{ $pemeliharaan->alatTelemetri->lokasiStasiun }}
+                    {{ $pemeliharaan->tanggal }}
                   </option>
                   @endforeach
                 </select>
@@ -52,18 +62,34 @@
                     @enderror
                 </div>
 
-                {{-- <div class="form-group col-md-6">
-                    <label>TTD</label>
-                    @if (!$pemeriksaan->hasBeenSigned())
-                        <form action="{{ $pemeliharaan->getSignatureRoute() }}" method="POST">
-                            @csrf
-                            <div style="text-align: center">
-                                <x-creagia-signature-pad />
-                            </div>
-                        </form>
-                        <script src="{{ asset('vendor/sign-pad/sign-pad.min.js') }}"></script>
-                    @endif
-                </div> --}}
+                <div class="form-group col-md-6">
+                    <label>Keterangan</label>
+                    <textarea
+                      name="keterangan"
+                      class="form-control @error('keterangan') is-invalid @enderror"
+                      required
+                    >{{ old('keterangan', isset($spr) ? $spr->keterangan : '') }}</textarea>
+                    @error('keterangan')
+                    <span class="error invalid-feedback">{{ $message }}</span>
+                    @enderror
+                </div>
+
+                <div class="form-group col-md-6">
+                  <label>Tanda Tangan</label>
+                  <div id="signature-pad" class="signature-pad">
+                    <div class="signature-pad--body">
+                        <canvas id="myCanvas" width="300" height="300" style="border: 1px solid #000;"></canvas>
+                    </div>
+                    <div class="signature-pad--footer">
+                      <button type="button" class="btn btn-sm btn-secondary" id="clear-signature">Hapus</button>
+                    </div>
+                  </div>
+                  <input type="hidden" name="ttd" id="signature">
+                  @error('ttd')
+                  <span class="error invalid-feedback">{{ $message }}</span>
+                  @enderror
+                </div>
+
             </div>
             <div class="form-group mt-3">
               <button class="btn btn-sm btn-success">Simpan</button>
@@ -72,6 +98,23 @@
           </form>
         </div>
       </div>
+      <script src="https://cdn.jsdelivr.net/npm/signature_pad@4.0.0/dist/signature_pad.umd.min.js"></script>
+      <script>
+        document.addEventListener('DOMContentLoaded', function () {
+          var canvas = document.querySelector("#signature-pad canvas");
+          var signaturePad = new SignaturePad(canvas);
+
+          document.getElementById('clear-signature').addEventListener('click', function () {
+            signaturePad.clear();
+          });
+
+          document.querySelector('form').addEventListener('submit', function () {
+            if (!signaturePad.isEmpty()) {
+              document.getElementById('signature').value = signaturePad.toDataURL();
+            }
+          });
+        });
+      </script>
 </section>
 
 @endsection

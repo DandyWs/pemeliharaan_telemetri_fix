@@ -9,6 +9,7 @@ use App\Models\Komponen2;
 use App\Models\Pemeriksaan;
 use App\Models\Pemeliharaan2;
 use App\Models\User;
+use Illuminate\Support\Facades\Storage;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\PemeriksaanExport;
 use Barryvdh\DomPDF\Facade\Pdf;
@@ -79,7 +80,7 @@ class PemeriksaanController extends Controller
             ->with('komponen', $komponen)
             ->with('detailKomponen', $detailKomponen)
             ->with('url_form', url('/pemeriksaan'));
-    }
+        }
 
     /**
      * Store a newly created resource in storage.
@@ -90,13 +91,9 @@ class PemeriksaanController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'tanggal' => ['required', 'date'],
-            'waktu' => ['required', 'date_format:H:i'],
-            'periode' => ['required', 'max:255', 'string'],
-            'cuaca' => ['required', 'max:255', 'string'],
-            'no_alatUkur' => ['required', 'numeric'],
-            'no_GSM' => ['required', 'numeric'],
-            'alat_telemetri_id' => ['required', 'exists:alat_telemetris,id'],
+            'ttd' => ['required', 'max:255', 'string'],
+            'catatan' => ['required', 'max:255', 'string'],
+            'pemeliharaan2_id' => ['required', 'exists:pemeliharaan2s,id'],
             'user_id' => ['required', 'exists:users,id'],
         ]);
 
@@ -108,18 +105,14 @@ class PemeriksaanController extends Controller
         // }
 
 
-        Pemeliharaan2::create([
-            'tanggal' => $request->input('tanggal'),
-            'waktu' => $request->input('waktu'),
-            'periode' => $request->input('periode'),
-            'cuaca' => $request->input('cuaca'),
-            'no_alatUkur' => $request->input('no_alatUkur'),
-            'no_GSM' => $request->input('no_GSM'),
-            'alat_telemetri_id' => $request->input('alat_telemetri_id'),
+        Pemeriksaan::create([
+            'ttd' => $request->input('ttd'),
+            'catatan' => $request->input('catatan'),
+            'pemeliharaan2_id' => $request->input('pemeliharaan2_id'),
             'user_id' => $request->input('user_id'),
         ]);
 
-        return redirect('pemeliharaans')->with('success', 'Form Pemeliharaan Berhasil Ditambahkan');
+        return redirect('pemeriksaan')->with('success', 'Form Pemeliharaan telah Diperiksa');
     }
 
     /**
