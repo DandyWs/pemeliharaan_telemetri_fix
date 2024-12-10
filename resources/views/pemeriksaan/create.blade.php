@@ -4,59 +4,56 @@
 
 <section class="content">
     <div class="card">
-    <div class="card-header text-center">
-            <h2><strong>PEMERIKSAAN LAPORAN PEMELIHARAAN</strong></h2>
+        <div class="card-header text-center">
+            <h2><strong>LAPORAN PEMELIHARAAN DAN</strong></h2>
+            <h2><strong>KALIBRASI INTERNAL PERALATAN TELEMETRI GSM</strong></h2>
+            </h2>
+            <br>
         </div>
         <div class="card-body">
           <form method="POST" action="{{ $url_form }}" enctype="multipart/form-data">
             @csrf
             {!!(isset($spr))? method_field('PUT') : '' !!}
 
-            
+            <div class="row">
+              <div class="form-group col-md-6">
+                <label>Nama Stasiun -- Jenis Alat</label>
+                <input type="text" name="alat_telemetri_id" class="form-control" value="{{ $pemeliharaan->alatTelemetri->lokasiStasiun }} -- {{ $pemeliharaan->alatTelemetri->jenisAlat->namajenis }}" readonly />
+              </div>
+              <div class="form-group col-md-6">
+                <label>Tanggal Pemeliharaan</label>
+                    <input type="text" name="tanggal" class="form-control" value="{{ $pemeliharaan->tanggal }}" readonly />
+              </div>
+              <div class="form-group col-md-6">
+                <label>Periode Pemeliharaan</label>
+                    <input type="text" name="periode" class="form-control" value="{{ $pemeliharaan->periode }}" readonly />
+              </div>
+              <div class="form-group col-md-6">
+                <label>Waktu Pemeliharaan</label>
+                    <input type="text" name="waktu" class="form-control" value="{{ $pemeliharaan->waktu }}" readonly />
+              </div>
+              <div class="form-group col-md-6">
+                <label>Pelaksana Pemeliharaan</label>
+                <input type="text" name="user_id" class="form-control" value="{{ $pemeliharaan->user->name }}" readonly />
+              </div>
+              <div class="form-group col-md-6">
+                <label>Cuaca</label>
+                    <input type="text" name="cuaca" class="form-control" value="{{ $pemeliharaan->cuaca }}" readonly />
+              </div>
+              <div class="form-group col-md-6">
+                <label>No Alat Ukur</label>
+                    <input type="text" name="no_alatUkur" class="form-control" value="{{ $pemeliharaan->no_alatUkur }}" readonly />
+              </div>
+              <div class="form-group col-md-6">
+                <label>No GSM</label>
+                    <input type="text" name="no_GSM" class="form-control" value="{{ $pemeliharaan->no_GSM }}" readonly />
+              </div>
+            </div>
+            <h2 class=" card-header text-center"><strong>PEMERIKSAAN LAPORAN PEMELIHARAAN</strong></h2>
             <div class="row">
                 <div class="form-group col-md-6">
-                <label>Pilih Pemeliharaan</label>
-                <select
-                  name="pemeliharaan2_id"
-                  class="form-control @error('pemeliharaan2_id') is-invalid @enderror"
-                  required
-                >
-                  <option value="">Pilih Pemeliharaan</option>
-                  @foreach( $pemeliharaan as $pemeliharaan)
-                  <option value="{{ $pemeliharaan->id }}" {{ old('id', isset($spr) && $spr->pemeliharaan2_id == $pemeliharaan->id) ? 'selected' : '' }}>
-                    {{ $pemeliharaan->tanggal }}
-                  </option>
-                  @endforeach
-                </select>
-                @error('pemeliharaan2_id')
-                <span class="error invalid-feedback">{{ $message }}</span>
-                @enderror
-                </div>
-                  <div class="form-group col-md-6">
-                    <label>Data Pemeliharaan</label>
-                    <ul>
-                          <li>Tanggal : {{ $pemeliharaan->tanggal }}</li>
-                          <li>Waktu   : {{ $pemeliharaan->waktu }}</li>
-                          <li>Periode : {{ $pemeliharaan->periode }}</li>
-                    </ul>
-                  </div>
-                <div class="form-group col-md-6">
-                    <label>Pilih User Pemeriksa</label>
-                    <select
-                      name="user_id"
-                      class="form-control @error('user_id') is-invalid @enderror"
-                      required
-                    >
-                      <option value="">Pilih User</option>
-                      @foreach( $user as $user)
-                      <option value="{{ $user->id }}" {{ old('user_id', isset($spr) && $spr->user_id == $user->id) ? 'selected' : '' }}>
-                        {{ $user->name }}
-                      </option>
-                      @endforeach
-                    </select>
-                    @error('user_id')
-                    <span class="error invalid-feedback">{{ $message }}</span>
-                    @enderror
+                    <label>User Pemeriksa</label>
+                    <input type="text" name="user_id" class="form-control" value="{{ Auth::user()->name }}" readonly />
                 </div>
 
                 <div class="form-group col-md-6">
@@ -71,14 +68,14 @@
                     @enderror
                 </div>
 
-                <div class="form-group col-md-6">
+                <div class="form-group col-md-12 text-center">
                   <label>Tanda Tangan</label>
                   <div id="signature-pad" class="signature-pad">
                   <div class="signature-pad--body">
-                    <canvas id="myCanvas" width="300" height="300" style="border: 1px solid #000;"></canvas>
+                  <canvas id="myCanvas" width="300" height="300" style="border: 1px solid #000;"></canvas>
                   </div>
                   <div class="signature-pad--footer">
-                    <button type="button" class="btn btn-sm btn-secondary" id="clear-signature">Hapus</button>
+                  <button type="button" class="btn btn-sm btn-secondary" id="clear-signature">Hapus</button>
                   </div>
                   </div>
                   <input type="hidden" name="ttd" id="signature">

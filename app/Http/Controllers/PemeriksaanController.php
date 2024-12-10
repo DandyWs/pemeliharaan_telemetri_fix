@@ -65,10 +65,10 @@ class PemeriksaanController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($id)
     {
         $alat = AlatTelemetri::all();
-        $pemelihaaran = Pemeliharaan2::all();
+        $pemelihaaran = Pemeliharaan2::find($id);
         $pemeriksaan = Pemeriksaan::all();
         $user = User::all();
         $jenisAlat =  JenisAlat::all();

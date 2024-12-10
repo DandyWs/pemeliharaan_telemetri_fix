@@ -67,22 +67,17 @@
             </div>
             <div class="form-group col-md-6">
               <label>Pelaksana Pemeliharaan</label>
-              <select
+              <input
+              type="text"
               name="user_id"
               class="form-control @error('user_id') is-invalid @enderror"
-              required
-              >
-              <option value="">Pilih Mekanik</option>
-              @foreach($user as $user)
-              <option value="{{ $user->id }}" {{ old('user_id', isset($pemeliharaan) && $pemeliharaan->user_id == $user->id) ? 'selected' : '' }}>
-                {{ $user->name }}
-              </option>
-              @endforeach
-              </select>
+              value="{{ Auth::user()->name }}"
+              readonly
+              />
               @error('user_id')
               <span class="error invalid-feedback">{{ $message }}</span>
               @enderror
-          </div>
+            </div>
             <div class="form-group col-md-6">
               <label>Cuaca</label>
                 <input
