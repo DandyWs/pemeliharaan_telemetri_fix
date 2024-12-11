@@ -31,7 +31,11 @@
           <li><a href="#beranda">Beranda</a></li>
           <li><a href="#tentang-kami">Pemeliharaan Telemetri</a></li>
           <li><a href="#temukan-kami">Temukan Kami</a></li>
-          <li><a href="{{ url('/login') }}" target="_blank">Login</a></li>
+            @if(Auth::check())
+            <li><a href="{{ url('/dashboard') }}" target="_blank">Dashboard</a></li>
+            @else
+            <li><a href="{{ url('/login') }}" target="_blank">Login</a></li>
+            @endif
         </ul>
       </header>
       <div class="head-content">
