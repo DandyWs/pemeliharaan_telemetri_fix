@@ -67,16 +67,20 @@
             </div>
             <div class="form-group col-md-6">
               <label>Pelaksana Pemeliharaan</label>
-              <input
-              type="text"
-              name="user_id"
-              class="form-control @error('user_id') is-invalid @enderror"
-              value="{{ Auth::user()->name }}"
-              readonly
-              />
-              @error('user_id')
-              <span class="error invalid-feedback">{{ $message }}</span>
-              @enderror
+                <input
+                type="hidden"
+                name="user_id"
+                value="{{ Auth::user()->id }}"
+                />
+                <input
+                type="text"
+                class="form-control"
+                value="{{ Auth::user()->name }}"
+                readonly
+                />
+                @error('user_id')
+                <span class="error invalid-feedback">{{ $message }}</span>
+                @enderror
             </div>
             <div class="form-group col-md-6">
               <label>Cuaca</label>
@@ -119,6 +123,17 @@
                   required
                 />
                 @error('no_GSM')
+                <span class="error invalid-feedback">{{ $message }}</span>
+                @enderror
+            </div>
+
+            <div class="form-group col-md-12" style="margin-top: 20px;">
+              <label>Keterangan</label>
+                <textarea
+                name="keterangan"
+                class="form-control @error('keterangan') is-invalid @enderror"
+                >{{ old('keterangan', isset($pemeliharaan) ? $pemeliharaan->keterangan : '') }}</textarea>
+                @error('keterangan')
                 <span class="error invalid-feedback">{{ $message }}</span>
                 @enderror
             </div>

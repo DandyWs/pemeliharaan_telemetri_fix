@@ -30,12 +30,11 @@
                         <th>Tanggal</th>
                         <th>Periode</th>
                         <th>Cuaca</th>
-                        <th>No Alat Ukur</th>
-                        <th>No GSM</th>
                         <th>Jenis Alat</th>
                         <th>Lokasi Stasiun</th>
-                        <th>User</th>
+                        <th>Mekanik Pemeliharaan</th>
                         <th>Keterangan</th>
+                        <th>Status</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -102,8 +101,8 @@
             // { data: 'waktu', name: 'waktu', sortable: true, searchable: true },
             { data: 'periode', name: 'periode', sortable: true, searchable: true },
             { data: 'cuaca', name: 'cuaca', sortable: true, searchable: true },
-            { data: 'no_alatUkur', name: 'no_alatUkur', sortable: true, searchable: true },
-            { data: 'no_GSM', name: 'no_GSM', sortable: true, searchable: true },
+                // { data: 'no_alatUkur', name: 'no_alatUkur', sortable: true, searchable: true },
+                // { data: 'no_GSM', name: 'no_GSM', sortable: true, searchable: true },
             { data: 'jenis_alat', name: 'jenis_alat', sortable: true, searchable: true },
             { data: 'alat_telemetri_id', name: 'alat_telemetri_id', sortable: true, searchable: true },
             { data: 'user_id', name: 'user_id', sortable: true, searchable: true },
@@ -113,13 +112,23 @@
                 sortable: true,
                 searchable: true,
                 render: function (data, type, row, meta) {
-                    return data ? data : 'Menunggu Konfirmasi';
+                    return data ? data : 'Pemeliharaan'+ ' ' + row.jenis_alat;
+                
+                }
+            },
+            {
+                data: 'status',
+                name: 'status',
+                sortable: true,
+                searchable: true,
+                render: function (data, type, row, meta) {
+                    return data ? 'Pemeliharaan sudah dikonfirmasi' : 'Pemeliharaan belum dikonfirmasi';
                 }
             },
             {
                 data: 'id', name: 'id', searchable: false, sortable: false,
                 render: function (data, type, row, meta) {
-                    return '<a href="{{ url('pemeriksaan') }}/' + data + '/edit" class="btn btn-warning btn-sm mr-1"><i class="fa fa-plus"></i> </a>' +
+                    return '<a href="{{ url('pemeriksaan') }}/' + data + '/edit" class="btn btn-warning btn-sm mr-1"><i class="fa fa-check"></i> </a>' +
                         '<button class="btn btn-danger btn-sm btn-delete" data-id="' + data + '"><i class="fa fa-trash"></i> </button>';
                     // '<a href="{{ url('pemeriksaan') }}/' + data + '/create" class="btn btn-success btn-sm mr-1"><i class="fa fa-plus"></i> </a>';
                     // `<a href="{{url('/pemeliharaans/')}}/` + data +`"class="btn btn-sm btn-primary "><i class="fas fa fa-info-circle"></i></a>`;

@@ -89,6 +89,7 @@ class PemeliharaanController extends Controller
             'cuaca' => ['required', 'max:255', 'string'],
             'no_alatUkur' => ['required', 'numeric'],
             'no_GSM' => ['required', 'numeric'],
+            'keterangan' => ['nullable', 'max:255', 'string'],
             'alat_telemetri_id' => ['required', 'exists:alat_telemetris,id'],
             'user_id' => ['required', 'exists:users,id'],
         ]);
@@ -110,6 +111,7 @@ class PemeliharaanController extends Controller
             'no_GSM' => $request->input('no_GSM'),
             'alat_telemetri_id' => $request->input('alat_telemetri_id'),
             'user_id' => $request->input('user_id'),
+            'keterangan' => $request->input('keterangan'),
         ]);
 
         return redirect('pemeliharaans')->with('success', 'Form Pemeliharaan Berhasil Ditambahkan');

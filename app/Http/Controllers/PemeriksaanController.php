@@ -41,6 +41,7 @@ class PemeriksaanController extends Controller
                 'id' => $item->id,
                 'ttd' => $item->ttd,
                 'catatan' => $item->catatan,
+                'pemeliharaan_id' => $item->pemeliharaan2_id,
                 'pemeliharaan2_id' => $item->Pemeliharaan2->id,
                 'tanggal' => $item->Pemeliharaan2->tanggal,
                 'waktu' => $item->Pemeliharaan2->waktu,
@@ -51,6 +52,7 @@ class PemeriksaanController extends Controller
                 'alat_telemetri_id' => $item->Pemeliharaan2->AlatTelemetri->lokasiStasiun,
                 'jenis_alat' => $item->Pemeliharaan2->AlatTelemetri->JenisAlat->namajenis,
                 'keterangan' => $item->Pemeliharaan2->keterangan,
+                'status' => $item->Pemeliharaan2->id,
                 'user_id' => $item->User->name,
             ];
         });

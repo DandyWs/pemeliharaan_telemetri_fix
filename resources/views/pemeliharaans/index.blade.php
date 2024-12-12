@@ -285,7 +285,7 @@
                 sortable: true, 
                 searchable: true,
                 render: function (data, type, row, meta) {
-                    return data ? data : 'Menunggu Konfirmasi';
+                    return data ? data : 'Pemeliharaan ' + row.jenis_alat;
                 }
             },
             {   
