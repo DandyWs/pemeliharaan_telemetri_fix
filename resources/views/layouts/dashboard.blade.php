@@ -160,7 +160,7 @@
                                       <th>Cuaca</th>
                                       <th>User</th>
                                       <th>Peralatan Telemetri</th>
-                                      <th>Status</th>
+                                      <th>Keterangan</th>
                                     </tr>
                                   </thead>
                                   <tbody>
@@ -176,7 +176,7 @@
                                           @if($k->keterangan != NULL)
                                             <td>{{$k->keterangan}}</td>
                                           @else
-                                            <td>Menunggu Konfirmasi</td>
+                                            <td>Pemeliharaan {{ $k->alatTelemetri->jenisAlat->namajenis }}</td>
                                           @endif
                                           {{-- <td>{{$k->konfirmasi}}</td> --}}
                                         </tr>
