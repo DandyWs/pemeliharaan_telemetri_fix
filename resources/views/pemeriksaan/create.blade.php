@@ -19,6 +19,7 @@
               <div class="form-group col-md-6">
                 <label>Nama Stasiun -- Jenis Alat</label>
                 <input type="text" name="alat_telemetri_id" class="form-control" value="{{ $pemeliharaan->alatTelemetri->lokasiStasiun }} -- {{ $pemeliharaan->alatTelemetri->jenisAlat->namajenis }}" readonly />
+                <input type="hidden" name="pemeliharaan2_id" value="{{ $pemeliharaan->id }}">
               </div>
               <div class="form-group col-md-6">
                 <label>Tanggal Pemeliharaan</label>
@@ -34,7 +35,7 @@
               </div>
               <div class="form-group col-md-6">
                 <label>Pelaksana Pemeliharaan</label>
-                <input type="text" name="user_id" class="form-control" value="{{ $pemeliharaan->user->name }}" readonly />
+                <input type="text" name="pelaksana_pemeliharaan" class="form-control" value="{{ $pemeliharaan->user->name }}" readonly />
               </div>
               <div class="form-group col-md-6">
                 <label>Cuaca</label>
@@ -53,16 +54,17 @@
             <div class="row">
                 <div class="form-group col-md-6">
                     <label>User Pemeriksa</label>
-                    <input type="text" name="user_id" class="form-control" value="{{ Auth::user()->name }}" readonly />
+                    <input type="text" name="pelaksana_pemeliharaan" class="form-control" value="{{ Auth::user()->name }}" readonly />
+                    <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
                 </div>
 
                 <div class="form-group col-md-6">
-                    <label>Keterangan</label>
+                    <label>Catatan</label>
                     <textarea
                       name="catatan"
                       class="form-control @error('catatan') is-invalid @enderror"
                       required
-                    >{{ old('catatan', isset($spr) ? $spr->keterangan : '') }}</textarea>
+                    >{{ old('catatan', isset($spr) ? $spr->catatan : '') }}</textarea>
                     @error('catatan')
                     <span class="error invalid-feedback">{{ $message }}</span>
                     @enderror

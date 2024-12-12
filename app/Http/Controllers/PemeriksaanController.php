@@ -84,7 +84,7 @@ class PemeriksaanController extends Controller
             ->with('jenisAlat', $jenisAlat)
             ->with('komponen', $komponen)
             ->with('detailKomponen', $detailKomponen)
-            ->with('url_form', url('/pemeriksaan'));
+            ->with('url_form', url('/pemeriksaan/'.$id));
         }
 
     /**
