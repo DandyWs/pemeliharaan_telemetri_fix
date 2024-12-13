@@ -172,18 +172,13 @@ class PemeriksaanController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'tanggal' => ['required', 'date'],
-            'waktu' => ['required', 'date_format:H:i'],
-            'periode' => ['required', 'max:255', 'string'],
-            'cuaca' => ['required', 'max:255', 'string'],
-            'no_alatUkur' => ['required', 'numeric'],
-            'no_GSM' => ['required', 'numeric'],
-            'keterangan' => ['nullable', 'max:255', 'string'],
-            'alat_telemetri_id' => ['required', 'exists:alat_telemetris,id'],
+            'ttd' => ['required', 'max:255', 'string'],
+            'catatan' => ['required', 'max:255', 'string'],
+            'pemeliharaan2_id' => ['required', 'exists:pemeliharaan2s,id'],
             'user_id' => ['required', 'exists:users,id'],
         ]);
 
-        $sopir = Pemeliharaan2::find($id);
+        $sopir = Pemeriksaan::find($id);
 
         // if ($request->hasFile('foto')) {
         //     $foto = $request->file('foto');
@@ -194,21 +189,17 @@ class PemeriksaanController extends Controller
         //     $sopir->foto = $fotoName;
         // }
 
-        Pemeliharaan2::where('id', $id)->update([
-            'tanggal' => $request->input('tanggal'),
-            'waktu' => $request->input('waktu'),
-            'periode' => $request->input('periode'),
-            'cuaca' => $request->input('cuaca'),
-            'no_alatUkur' => $request->input('no_alatUkur'),
-            'no_GSM' => $request->input('no_GSM'),
-            'alat_telemetri_id' => $request->input('alat_telemetri_id'),
+        Pemeriksaan::where('id', $id)->update([
+            'ttd' => $request->input('ttd'),
+            'catatan' => $request->input('catatan'),
+            'pemeliharaan2_id' => $request->input('pemeliharaan2_id'),
             'user_id' => $request->input('user_id'),
         ]);
 
         $sopir->save();
 
 
-        return redirect('pemeliharaans')
+        return redirect('pemeriksaan')
             ->with('success', 'Pemeliharaan Berhasil Diubah');
     }
 

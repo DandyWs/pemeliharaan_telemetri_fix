@@ -18,43 +18,43 @@
             <div class="row">
               <div class="form-group col-md-6">
                 <label>Nama Stasiun -- Jenis Alat</label>
-                <input type="text" name="alat_telemetri_id" class="form-control" value="{{ $pemeliharaan->alatTelemetri->lokasiStasiun }} -- {{ $pemeliharaan->alatTelemetri->jenisAlat->namajenis }}" readonly />
+                <input type="text"  class="form-control" value="{{ $pemeliharaan->alatTelemetri->lokasiStasiun }} -- {{ $pemeliharaan->alatTelemetri->jenisAlat->namajenis }}" readonly />
                 <input type="hidden" name="pemeliharaan2_id" value="{{ $pemeliharaan->id }}">
               </div>
               <div class="form-group col-md-6">
                 <label>Tanggal Pemeliharaan</label>
-                    <input type="text" name="tanggal" class="form-control" value="{{ $pemeliharaan->tanggal }}" readonly />
+                    <input type="text"  class="form-control" value="{{ $pemeliharaan->tanggal }}" readonly />
               </div>
               <div class="form-group col-md-6">
                 <label>Periode Pemeliharaan</label>
-                    <input type="text" name="periode" class="form-control" value="{{ $pemeliharaan->periode }}" readonly />
+                    <input type="text" class="form-control" value="{{ $pemeliharaan->periode }}" readonly />
               </div>
               <div class="form-group col-md-6">
                 <label>Waktu Pemeliharaan</label>
-                    <input type="text" name="waktu" class="form-control" value="{{ $pemeliharaan->waktu }}" readonly />
+                    <input type="text"  class="form-control" value="{{ $pemeliharaan->waktu }}" readonly />
               </div>
               <div class="form-group col-md-6">
                 <label>Pelaksana Pemeliharaan</label>
-                <input type="text" name="pelaksana_pemeliharaan" class="form-control" value="{{ $pemeliharaan->user->name }}" readonly />
+                <input type="text"  class="form-control" value="{{ $pemeliharaan->user->name }}" readonly />
               </div>
               <div class="form-group col-md-6">
                 <label>Cuaca</label>
-                    <input type="text" name="cuaca" class="form-control" value="{{ $pemeliharaan->cuaca }}" readonly />
+                    <input type="text"  class="form-control" value="{{ $pemeliharaan->cuaca }}" readonly />
               </div>
               <div class="form-group col-md-6">
                 <label>No Alat Ukur</label>
-                    <input type="text" name="no_alatUkur" class="form-control" value="{{ $pemeliharaan->no_alatUkur }}" readonly />
+                    <input type="text"  class="form-control" value="{{ $pemeliharaan->no_alatUkur }}" readonly />
               </div>
               <div class="form-group col-md-6">
                 <label>No GSM</label>
-                    <input type="text" name="no_GSM" class="form-control" value="{{ $pemeliharaan->no_GSM }}" readonly />
+                    <input type="text"  class="form-control" value="{{ $pemeliharaan->no_GSM }}" readonly />
               </div>
             </div>
             <h2 class=" card-header text-center"><strong>PEMERIKSAAN LAPORAN PEMELIHARAAN</strong></h2>
             <div class="row">
                 <div class="form-group col-md-6">
                     <label>User Pemeriksa</label>
-                    <input type="text" name="pelaksana_pemeliharaan" class="form-control" value="{{ Auth::user()->name }}" readonly />
+                    <input type="text"  class="form-control" value="{{ Auth::user()->name }}" readonly />
                     <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
                 </div>
 
