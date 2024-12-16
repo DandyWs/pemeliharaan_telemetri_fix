@@ -122,7 +122,7 @@
                 sortable: true,
                 searchable: true,
                 render: function (data, type, row, meta) {
-                    return data ? 'Pemeliharaan sudah dikonfirmasi' : 'Pemeliharaan belum dikonfirmasi';
+                    return data ? '<span class="badge badge-success">Confirmed</span>' : '<span class="badge badge-danger">Not Confirmed</span>';
                 }
             },
             {
