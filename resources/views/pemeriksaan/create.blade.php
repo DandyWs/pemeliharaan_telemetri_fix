@@ -73,12 +73,13 @@
                 <div class="form-group col-md-12 text-center">
                     <label>Tanda Tangan</label>
                     <div id="signature-pad" class="signature-pad">
-                    <div class="signature-pad--body">
-                    <canvas id="myCanvas" width="600" height="300" style="border: 2px solid #ced4da; border-radius: 10px"></canvas>
-                    </div>
-                    <div class="signature-pad--footer">
-                    <button type="button" class="btn btn-sm btn-secondary" id="clear-signature">Hapus</button>
-                    </div>
+                      <div class="signature-pad--body">
+                        <canvas id="myCanvas" width="300" height="300" style="border: 1px solid #000;"></canvas>
+                      </div>
+                      <div class="signature-pad--footer">
+                        <button type="button" class="btn btn-sm btn-secondary" id="clear-signature">Hapus</button>
+                       <button type="button" class="btn btn-sm btn-info" id="save-png" onclick="saveAsPNG()">Simpan PNG</button>
+                      </div>
                     </div>
                     <input type="hidden" name="ttd" id="signature">
                     @error('ttd')
@@ -104,7 +105,17 @@
             signaturePad.clear();
           });
 
-          document.querySelector('form').addEventListener('submit', function () {
+            function saveAsPNG() {
+            if (!signaturePad.isEmpty()) {
+              var dataURL = signaturePad.toDataURL();
+              var link = document.createElement('a');
+              link.href = dataURL;
+              link.download = 'signature.png';
+              link.click();
+            }
+            }
+
+          document.querySelector('form').addEventListener('submit', function (event) {
             if (!signaturePad.isEmpty()) {
               document.getElementById('signature').value = signaturePad.toDataURL();
             }
