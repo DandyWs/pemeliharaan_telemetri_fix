@@ -118,7 +118,7 @@
       </section>
     </div>
     <div class="copyright text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
-      Copyright ©202 <strong>Perum Jasa Tirta 1.</strong>
+      Copyright ©2024 <strong>Perum Jasa Tirta 1.</strong>
     </div>
   </footer>
 
