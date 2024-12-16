@@ -146,13 +146,35 @@
               </label>
               @foreach ($detailKomponen->where('komponen2_id', $komp->id) as $detail)
                 <div class="form-check">
-                  <input
+                    <input
+                    type="hidden"
+                    name="detail_komponen_id[{{ $detail->id }}]"
+                    value="{{ $detail->id }}"
+                    />
+                    <input
+                    type="hidden"
+                    name="pemeliharaan2_id[{{ $detail->id }}]"
+                    value="{{ isset($pemeliharaan) ? $pemeliharaan->id : '' }}"
+                    />
+                    <input
+                    type="hidden"
+                    name="cheked[{{ $detail->id }}]"
+                    value="0"
+                    />
+                    <input
+                    type="checkbox"
+                    name="cheked[{{ $detail->id }}]"
+                    value="1"
+                    class="form-check-input"
+                    {{ old('cheked' . $detail->id, isset($pemeliharaan) && $pemeliharaan->formKomponen->where('komponen2_id', $detail->id)->first()->cheked) ? 'checked' : '' }}
+                    />
+                  {{-- <input
                     type="checkbox"
                     name="komponen2_id"
                     value="{{ $detail->id }}"
                     class="form-check-input"
                     {{ in_array($detail->id, old('komponen2_id', isset($pemeliharaan) ? $pemeliharaan->komponen->pluck('id')->toArray() : [])) ? 'checked' : '' }}
-                  />
+                  /> --}}
                   <label class="form-check-label">{{ $detail->namadetail }}</label>
                 </div>
               @endforeach

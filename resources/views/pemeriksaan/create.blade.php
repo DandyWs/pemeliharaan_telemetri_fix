@@ -71,19 +71,19 @@
                 </div>
 
                 <div class="form-group col-md-12 text-center">
-                  <label>Tanda Tangan</label>
-                  <div id="signature-pad" class="signature-pad">
-                  <div class="signature-pad--body">
-                  <canvas id="myCanvas" width="300" height="300" style="border: 1px solid #000;"></canvas>
-                  </div>
-                  <div class="signature-pad--footer">
-                  <button type="button" class="btn btn-sm btn-secondary" id="clear-signature">Hapus</button>
-                  </div>
-                  </div>
-                  <input type="hidden" name="ttd" id="signature">
-                  @error('ttd')
-                  <span class="error invalid-feedback">{{ $message }}</span>
-                  @enderror
+                    <label>Tanda Tangan</label>
+                    <div id="signature-pad" class="signature-pad">
+                    <div class="signature-pad--body">
+                    <canvas id="myCanvas" width="300" height="300" style="border: 1px solid #000;"></canvas>
+                    </div>
+                    <div class="signature-pad--footer">
+                    <button type="button" class="btn btn-sm btn-secondary" id="clear-signature">Hapus</button>
+                    </div>
+                    </div>
+                    <input type="hidden" name="ttd" id="signature">
+                    @error('ttd')
+                    <span class="error invalid-feedback">{{ $message }}</span>
+                    @enderror
                 </div>
 
             </div>

@@ -102,7 +102,7 @@ class PemeliharaanController extends Controller
         // }
 
         
-        Pemeliharaan2::create([
+        $pemeliharaan = Pemeliharaan2::create([
             'tanggal' => $request->input('tanggal'),
             'waktu' => $request->input('waktu'),
             'periode' => $request->input('periode'),
@@ -113,6 +113,16 @@ class PemeliharaanController extends Controller
             'user_id' => $request->input('user_id'),
             'keterangan' => $request->input('keterangan'),
         ]);
+
+        if ($request->has('detailKomponen')) {
+            foreach ($request->input('detailKomponen') as $detailKomponen) {
+                FormKomponen::create([
+                'pemeliharaan2_id' => $pemeliharaan->id,
+                'detail_komponen_id' => $detailKomponen['id'],
+                'cheked' => $detailKomponen['cheked'],
+                ]);
+            }
+        }
 
         return redirect('pemeliharaans')->with('success', 'Form Pemeliharaan Berhasil Ditambahkan');
     }
