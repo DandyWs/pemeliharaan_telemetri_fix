@@ -127,17 +127,6 @@
                 @enderror
             </div>
 
-            <div class="form-group col-md-12" style="margin-top: 20px;">
-              <label>Keterangan</label>
-                <textarea
-                name="keterangan"
-                class="form-control @error('keterangan') is-invalid @enderror"
-                >{{ old('keterangan', isset($pemeliharaan) ? $pemeliharaan->keterangan : '') }}</textarea>
-                @error('keterangan')
-                <span class="error invalid-feedback">{{ $message }}</span>
-                @enderror
-            </div>
-
             <div class="row">
             @foreach ($komponen as $komp)
             <div class="form-group col-md-6">
@@ -184,6 +173,17 @@
             </div>
             @endforeach
             </div>
+
+            <div class="form-group col-md-12" style="margin-top: 20px;">
+              <label>Keterangan</label>
+                <textarea
+                name="keterangan"
+                class="form-control @error('keterangan') is-invalid @enderror"
+                >{{ old('keterangan', isset($pemeliharaan) ? $pemeliharaan->keterangan : '') }}</textarea>
+                @error('keterangan')
+                <span class="error invalid-feedback">{{ $message }}</span>
+                @enderror
+            </div>
             
 
             {{-- <div class="form-group col-md-6">
@@ -214,21 +214,6 @@
             </div> --}}
 
             </div>
-            <!-- <div class="form-group col-md-6">
-              <label>Tanggal Pemeliharaan</label>
-              <input class="form-control @error('simulasi') is-invalid @enderror" value="{{ isset($pemeliharaan)? $pemeliharaan->simulasi :old('simulasi') }}" name="simulasi" type="text"/>
-              @error('simulasi')
-                <span class="error invalid-feedback">{{ $message }} </span>
-              @enderror
-            </div> -->
-
-            <!-- <div class="form-group">
-              <label>Nilai Display</label>
-              <input class="form-control @error('display') is-invalid @enderror" value="{{ isset($pemeliharaan)? $pemeliharaan->display :old('display') }}" name="display" type="text"/>
-              @error('display')
-                <span class="error invalid-feedback">{{ $message }} </span>
-              @enderror
-            </div> -->
             <div class="form-group mt-3">
               <button class="btn btn-sm btn-success">Simpan</button>
               <a class="btn btn-sm btn-primary" href="{{ url('/pemeliharaans') }}">Kembali</a>

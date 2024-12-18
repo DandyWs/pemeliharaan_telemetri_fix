@@ -74,11 +74,11 @@
                     <label>Tanda Tangan</label>
                     <div id="signature-pad" class="signature-pad">
                       <div class="signature-pad--body">
-                        <canvas id="myCanvas" width="300" height="300" style="border: 1px solid #000;"></canvas>
+                      <canvas id="myCanvas" width="600" height="300" style="border: 2px solid #ced4da; border-radius: 10px"></canvas>
                       </div>
                       <div class="signature-pad--footer">
                         <button type="button" class="btn btn-sm btn-secondary" id="clear-signature">Hapus</button>
-                       <button type="button" class="btn btn-sm btn-info" id="save-png" onclick="saveAsPNG()">Simpan PNG</button>
+                       <button type="button" class="btn btn-sm btn-info" id="save-png" onclick="saveAsPNG()">Simpan TTD</button>
                       </div>
                     </div>
                     <input type="hidden" name="ttd" id="signature">
