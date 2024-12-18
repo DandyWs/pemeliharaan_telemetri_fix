@@ -14,6 +14,7 @@ return new class extends Migration {
             $table->bigIncrements('id');
             $table->string('ttd');
             $table->string('catatan');
+            $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('pemeliharaan2_id');
 
             $table->timestamps();

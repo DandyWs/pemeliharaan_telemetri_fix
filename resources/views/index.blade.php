@@ -32,7 +32,11 @@
           <li><a href="#beranda">Beranda</a></li>
           <li><a href="#tentang-kami">Pemeliharaan Telemetri</a></li>
           <li><a href="#temukan-kami">Temukan Kami</a></li>
-          <li><a href="{{ url('/login') }}" target="_blank">Login</a></li>
+            @if(Auth::check())
+            <li><a href="{{ url('/dashboard') }}" target="_blank">Dashboard</a></li>
+            @else
+            <li><a href="{{ url('/login') }}" target="_blank">Login</a></li>
+            @endif
         </ul>
       </header>
       <div class="head-content">
@@ -92,7 +96,7 @@
   <section id="temukan-kami">
     <div class="temukan-kami-container">
       <h3>Temukan Kami</h3>
-      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3951.3152186626444!2d112.613478988855!3d-7.966339400000007!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e78834afcf1218f%3A0xe4e51db2e0c2b351!2sKantor%20pjt!5e0!3m2!1sid!2sid!4v1732757342144!5m2!1sid!2sid" 
+      <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d3951.3217728401746!2d112.61715557406616!3d-7.96566024309752!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e788281b93990df%3A0xd788d8a4e1d290d8!2sPerum%20Jasa%20Tirta%20I!5e0!3m2!1sid!2sid!4v1733106093657!5m2!1sid!2sid"
         width="1100" height="600" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
     </div>
     <div class="clearfix"></div>

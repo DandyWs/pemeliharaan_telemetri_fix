@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\AlatTelemetri;
 use App\Models\DetailKomponen;
+use App\Models\FormKomponen;
 use App\Models\User;
 use App\Models\JenisAlat;
 use App\Models\Komponen2;
@@ -88,6 +89,7 @@ class PemeliharaanController extends Controller
             'cuaca' => ['required', 'max:255', 'string'],
             'no_alatUkur' => ['required', 'numeric'],
             'no_GSM' => ['required', 'numeric'],
+            'keterangan' => ['nullable', 'max:255', 'string'],
             'alat_telemetri_id' => ['required', 'exists:alat_telemetris,id'],
             'user_id' => ['required', 'exists:users,id'],
         ]);
@@ -100,7 +102,7 @@ class PemeliharaanController extends Controller
         // }
 
         
-        Pemeliharaan2::create([
+        $pemeliharaan = Pemeliharaan2::create([
             'tanggal' => $request->input('tanggal'),
             'waktu' => $request->input('waktu'),
             'periode' => $request->input('periode'),
@@ -109,9 +111,20 @@ class PemeliharaanController extends Controller
             'no_GSM' => $request->input('no_GSM'),
             'alat_telemetri_id' => $request->input('alat_telemetri_id'),
             'user_id' => $request->input('user_id'),
+            'keterangan' => $request->input('keterangan'),
         ]);
 
-        return redirect('pemeliharaans')->with('success', 'Komponen Berhasil Ditambahkan');
+        if ($request->has('detailKomponen')) {
+            foreach ($request->input('detailKomponen') as $detailKomponen) {
+                FormKomponen::create([
+                'pemeliharaan2_id' => $pemeliharaan->id,
+                'detail_komponen_id' => $detailKomponen['id'],
+                'cheked' => $detailKomponen['cheked'],
+                ]);
+            }
+        }
+
+        return redirect('pemeliharaans')->with('success', 'Form Pemeliharaan Berhasil Ditambahkan');
     }
 
     /**
@@ -123,12 +136,15 @@ class PemeliharaanController extends Controller
     public function show($id)
     {
         $data = Pemeliharaan2::where('id', $id)->first();
-        // $data = Komponen2::selectRaw('id, nama ');
-        // return DataTables::of($data)
-        //             ->addIndexColumn()
-        //             ->make(true);
-        // dd($sopir);
-        return view('pemeliharaans.show', ['pemeliharaan' => $data]);
+        $formKomponen = FormKomponen::where('pemeliharaan2_id', $id)->get();
+        $detailKomponen = DetailKomponen::where('id', $data->detail_komponen_id)->get();
+        $komponen = Komponen2::where('id', $data->komponen_id)->get();
+        return view('pemeliharaans.show', [
+            'pemeliharaan' => $data, 
+            'formKomponen' => $formKomponen,
+            'detailKomponen' => $detailKomponen,
+            'komponen' => $komponen
+        ]);
     }
 
     /**
@@ -139,9 +155,27 @@ class PemeliharaanController extends Controller
      */
     public function edit($id)
     {
-        $sopir = Pemeliharaan2::find($id);
+        $pemeliharaan = Pemeliharaan2::find($id);
+        $alat = AlatTelemetri::all();
+        $formKomponen = FormKomponen::where('pemeliharaan2_id', $id)->get();
+        $user = User::all();
+        $jenisAlat =  JenisAlat::all();
+        $detailKomponen = DetailKomponen::where('id', $pemeliharaan->detail_komponen_id)->get();
+        $komponen = Komponen2::where('id', $pemeliharaan->komponen_id)->get();
+
+        // Debugging statements
+        if (is_null($pemeliharaan)) {
+            dd("Pemeliharaan with ID $id not found");
+        }
+
         return view('pemeliharaans.create')
-        ->with('spr', $sopir)->with('url_form', url('/pemeliharaans/'.$id));
+            ->with('alat', $alat)
+            ->with('formKomponen', $formKomponen)
+            ->with('user', $user)
+            ->with('jenisAlat', $jenisAlat)
+            ->with('komponen', $komponen)
+            ->with('detailKomponen', $detailKomponen)
+        ->with('pemeliharaan', $pemeliharaan)->with('url_form', url('/pemeliharaans/'.$id));
     }
 
     /**

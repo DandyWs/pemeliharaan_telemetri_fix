@@ -9,12 +9,12 @@
             @endif
             <div class="card">
                 <div class="card-header border-0">
-            <div class="me-md-3 me-xl-5">
-                <h6><p class="mb-md-6">
-                    Selamat datang di aplikasi Form Pemeliharaan Jasa Tirta I</p></h6>
+                  <div class="me-md-3 me-xl-5">
+                      <h6><p class="mb-md-6">
+                          Selamat datang di aplikasi Form Pemeliharaan Jasa Tirta I</p></h6>
+                  </div>
+                </div>
             </div>
-            </div>
-        </div>
         <section class="content-header">
             <div class="container-fluid">
               <div class="row mb-2">
@@ -29,13 +29,13 @@
                 </div>
               </div>
 
-                <div class="card-header border-0">
-                    <!-- Main content -->
-                    <div class="card">
+              <div class="card-header border-0">
+                  <!-- Main content -->
+                <div class="card">
                         <div class="card-header">
                           <h3 class="card-title"><i class="nav-icon fas fa-home"></i> Telemetri</h3>
                         </div>
-                        <div class="card-body">
+                <div class="card-body">
                 <section class="content">
 
                 <!-- Default box -->
@@ -44,30 +44,67 @@
                     <div class="row">
                       <div class="col-lg-3 col-6">
                         <!-- small box -->
+                        @if (Auth::user()->role == 'admin')
                         <div class="small-box bg-info">
                           <div class="inner">
                             <h3>{{ $hitungUser }}</h3>
-                            <p>user</p>
+                            <p>User</p>
                           </div>
                           <div class="icon">
                             <i class="fas fa-users fa-2x"></i>
                           </div>
-                          <a href="{{ url('/nasabah') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                          <a href="{{ url('/user') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                         </div>
+                        @elseif (Auth::user()->role == 'mekanik')
+                        <div class="small-box bg-info">
+                          <div class="inner">
+                            <h3>{{ $hitungJenis }}</h3>
+                            <p>Jenis Alat</p>
+                          </div>
+                          <div class="icon">
+                            <i class="fas fa-users fa-2x"></i>
+                          </div>
+                          <a href="{{ url('/jenisalat') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                        </div>
+                        @else
+                        <div class="small-box bg-info">
+                          <div class="inner">
+                            <h3>{{ $hitungPem }}</h3>
+                            <p>Pemeliharaan Today</p>
+                          </div>
+                          <div class="icon">
+                            <i class="fas fa-users fa-2x"></i>
+                          </div>
+                          <a href="{{ url('/pemeliharaans') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                        </div>
+                        @endif
                       </div>
                       <!-- ./col -->
                       <div class="col-lg-3 col-6">
                         <!-- small box -->
+                        @if (Auth::user()->role == 'manager')
+                        <div class="small-box bg-success">
+                          <div class="inner">
+                            <h3>{{ $hitungPemKet}}</h3>
+                            <p>Pemeliharaan Menunggu Konfirmasi</p>
+                          </div>
+                          <div class="icon">
+                            <i class="nav-icon fas fa-solid fa fa-hammer"></i>
+                          </div>
+                          <a href="{{ url('/pemeliharaans') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                        </div>
+                        @else
                         <div class="small-box bg-success">
                           <div class="inner">
                             <h3>{{ $hitungKomponen }}</h3>
                             <p>Komponen</p>
                           </div>
                           <div class="icon">
-                            <i class="nav-icon fa fa-sticky-note"></i>
+                            <i class="nav-icon fas fa-solid fa fa-puzzle-piece"></i>
                           </div>
-                          <a href="{{ url('/sopir') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                          <a href="{{ url('/komponen') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                         </div>
+                        @endif
                       </div>
                       <!-- ./col -->
                       <div class="col-lg-3 col-6">
@@ -76,10 +113,10 @@
                           <div class="inner">
                             <h3>{{ $hitungPemeliharaan }}</h3>
 
-                            <p>Form Pemeliharaan</p>
+                            <p>Jumlah Form Pemeliharaan</p>
                           </div>
                           <div class="icon">
-                            <i class="nav-icon fa fa-id-card"></i>
+                            <i class="nav-icon fas fa-solid fa fa-pen"></i>
                           </div>
                           <a href="{{ url('/pemeliharaans') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                         </div>
@@ -94,7 +131,7 @@
                             <p>Jumlah Alat</p>
                           </div>
                           <div class="icon">
-                            <i class="fa fa-calendar"></i>
+                            <i class="nav-icon fas fa-solid fa fa-toolbox"></i>
                           </div>
                           <a href="{{ url('/alat') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                         </div>
@@ -123,7 +160,7 @@
                                       <th>Cuaca</th>
                                       <th>User</th>
                                       <th>Peralatan Telemetri</th>
-                                      <th>Status</th>
+                                      <th>Keterangan</th>
                                     </tr>
                                   </thead>
                                   <tbody>
@@ -139,7 +176,7 @@
                                           @if($k->keterangan != NULL)
                                             <td>{{$k->keterangan}}</td>
                                           @else
-                                            <td>Menunggu Konfirmasi</td>
+                                            <td>Pemeliharaan {{ $k->alatTelemetri->jenisAlat->namajenis }}</td>
                                           @endif
                                           {{-- <td>{{$k->konfirmasi}}</td> --}}
                                         </tr>
@@ -154,5 +191,13 @@
                               </div>
                             </div>
                         </div>
-            </section>
-        @endsection
+                    </div>
+                </section>
+                </div>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+@endsection
