@@ -170,17 +170,6 @@
             </div>
             @endforeach
             </div>
-
-            <div class="form-group col-md-12" style="margin-top: 20px;">
-              <label>Keterangan</label>
-                <textarea
-                name="keterangan"
-                class="form-control @error('keterangan') is-invalid @enderror"
-                >{{ old('keterangan', isset($pemeliharaan) ? $pemeliharaan->keterangan : '') }}</textarea>
-                @error('keterangan')
-                <span class="error invalid-feedback">{{ $message }}</span>
-                @enderror
-            </div>
             
             {{-- <div class="form-group col-md-6">
               <label>Lokasi Stasiun</label>
@@ -268,6 +257,16 @@
                         </table>
                     </div>
                 </div>
+                <div class="form-group col-md-12" style="margin-top: 20px;">
+              <label>Keterangan</label>
+                <textarea
+                name="keterangan"
+                class="form-control @error('keterangan') is-invalid @enderror"
+                >{{ old('keterangan', isset($pemeliharaan) ? $pemeliharaan->keterangan : '') }}</textarea>
+                @error('keterangan')
+                <span class="error invalid-feedback">{{ $message }}</span>
+                @enderror
+            </div>
             </div>
 
             <!-- <div class="form-group col-md-6">
