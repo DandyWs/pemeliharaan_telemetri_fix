@@ -22,6 +22,7 @@
 
 </head>
 <body>
+
   <!-- Navbar -->
   <section id="beranda">
     <div class="beranda">
@@ -60,6 +61,7 @@
   <section id="tentang-kami">
     <div class="layanan-container" id="layanan">
       <div class="icons">
+      <a href="{{ url('/register') }}" style="text-decoration: none; color: inherit;">
         <img src="assets/dist/img/edit.svg" alt="">
         <div class="info">
           <h6>Daftar</h6>
@@ -101,9 +103,10 @@
   </section>
 
 
-
+  
   <!-- Footer -->
-  <footer class="bg text-center text-white">
+  <footer class="bg text- 
+     text-white">
     <div class="container p-4 pb-0">
       <section class="mb-4">
         <a class="btn btn-outline-success btn-floating m-1" href="https://wa.me/6285755252327" role="button">
@@ -118,11 +121,11 @@
       </section>
     </div>
     <div class="copyright text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
-      Copyright ©2024 <strong>Perum Jasa Tirta 1.</strong>
+      Copyright©2024 <strong>Perum Jasa Tirta 1.</strong>
     </div>
-  </footer>
+  </footer>  
 
-
+  
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
 
 </body>

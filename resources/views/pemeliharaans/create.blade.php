@@ -14,7 +14,6 @@
             @csrf
             {!!(isset($pemeliharaan))? method_field('PUT') : '' !!}
 
-            
             <div class="row">
               <div class="form-group col-md-6">
                 <label>Nama Stasiun -- Jenis Alat</label>
@@ -48,8 +47,6 @@
                 <span class="error invalid-feedback">{{ $message }}</span>
                 @enderror
             </div>
-
-            
 
             <div class="form-group col-md-6">
               <label>Periode Pemeliharaan</label>
@@ -185,7 +182,6 @@
                 @enderror
             </div>
             
-
             {{-- <div class="form-group col-md-6">
               <label>Lokasi Stasiun</label>
               <input class="form-control @error('lokasiStasiun') is-invalid @enderror" value="{{ isset($pemeliharaan)? $pemeliharaan->alat->lokasiStasiun :old('lokasiStasiun') }}" name="lokasiStasiun" type="text"/>
@@ -213,7 +209,83 @@
               @enderror
             </div> --}}
 
+            <div class="card-body">
+            <form method="POST" action="{{ $url_form }}" enctype="multipart/form-data">
+                @csrf
+                {!!(isset($spr))? method_field('PUT') : '' !!}
+              <!-- Grid Layout -->
+              <div class="d-flex justify-content-between">
+                    <!-- Setting Tipping Bucket -->
+                    <div>
+                        <p>Penunjukan Data Setting di Display (LCD)</p>
+                        <table class="table table-bordered text-center">
+                            <thead>
+                                <tr>
+                                    <th colspan="2">Sebelum Kalibrasi</th>
+                                    <th colspan="2">Sesudah Kalibrasi</th>
+                                </tr>
+                                <tr>
+                                    <th>Simulasi</th>
+                                    <th>Display</th>
+                                    <th>Simulasi</th>
+                                    <th>Display</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><input type="text" name="simulasi_sebelum" class="form-control" /></td>
+                                    <td><input type="text" name="display_sebelum" class="form-control" /></td>
+                                    <td><input type="text" name="simulasi_sesudah" class="form-control" /></td>
+                                    <td><input type="text" name="display_sesudah" class="form-control" /></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- Setting Sensor Water Level -->
+                    <div>
+                        <p>Penunjukan Data Setting di Display (LCD)</p>
+                        <table class="table table-bordered text-center">
+                            <thead>
+                                <tr>
+                                    <th colspan="2">Sebelum Kalibrasi</th>
+                                    <th colspan="2">Sesudah Kalibrasi</th>
+                                </tr>
+                                <tr>
+                                    <th>Aktual</th>
+                                    <th>Display</th>
+                                    <th>Aktual</th>
+                                    <th>Display</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><input type="text" name="aktual_sebelum" class="form-control" /></td>
+                                    <td><input type="text" name="display_aktual_sebelum" class="form-control" /></td>
+                                    <td><input type="text" name="aktual_sesudah" class="form-control" /></td>
+                                    <td><input type="text" name="display_aktual_sesudah" class="form-control" /></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
+
+            <!-- <div class="form-group col-md-6">
+              <label>Tanggal Pemeliharaan</label>
+              <input class="form-control @error('simulasi') is-invalid @enderror" value="{{ isset($spr)? $spr->simulasi :old('simulasi') }}" name="simulasi" type="text"/>
+              @error('simulasi')
+                <span class="error invalid-feedback">{{ $message }} </span>
+              @enderror
+            </div> -->
+
+            <!-- <div class="form-group">
+              <label>Nilai Display</label>
+              <input class="form-control @error('display') is-invalid @enderror" value="{{ isset($spr)? $spr->display :old('display') }}" name="display" type="text"/>
+              @error('display')
+                <span class="error invalid-feedback">{{ $message }} </span>
+              @enderror
+            </div> -->
+
             <div class="form-group mt-3">
               <button class="btn btn-sm btn-success">Simpan</button>
               <a class="btn btn-sm btn-primary" href="{{ url('/pemeliharaans') }}">Kembali</a>
