@@ -36,7 +36,6 @@
             <div class="dropdown">
                 <div class="mt-1 d-flex" role="button" id="profileDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <div class="profile rounded-circle mr-2">
-                        {{-- @if (Auth::user()) --}}
                             <img src="assets/dist/img/profile.png" class="" alt="User Image" width="40px">
                         {{-- @elseif(Auth::user()->role == "nasabah")
                             @if (empty($nasabah->foto))

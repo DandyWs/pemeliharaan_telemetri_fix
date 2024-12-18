@@ -69,7 +69,7 @@ Route::resource('/pemeliharaans', PemeliharaanController::class)->parameter('pem
 
 Route::resource('/pemeriksaan', PemeriksaanController::class)->parameter('pemeriksaan','id');
 Route::get('pemeriksaan/{id}/create', [PemeriksaanController::class, 'create'])->name('pemeriksaan.create');
-Route::post('pemeriksaan/{id}/store', [PemeriksaanController::class, 'store'])->name('pemeriksaan.store');
+Route::post('pemeriksaan/{id}', [PemeriksaanController::class, 'create'])->name('pemeriksaan.create');
     Route::post('pemeriksaan/data',[PemeriksaanController::class,'data'])->name('data_pemeriksaan');
 
 Route::resource('/alat', AlatController::class)->parameter('alat','id');
