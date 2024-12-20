@@ -114,15 +114,20 @@ class PemeliharaanController extends Controller
             'keterangan' => $request->input('keterangan'),
         ]);
 
-        if ($request->has('detailKomponen')) {
-            foreach ($request->input('detailKomponen') as $detailKomponen) {
+        // if ($request->has('detailKomponen')) {
+            // foreach ($request->input('detailKomponen') as $detailKomponen) {
+            $detailKomponen = DetailKomponen::all();
+            foreach ($detailKomponen as $detail){
+                // dd($detail );
+                // dd($request->input('cheked24'));
+                if ($request->input('cheked'.$detail->id)) 
                 FormKomponen::create([
                 'pemeliharaan2_id' => $pemeliharaan->id,
-                'detail_komponen_id' => $detailKomponen['id'],
-                'cheked' => $detailKomponen['cheked'],
+                'detail_komponen_id' => $detail->id,
+                'cheked' => '1',
                 ]);
             }
-        }
+        //}
 
         return redirect('pemeliharaans')->with('success', 'Form Pemeliharaan Berhasil Ditambahkan');
     }
@@ -136,9 +141,9 @@ class PemeliharaanController extends Controller
     public function show($id)
     {
         $data = Pemeliharaan2::where('id', $id)->first();
-        $formKomponen = FormKomponen::where('pemeliharaan2_id', $id)->get();
-        $detailKomponen = DetailKomponen::where('id', $data->detail_komponen_id)->get();
-        $komponen = Komponen2::where('id', $data->komponen_id)->get();
+        $formKomponen = FormKomponen::where('pemeliharaan2_id', $id)-> pluck('detail_komponen_id')->toArray();
+        $detailKomponen = DetailKomponen::all();
+        $komponen = Komponen2::all();
         return view('pemeliharaans.show', [
             'pemeliharaan' => $data, 
             'formKomponen' => $formKomponen,
@@ -157,7 +162,7 @@ class PemeliharaanController extends Controller
     {
         $pemeliharaan = Pemeliharaan2::find($id);
         $alat = AlatTelemetri::all();
-        $formKomponen = FormKomponen::where('pemeliharaan2_id', $id)->get();
+        $formKomponen = FormKomponen:: pluck('detail_komponen_id');
         $user = User::all();
         $jenisAlat =  JenisAlat::all();
         $detailKomponen = DetailKomponen::where('id', $pemeliharaan->detail_komponen_id)->get();

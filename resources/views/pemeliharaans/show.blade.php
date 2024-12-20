@@ -21,6 +21,59 @@
                 <li class="list-group-item"><b>Jenis Peralatan : </b>{{$pemeliharaan->alatTelemetri->jenisAlat->namajenis}}</li>
                 <li class="list-group-item"><b>Keterangan : </b>{{$pemeliharaan->keterangan ?? 'Pemeliharaan ' . $pemeliharaan->alatTelemetri->jenisAlat->namajenis}}</li>
             </ul>
+            {{-- {{ $formKomponen }} --}}
+            @foreach ($komponen as $komp)
+            <div class="form-group col-md-6">
+              <label>
+                {{ $komp->nama }}
+              </label>
+              @foreach ($detailKomponen->where('komponen2_id', $komp->id) as $detail)
+              @php
+              $cheked = false;
+                  if (in_array($detail->id, $formKomponen)) {
+                        $cheked = true;
+                        // var_dump($cheked);
+                    }
+              @endphp
+                <div class="form-check">
+                    <input
+                    type="hidden"
+                    name="detail_komponen_id[{{ $detail->id }}]"
+                    value="{{ $detail->id }}"
+                    />
+                    <input
+                    type="hidden"
+                    name="pemeliharaan2_id[{{ $detail->id }}]"
+                    value="{{ isset($pemeliharaan) ? $pemeliharaan->id : '' }}"
+                    />
+                    {{-- <input
+                    type="hidden"
+                    name="cheked[{{ $detail->id }}]"
+                    value="0"
+                    /> --}}
+                    <input
+                    type="checkbox"
+                    name="cheked{{ $detail->id }}"
+                    {{ $cheked ? 'checked' : 'disabled' }}
+                    class="form-check-input"
+                    
+                    />
+                  {{-- <input
+                    type="checkbox"
+                    name="komponen2_id"
+                    value="{{ $detail->id }}"
+                    class="form-check-input"
+                    {{ in_array($detail->id, old('komponen2_id', isset($pemeliharaan) ? $pemeliharaan->komponen->pluck('id')->toArray() : [])) ? 'checked' : '' }}
+                  /> --}}
+                  <label class="form-check-label">{{ $detail->namadetail }}</label>
+                </div>
+              @endforeach
+              @error('komponen2_id')
+              <span class="error invalid-feedback">{{ $message }}</span>
+              @enderror
+            </div>
+            @endforeach
+
             <div class="row">
                 @foreach ($komponen as $komponen)
                 <div class="col-md-6">
@@ -29,6 +82,7 @@
                     @endforeach --}}
                 </div>
                 @endforeach
+                
             </div>
             <a class="btn btn-md btn-primary" href="{{ url('/pemeliharaans') }}">Kembali</a>
         </div>
