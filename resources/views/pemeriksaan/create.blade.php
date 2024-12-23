@@ -11,7 +11,7 @@
             <br>
         </div>
         <div class="card-body">
-            <form method="POST" action="{{ route('pemeriksaan.store') }}" enctype="multipart/form-data">
+            <form method="POST" action="{{ $url_form }}" enctype="multipart/form-data">
             @csrf
             {!!(isset($spr))? method_field('PUT') : '' !!}
 
@@ -73,15 +73,14 @@
               <div class="form-group col-md-12 text-center">
                 <label>Tanda Tangan</label>
                 <div id="signature-pad" class="signature-pad">
-                  <div class="signature-pad--body">
-                  <canvas id="myCanvas" width="300" height="300" style="border: 1px solid #000;"></canvas>
+                  <div id="sig" class="kbw-signature">
                   </div>
+                  <input type="text" id="signature64" name="ttd" style="display: none">
                   <div class="signature-pad--footer">
-                  <button type="button" class="btn btn-sm btn-secondary" id="clear-signature">Hapus</button>
+                  <button type="button" class="btn btn-sm btn-secondary" id="clear">Hapus</button>
 
                   </div>
                 </div>
-                <input type="hidden" name="ttd" id="signature">
                 @error('ttd')
                 <span class="error invalid-feedback">{{ $message }}</span>
                 @enderror
@@ -89,30 +88,24 @@
 
             </div>
             <div class="form-group mt-3">
-              <button class="btn btn-sm btn-success">Simpan</button>
+              <button name="submit" class="btn btn-sm btn-success">Simpan</button>
               <a class="btn btn-sm btn-primary" href="{{ url('/pemeriksaan') }}">Kembali</a>
             </div>
             </form>
         </div>
       </div>
-      <script src="https://cdn.jsdelivr.net/npm/signature_pad@4.0.0/dist/signature_pad.umd.min.js"></script>
-      <script>
-        document.addEventListener('DOMContentLoaded', function () {
-          var canvas = document.querySelector("#signature-pad canvas");
-          var signaturePad = new SignaturePad(canvas);
 
-          document.getElementById('clear-signature').addEventListener('click', function () {
-            signaturePad.clear();
-          });
-
-          document.querySelector('form').addEventListener('submit', function (event) {
-            if (!signaturePad.isEmpty()) {
-              var dataURL = signaturePad.toDataURL('image/png');
-              document.getElementById('signature').value = dataURL;
-            }
-          });
+      <script type="text/javascript">
+        var sig = $('#sig').signature({
+            syncField: '#signature64',
+            syncFormat: 'PNG'
         });
-      </script>
+        $('#clear').click(function(e) {
+            e.preventDefault();
+            sig.signature('clear');
+            $("#signature64").val('');
+        });
+    </script>
 </section>
 
 @endsection

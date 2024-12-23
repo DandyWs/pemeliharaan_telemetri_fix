@@ -84,7 +84,7 @@ class PemeriksaanController extends Controller
             ->with('jenisAlat', $jenisAlat)
             ->with('komponen', $komponen)
             ->with('detailKomponen', $detailKomponen)
-            ->with('url_form', url('/pemeriksaan/'.$id));
+            ->with('url_form', url('/pemeriksaan'));
         }
 
     /**
@@ -109,13 +109,40 @@ class PemeriksaanController extends Controller
         //     $image_name = $file->storeAs('sopirprofile', $filename, 'public');
         // }
 
-
-        Pemeriksaan::create([
-            'ttd' => $request->input('ttd'),
+        if ($request->has('submit')) {
+            $folderPath = "uploads/";
+            $image_parts = explode(";base64,", $request->input('ttd'));
+            $image_type_aux = explode("image/", $image_parts[0]);
+        
+            $image_type = isset($image_type_aux[1]) ? $image_type_aux[1] : 'png';
+        
+            $image_base64 = base64_decode($image_parts[1]);
+        
+            $file = $folderPath . uniqid() . '.' . $image_type;
+        
+            Storage::disk('public')->put($file, $image_base64);
+        
+            Pemeriksaan::create([
+            'ttd' => $file,
             'catatan' => $request->input('catatan'),
             'pemeliharaan2_id' => $request->input('pemeliharaan2_id'),
             'user_id' => $request->input('user_id'),
-        ]);
+            ]);
+        } else {
+            Pemeriksaan::create([
+                'ttd' => $request->input('ttd'),
+                'catatan' => $request->input('catatan'),
+                'pemeliharaan2_id' => $request->input('pemeliharaan2_id'),
+                'user_id' => $request->input('user_id'),
+            ]);
+        }
+
+        // Pemeriksaan::create([
+        //     'ttd' => $request->input('ttd'),
+        //     'catatan' => $request->input('catatan'),
+        //     'pemeliharaan2_id' => $request->input('pemeliharaan2_id'),
+        //     'user_id' => $request->input('user_id'),
+        // ]);
 
         return redirect('pemeriksaan')->with('success', 'Form Pemeliharaan telah Diperiksa');
     }
@@ -159,7 +186,7 @@ class PemeriksaanController extends Controller
             ->with('jenisAlat', $jenisAlat)
             ->with('komponen', $komponen)
             ->with('detailKomponen', $detailKomponen)
-        ->with('pemeliharaan', $pemelihaaran)->with('url_form', url('/pemeriksaan/'.$id));
+        ->with('pemeliharaan', $pemelihaaran)->with('url_form', url('/pemeriksaan'));
     }
 
     /**
