@@ -10,26 +10,41 @@
             <br>
         </div>
         <div class="card-body">
-            <div class="row"> 
-                <div class="col-md-6">
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item"><b>Lokasi Stasiun : </b>{{$pemeliharaan->alatTelemetri->lokasiStasiun}}</li>
-                        <li class="list-group-item"><b>Jenis Peralatan : </b>{{$pemeliharaan->alatTelemetri->jenisAlat->namajenis}}</li>
-                        <li class="list-group-item"><b>Tanggal Pemeliharaan : </b>{{$pemeliharaan->tanggal}}</li>
-                        <li class="list-group-item"><b>Waktu Mulai Pemeliharaan : </b>{{$pemeliharaan->waktu}}</li>
-                        <li class="list-group-item"><b>Periode Pemeliharaan : </b>{{$pemeliharaan->periode}}</li>
-                    </ul>
-                </div>
-                <div class="col-md-6">
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item"><b>Cuaca : </b>{{$pemeliharaan->cuaca}}</li>
-                        <li class="list-group-item"><b>No Alat Ukur : </b>{{$pemeliharaan->no_alatUkur}}</li>
-                        <li class="list-group-item"><b>No GSM : </b>{{$pemeliharaan->no_GSM}}</li>
-                        <li class="list-group-item"><b>User : </b>{{$pemeliharaan->user->name}}</li>
-                        <li class="list-group-item"><b>Keterangan : </b>{{$pemeliharaan->keterangan ?? 'Pemeliharaan ' . $pemeliharaan->alatTelemetri->jenisAlat->namajenis}}</li>
-                    </ul>
-                </div>
+        <div class="row">
+              <div class="form-group col-md-6">
+                <label>Nama Stasiun -- Jenis Alat</label>
+                <p class="form-control-static" style="border: 1px solid #ced4da; background-color: #e9ecef; padding: .375rem .75rem;">{{ $pemeliharaan->alatTelemetri->lokasiStasiun }} -- {{ $pemeliharaan->alatTelemetri->jenisAlat->namajenis }}</p>
+              <input type="hidden" name="pemeliharaan2_id" value="{{ $pemeliharaan->id }}">
               </div>
+              <div class="form-group col-md-6">
+              <label>Tanggal Pemeliharaan</label>
+              <p class="form-control-static" style="border: 1px solid #ced4da; background-color: #e9ecef; padding: .375rem .75rem;">{{ $pemeliharaan->tanggal }}</p>
+              </div>
+              <div class="form-group col-md-6">
+              <label>Periode Pemeliharaan</label>
+              <p class="form-control-static" style="border: 1px solid #ced4da; background-color: #e9ecef; padding: .375rem .75rem;">{{ $pemeliharaan->periode }}</p>
+              </div>
+              <div class="form-group col-md-6">
+              <label>Waktu Pemeliharaan</label>
+              <p class="form-control-static" style="border: 1px solid #ced4da; background-color: #e9ecef; padding: .375rem .75rem;">{{ $pemeliharaan->waktu }}</p>
+              </div>
+              <div class="form-group col-md-6">
+              <label>Pelaksana Pemeliharaan</label>
+              <p class="form-control-static" style="border: 1px solid #ced4da; background-color: #e9ecef; padding: .375rem .75rem;">{{ $pemeliharaan->user->name }}</p>
+              </div>
+              <div class="form-group col-md-6">
+              <label>Cuaca</label>
+              <p class="form-control-static" style="border: 1px solid #ced4da; background-color: #e9ecef; padding: .375rem .75rem;">{{ $pemeliharaan->cuaca }}</p>
+              </div>
+              <div class="form-group col-md-6">
+              <label>No Alat Ukur</label>
+              <p class="form-control-static" style="border: 1px solid #ced4da; background-color: #e9ecef; padding: .375rem .75rem;">{{ $pemeliharaan->no_alatUkur }}</p>
+              </div>
+              <div class="form-group col-md-6">
+              <label>No GSM</label>
+              <p class="form-control-static" style="border: 1px solid #ced4da; background-color: #e9ecef; padding: .375rem .75rem;">{{ $pemeliharaan->no_GSM }}</p>
+              </div>
+            </div>
               <br>
               <div class="row">
                     @foreach ($komponen as $komp)
