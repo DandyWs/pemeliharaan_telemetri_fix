@@ -15,6 +15,7 @@ use App\Exports\PemeriksaanExport;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
+use Illuminate\Support\Facades\Log;
 
 class PemeriksaanController extends Controller
 {
@@ -41,8 +42,7 @@ class PemeriksaanController extends Controller
                 'id' => $item->id,
                 'ttd' => $item->ttd,
                 'catatan' => $item->catatan,
-                'pemeliharaan_id' => $item->pemeliharaan2_id,
-                'pemeliharaan2_id' => $item->Pemeliharaan2->id,
+                'pemeliharaan_id' => $item->Pemeliharaan2->id,
                 'tanggal' => $item->Pemeliharaan2->tanggal,
                 'waktu' => $item->Pemeliharaan2->waktu,
                 'periode' => $item->Pemeliharaan2->periode,
@@ -52,7 +52,7 @@ class PemeriksaanController extends Controller
                 'alat_telemetri_id' => $item->Pemeliharaan2->AlatTelemetri->lokasiStasiun,
                 'jenis_alat' => $item->Pemeliharaan2->AlatTelemetri->JenisAlat->namajenis,
                 'keterangan' => $item->Pemeliharaan2->keterangan,
-                'status' => $item->Pemeliharaan2->id,
+                'status' => $item->pemeliharaan2_id == $item->Pemeliharaan2->id,
                 'user_id' => $item->User->name,
             ];
         });
@@ -95,54 +95,47 @@ class PemeriksaanController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'ttd' => ['required', 'max:255', 'string'],
-            'catatan' => ['required', 'max:255', 'string'],
-            'pemeliharaan2_id' => ['required', 'exists:pemeliharaan2s,id'],
-            'user_id' => ['required', 'exists:users,id'],
-        ]);
+        // Validate the incoming request data
+    $request->validate([
+        'ttd' => ['required', 'string'],
+        'catatan' => ['required', 'max:255', 'string'],
+        'pemeliharaan2_id' => ['required', 'exists:pemeliharaan2s,id'],
+        'user_id' => ['required', 'exists:users,id'],
+    ]);
 
-        // if ($request->file('foto')) {
-        //     $file = $request->file('foto');
-        //     $extension = $file->getClientOriginalExtension();
-        //     $filename = 'sopir-' . 'nama' . '.' . $extension;
-        //     $image_name = $file->storeAs('sopirprofile', $filename, 'public');
-        // }
+    // Initialize the file variable
+    $file = null;
 
-        if ($request->has('submit')) {
+    // Handle the ttd field if it's a base64 image
+    if ($request->has('ttd')) {
+        try {
             $folderPath = "uploads/";
             $image_parts = explode(";base64,", $request->input('ttd'));
             $image_type_aux = explode("image/", $image_parts[0]);
-        
             $image_type = isset($image_type_aux[1]) ? $image_type_aux[1] : 'png';
-        
             $image_base64 = base64_decode($image_parts[1]);
-        
             $file = $folderPath . uniqid() . '.' . $image_type;
-        
+
+            // Store the image in the public disk
             Storage::disk('public')->put($file, $image_base64);
-        
-            Pemeriksaan::create([
+        } catch (\Exception $e) {
+            Log::error('Error storing ttd image: ' . $e->getMessage());
+            return redirect()->back()->withErrors(['ttd' => 'Failed to store signature image.']);
+        }
+    }
+
+    // Create the Pemeriksaan record
+    try {
+        Pemeriksaan::create([
             'ttd' => $file,
             'catatan' => $request->input('catatan'),
             'pemeliharaan2_id' => $request->input('pemeliharaan2_id'),
             'user_id' => $request->input('user_id'),
-            ]);
-        } else {
-            Pemeriksaan::create([
-                'ttd' => $request->input('ttd'),
-                'catatan' => $request->input('catatan'),
-                'pemeliharaan2_id' => $request->input('pemeliharaan2_id'),
-                'user_id' => $request->input('user_id'),
-            ]);
-        }
-
-        // Pemeriksaan::create([
-        //     'ttd' => $request->input('ttd'),
-        //     'catatan' => $request->input('catatan'),
-        //     'pemeliharaan2_id' => $request->input('pemeliharaan2_id'),
-        //     'user_id' => $request->input('user_id'),
-        // ]);
+        ]);
+    } catch (\Exception $e) {
+        Log::error('Error creating Pemeriksaan record: ' . $e->getMessage());
+        return redirect()->back()->withErrors(['error' => 'Failed to create Pemeriksaan record.']);
+    }
 
         return redirect('pemeriksaan')->with('success', 'Form Pemeliharaan telah Diperiksa');
     }
