@@ -142,15 +142,15 @@
                     name="pemeliharaan2_id[{{ $detail->id }}]"
                     value="{{ isset($pemeliharaan) ? $pemeliharaan->id : '' }}"
                     />
-                    {{-- <input
+                    <input
                     type="hidden"
                     name="cheked[{{ $detail->id }}]"
                     value="0"
-                    /> --}}
+                    />
                     <input
                     type="checkbox"
-                    name="cheked{{ $detail->id }}"
-                    {{-- value="1" --}}
+                    name="cheked[{{ $detail->id }}]"
+                    value="1"
                     class="form-check-input"
                     {{ old('cheked' . $detail->id, isset($pemeliharaan) && $pemeliharaan->formKomponen->where('komponen2_id', $detail->id)->first()->cheked) ? 'checked' : '' }}
                     />

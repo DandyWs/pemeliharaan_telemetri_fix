@@ -3,8 +3,11 @@
 @section('content')
 <section class="content">
     <div class="card">
-        <div class="card-header">
-            <h3 class="card-title">Data Setting</h3>
+        <div class="card-header text-center">
+        <h2><strong>LAPORAN PEMELIHARAAN DAN</strong></h2>
+            <h2><strong>KALIBRASI INTERNAL PERALATAN TELEMETRI GSM</strong></h2>
+            </h2>
+            <br>
         </div>
         <div class="card-body">
             <div class="row"> 
@@ -27,6 +30,7 @@
                     </ul>
                 </div>
               </div>
+              <br>
               <div class="row">
                     @foreach ($komponen as $komp)
                         <div class="form-group col-md-6"> 
