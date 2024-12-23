@@ -8,6 +8,7 @@ use App\Models\JenisAlat;
 use App\Models\Komponen2;
 use App\Models\Pemeriksaan;
 use App\Models\Pemeliharaan2;
+use App\Models\FormKomponen;
 use App\Models\User;
 use Illuminate\Support\Facades\Storage;
 use Maatwebsite\Excel\Facades\Excel;
@@ -73,12 +74,14 @@ class PemeriksaanController extends Controller
         $pemelihaaran = Pemeliharaan2::find($id);
         $pemeriksaan = Pemeriksaan::all();
         $user = User::all();
+        $formKomponen = FormKomponen::where('pemeliharaan2_id', $id)-> pluck('detail_komponen_id')->toArray();
         $jenisAlat =  JenisAlat::all();
         $komponen = Komponen2::all();
         $detailKomponen = DetailKomponen::all();
         return view('pemeriksaan.create')
             ->with('alat', $alat)
             ->with('user', $user)
+            ->with('formKomponen', $formKomponen)
             ->with('pemeliharaan', $pemelihaaran)
             ->with('pemeriksaan', $pemeriksaan)
             ->with('jenisAlat', $jenisAlat)
@@ -169,12 +172,14 @@ class PemeriksaanController extends Controller
         $alat = AlatTelemetri::all();
         $pemeriksaan = Pemeriksaan::all();
         $user = User::all();
+        $formKomponen = FormKomponen::where('pemeliharaan2_id', $id)-> pluck('detail_komponen_id')->toArray();
         $jenisAlat =  JenisAlat::all();
         $komponen = Komponen2::all();
         $detailKomponen = DetailKomponen::all();
         return view('pemeriksaan.create')
             ->with('alat', $alat)
             ->with('user', $user)
+            ->with('formKomponen', $formKomponen)
             ->with('pemeriksaan', $pemeriksaan)
             ->with('jenisAlat', $jenisAlat)
             ->with('komponen', $komponen)
