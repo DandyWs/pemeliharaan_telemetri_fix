@@ -249,7 +249,7 @@ class PemeriksaanController extends Controller
             $data = Pemeliharaan2::with(['user', 'alatTelemetri.jenisAlat'])->get();
 
             $pdf = Pdf::loadView('pemeriksaan.export_pdf', compact('data'))
-                      ->setPaper('a4', 'portrait');
+                      ->setPaper('a4', 'landscape');
 
             return $pdf->download('laporan_pemeriksaan.pdf');
         }

@@ -15,7 +15,8 @@ class PemeriksaanExport implements FromCollection, WithHeadings
      */
     public function collection()
     {
-        return Pemeliharaan2::all(['id', 'tanggal', 'periode', 'cuaca', 'user_id']);
+        return Pemeliharaan2::all(['id', 'tanggal','waktu', 'periode', 'cuaca','no_alatUkur',
+        'no_GSM', 'user_id']);
     }
 
     /**
@@ -28,8 +29,11 @@ class PemeriksaanExport implements FromCollection, WithHeadings
         return [
             'ID',
             'Tanggal',
+            'Waktu',
             'Periode',
             'Cuaca',
+            'no_alatUkur',
+            'no_GSM',
             'User ID',
         ];
     }
