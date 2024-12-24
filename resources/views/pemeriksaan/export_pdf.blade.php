@@ -25,8 +25,13 @@
        }
     </style>
      <center>
-        <h4 class="title">LAPORAN PEMELIHARAAN PERALATAN</h4>
-        <h4 class="sub-title">TELEMETRI WQMS GSM </h4><br><br>
+        <div class="card">
+            <div class="card-header text-center">
+                <h2><strong>LAPORAN PEMELIHARAAN DAN</strong></h2>
+                <h2><strong>KALIBRASI INTERNAL PERALATAN TELEMETRI GSM</strong></h2>
+                </h2>
+                <br>
+            </div>
     </center>
 <div class="container mt-2">
     <div class="row justify-content-center align-items-center">
@@ -34,35 +39,40 @@
 
             <div class="card-body">
 
-                    <table class="table table-sm">
+                <table class="table table-sm">
                     <thead>
                         <tr>
                             <th>No</th>
-                            <th>Tanggal Pemeliharaan</th>
-                            <th>Waktu Mulai</th>
+                            <th>Tanggal</th>
                             <th>Periode</th>
                             <th>Cuaca</th>
-                            <th>No Alat Ukur</th>
-                            <th>No GSM</th>
-                            <th>User</th>
-                            <th>Peralatan Telemetri</th>
+                            <th>Jenis Alat</th>
+                            <th>Lokasi Stasiun</th>
+                            <th>Pelaksana</th>
+                            <th>Status</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($pemeliharaans as $pemeliharaan)
-                        <tr>
-                            <td>{{ $loop->iteration }}</td>
-                            <td>{{ $pemeliharaan->waktuMulaiPemeliharan }}</td>
-                            <td>{{ $pemeliharaan->periodePemeliharaan }}</td>
-                            <td>{{ $pemeliharaan->cuaca }}</td>
-                            <td>{{ $pemeliharaan->no_AlatUkur }}</td>
-                            <td>{{ $pemeliharaan->no_GSM }}</td>
-                            <td>{{ optional($pemeliharaan->user)->name }}</td>
-                            <td>{{ optional($pemeliharaan->peralatanTelemetri)->namaAlat }}</td>
-                        </tr>
+                        @foreach ($data as $index => $item)
+                            <tr>
+                                <td>{{ $index + 1 }}</td>
+                                <td>{{ $item->tanggal }}</td>
+                                <td>{{ $item->periode }}</td>
+                                <td>{{ $item->cuaca }}</td>
+                                <td>{{ $item->alatTelemetri->jenisAlat->namajenis }}</td>
+                                <td>{{ $item->alatTelemetri->lokasiStasiun }}</td>
+                                <td>{{ $item->user->name }}</td>
+                                <td>{{ $item->status ? 'Confirmed' : 'Not Confirmed' }}</td>
+                            </tr>
                         @endforeach
                     </tbody>
                 </table>
+                <div class="signature">
+                    <p>Disahkan oleh,</p>
+                    <br><br><br>
+                    <p>_______________________</p>
+                    <p>Nama Pemeriksa</p>
+                </div>
             </div>
         </div>
     </div>

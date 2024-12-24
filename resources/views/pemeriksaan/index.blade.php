@@ -15,11 +15,11 @@
             <div class="row d-flex justify-between" style="width: 100%; justify-content: space-between; align-items: center; margin: 0">
               {{-- <a href="{{url('pemeriksaan/create')}}" class="btn -btn sm btn-success my-2">Tambah Data</a> --}}
               <div class="col-md-12 text-right mb-3" style="width: 100%">
-                <a href="{{ route('pemeliharaans.export', ['format' => 'pdf']) }}" class="btn btn-danger ml-2">
+                <a href="{{ route('pemeliharaan.export-pdf') }}" class="btn btn-danger ml-2">
                     <i class="icon ion-md-download"></i> Export PDF
                 </a>
-                <a href="{{ route('pemeliharaans.export', ['format' => 'xlsx']) }}" class="btn btn-success ml-2">
-                    <i class="icon ion-md-download"></i> Export XLSX
+                <a href="{{ route('pemeliharaan.export-excel') }}" class="btn btn-success ml-2">
+                    <i class="icon ion-md-download"></i> Export Excel
                 </a>
             </div>
             </div>
@@ -113,7 +113,7 @@
                 searchable: true,
                 render: function (data, type, row, meta) {
                     return data ? data : 'Pemeliharaan'+ ' ' + row.jenis_alat;
-                
+
                 }
             },
             {
