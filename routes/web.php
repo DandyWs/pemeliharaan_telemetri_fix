@@ -72,6 +72,9 @@ Route::get('pemeriksaan/{id}/create', [PemeriksaanController::class, 'create'])-
 Route::post('pemeriksaan/{id}', [PemeriksaanController::class, 'create'])->name('pemeriksaan.create');
     Route::post('pemeriksaan/data',[PemeriksaanController::class,'data'])->name('data_pemeriksaan');
 
+
+
+
 Route::resource('/alat', AlatController::class)->parameter('alat','id');
     Route::post('alat/data',[AlatController::class,'data'])->name('data_alat');
 
@@ -103,6 +106,8 @@ Route::group(['middleware' => ['auth', 'role:admin']], function(){
     // Route::get('/cetakTanggal/{tanggal_awal}/{tanggal_akhir}',[CetakLaporan::class,'cetakTanggal']);
     Route::get('pemeriksaans/export/{format}', [PemeriksaanController::class, 'export'])->name('pemeliharaans.export');
 });
+Route::get('pemeliharaan/export-pdf', [PemeriksaanController::class, 'exportPDF'])->name('pemeliharaan.export-pdf');
+Route::get('pemeliharaan/export-excel', [PemeriksaanController::class, 'exportExcel'])->name('pemeliharaan.export-excel');
 
 Route::group(['middleware' => ['auth', 'role:mekanik']], function(){
     // Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
