@@ -243,22 +243,23 @@ class PemeriksaanController extends Controller
         return redirect('pemeliharaans')
             ->with('success', 'Pemeliharaan Berhasil Dihapus');
     }
+        // Export PDF
+        public function exportPDF()
+        {
+            $data = Pemeliharaan2::with(['user', 'alatTelemetri.jenisAlat'])->get();
 
-    public function export(Request $request, $format)
-    {
-        $this->authorize('view-any', Pemeliharaan2::class);
+            $pdf = Pdf::loadView('pemeriksaan.export_pdf', compact('data'))
+                      ->setPaper('a4', 'portrait');
 
-        $pemeriksaans = Pemeriksaan::all();
-
-        if ($format === 'pdf') {
-            $pdf = Pdf::loadView('app.pemeriksaans.export_pdf', compact('pemeriksaans'));
-            return $pdf->download('pemeriksaan_list.pdf');
-        } elseif ($format === 'xlsx') {
-            return Excel::download(new PemeriksaanExport, 'pemeriksaan_list.xlsx');
+            return $pdf->download('laporan_pemeriksaan.pdf');
         }
 
-        return redirect()->route('pemeriksaans.index')
-            ->withErrors(__('crud.common.export_failed'));
-    }
+        // Export Excel
+        public function exportExcel()
+        {
+            return Excel::download(new PemeriksaanExport, 'laporan_pemeriksaan.xlsx');
+        }
+
+
 
 }
