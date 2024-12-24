@@ -2,31 +2,39 @@
 
 namespace App\Exports;
 
-use App\Models\Pemeliharaan;
-use App\Models\Pemeriksaan;
 use App\Models\Pemeliharaan2;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 
 class PemeriksaanExport implements FromCollection, WithHeadings
 {
+    /**
+     * Mengambil data untuk export.
+     *
+     * @return \Illuminate\Support\Collection
+     */
     public function collection()
     {
-        return Pemeliharaan2::all(['id', 'tanggal', 'waktu', 'periode', 'cuaca', 'no_alatUkur', 'no_GSM', 'user_id', 'alat_telemetri_id']);
+        return Pemeliharaan2::all(['id', 'tanggal', 'periode', 'cuaca', 'user_id']);
     }
 
+    /**
+     * Mendefinisikan header kolom di file Excel.
+     *
+     * @return array
+     */
     public function headings(): array
     {
         return [
-            'No',
-            'Tanggal Pemeliharaan',
-            'Waktu Mulai',
+            'ID',
+            'Tanggal',
             'Periode',
             'Cuaca',
-            'No Alat Ukur',
-            'No GSM',
             'User ID',
-            'Peralatan Telemetri ID'
         ];
     }
 }
+
+
+
+
