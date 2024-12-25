@@ -106,7 +106,10 @@ Route::group(['middleware' => ['auth', 'role:admin']], function(){
     // Route::get('/cetakTanggal/{tanggal_awal}/{tanggal_akhir}',[CetakLaporan::class,'cetakTanggal']);
     Route::get('pemeriksaans/export/{format}', [PemeriksaanController::class, 'export'])->name('pemeliharaans.export');
 });
+
 Route::get('pemeliharaan/export-pdf', [PemeriksaanController::class, 'exportPDF'])->name('pemeliharaan.export-pdf');
+Route::get('pemeliharaan/exportData/{id}', [PemeriksaanController::class, 'exportData'])->name('pemeliharaan.exportData/{id}');
+Route::get('pemeliharaan/exportData', [PemeriksaanController::class, 'exportData'])->name('pemeliharaan.exportURL');
 Route::get('pemeliharaan/export-excel', [PemeriksaanController::class, 'exportExcel'])->name('pemeliharaan.export-excel');
 
 Route::group(['middleware' => ['auth', 'role:mekanik']], function(){

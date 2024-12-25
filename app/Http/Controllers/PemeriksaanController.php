@@ -260,6 +260,14 @@ class PemeriksaanController extends Controller
             return Excel::download(new PemeriksaanExport, 'laporan_pemeriksaan.xlsx');
         }
 
+        public function exportData($id)
+        {
+            $data = Pemeliharaan2::with(['user', 'alatTelemetri.jenisAlat'])->get();
 
+            $pdf = Pdf::loadView('pemeriksaan.exportData', compact('data', 'id'))
+                      ->setPaper('a4', 'landscape');
+
+            return $pdf->download('laporan_pemeriksaan.pdf');
+        }
 
 }

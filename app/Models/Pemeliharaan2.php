@@ -49,4 +49,9 @@ class Pemeliharaan2 extends Model
     {
         return $this->hasMany(Pemeriksaan::class);
     }
+
+    public function setting2s()
+    {
+        return $this->hasMany(Setting2::class);
+    }
 }

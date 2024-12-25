@@ -8,6 +8,7 @@ use App\Models\FormKomponen;
 use App\Models\User;
 use App\Models\JenisAlat;
 use App\Models\Komponen2;
+use App\Models\Setting2;
 use App\Models\Pemeliharaan2;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
@@ -125,6 +126,35 @@ class PemeliharaanController extends Controller
                 'pemeliharaan2_id' => $pemeliharaan->id,
                 'detail_komponen_id' => $detail->id,
                 'cheked' => '1',
+                ]);
+            
+            }
+            if ($request->input('cheked11')){
+                Setting2::create([
+                    'pemeliharaan2_id' => $pemeliharaan->id,
+                    'simulasi' => $request->input('simulasi_sebelum'),
+                    'display' => $request->input('display_sebelum'),
+                    'kondisi' => '0',
+                ]);
+                Setting2::create([
+                    'pemeliharaan2_id' => $pemeliharaan->id,
+                    'simulasi' => $request->input('simulasi_sesudah'),
+                    'display' => $request->input('display_sesudah'),
+                    'kondisi' => '1',
+                ]);
+            }
+            if ($request->input('cheked12')){
+                Setting2::create([
+                    'pemeliharaan2_id' => $pemeliharaan->id,
+                    'simulasi' => $request->input('aktual_sebelum'),
+                    'display' => $request->input('display_aktual_sebelum'),
+                    'kondisi' => '0',
+                ]);
+                Setting2::create([
+                    'pemeliharaan2_id' => $pemeliharaan->id,
+                    'simulasi' => $request->input('aktual_sesudah'),
+                    'display' => $request->input('display_aktual_sesudah'),
+                    'kondisi' => '1',
                 ]);
             }
         //}

@@ -11,12 +11,12 @@ class Setting2 extends Model
     use HasFactory;
     use Searchable;
 
-    protected $fillable = ['simulasi', 'display', 'form_komponen_id'];
+    protected $fillable = ['simulasi', 'display', 'form_komponen_id','kondisi'];
 
     protected $searchableFields = ['*'];
 
     public function formKomponen()
     {
-        return $this->belongsTo(FormKomponen::class);
+        return $this->belongsTo(Pemeliharaan2::class);
     }
 }

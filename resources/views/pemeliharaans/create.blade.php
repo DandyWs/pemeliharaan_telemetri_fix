@@ -129,6 +129,11 @@
             <div class="form-group col-md-6">
               <label>
                 {{ $komp->nama }}
+                <input
+                    type="{{ $komp->id==11 || $komp->id==12 ? 'checkbox' : 'hidden' }}"
+                    name="cheked{{ $komp->id }}"
+                    
+                  />
               </label>
               @foreach ($detailKomponen->where('komponen2_id', $komp->id) as $detail)
                 <div class="form-check">
@@ -142,15 +147,11 @@
                     name="pemeliharaan2_id[{{ $detail->id }}]"
                     value="{{ isset($pemeliharaan) ? $pemeliharaan->id : '' }}"
                     />
-                    <input
-                    type="hidden"
-                    name="cheked[{{ $detail->id }}]"
-                    value="0"
-                    />
+                    
                     <input
                     type="checkbox"
-                    name="cheked[{{ $detail->id }}]"
-                    value="1"
+                    name="cheked{{ $detail->id }}"
+                    {{-- value="1" --}}
                     class="form-check-input"
                     {{ old('cheked' . $detail->id, isset($pemeliharaan) && $pemeliharaan->formKomponen->where('komponen2_id', $detail->id)->first()->cheked) ? 'checked' : '' }}
                     />
