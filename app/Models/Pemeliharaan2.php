@@ -21,6 +21,7 @@ class Pemeliharaan2 extends Model
         'keterangan',
         'alat_telemetri_id',
         'user_id',
+        'ttdMekanik'
     ];
 
     protected $searchableFields = ['*'];

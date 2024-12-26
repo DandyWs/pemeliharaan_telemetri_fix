@@ -120,16 +120,16 @@
       </div>
 
       <script type="text/javascript">
-        var sig = $('#sig').signature({
-            syncField: '#signature64',
-            syncFormat: 'PNG'
-        });
-        $('#clear').click(function(e) {
-            e.preventDefault();
-            sig.signature('clear');
-            $("#signature64").val('');
-        });
-    </script>
+          var sig = $('#sig').signature({
+              syncField: '#signature64',
+              syncFormat: 'PNG'
+          });
+          $('#clear').click(function(e) {
+              e.preventDefault();
+              sig.signature('clear');
+              $("#signature64").val('');
+          });
+      </script>
 </section>
 
 @endsection

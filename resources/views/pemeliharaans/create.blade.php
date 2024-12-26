@@ -18,13 +18,15 @@
               <div class="form-group col-md-6">
                 <label>Nama Stasiun -- Jenis Alat</label>
                 <select
+                  id="alat_telemetri_id"
                   name="alat_telemetri_id"
                   class="form-control @error('alat_telemetri_id') is-invalid @enderror"
                   required
                 >
                   <option value="">Pilih Peralatan Telemetri</option>
                   @foreach( $alat as $alat)
-                  <option value="{{ $alat->id }}" {{ old('alat_telemetri_id', isset($pemeliharaan) && $pemeliharaan->alat_telemetri_id == $alat->id) ? 'selected' : '' }}>
+                  {{-- <option value="{{ $alat->id }}" {{ old('alat_telemetri_id', isset($pemeliharaan) && $pemeliharaan->alat_telemetri_id == $alat->id) ? 'selected' : '' }}> --}}
+                  <option value="{{ $alat->id }}" data-jenis="{{ $alat->jenisAlat->namajenis }}" {{ old('alat_telemetri_id', isset($pemeliharaan) && $pemeliharaan->alat_telemetri_id == $alat->id) ? 'selected' : '' }}>
                     {{ $alat->lokasiStasiun }} -- {{ $alat->jenisAlat->namajenis }}
                   </option>
                   @endforeach
@@ -125,89 +127,58 @@
             </div>
 
             <div class="row">
-            @foreach ($komponen as $komp)
-            <div class="form-group col-md-6">
-              <label>
-                {{ $komp->nama }}
-                <input
-                    type="{{ $komp->id==11 || $komp->id==12 ? 'checkbox' : 'hidden' }}"
-                    name="cheked{{ $komp->id }}"
-                    
-                  />
-              </label>
-              @foreach ($detailKomponen->where('komponen2_id', $komp->id) as $detail)
-                <div class="form-check">
-                    <input
-                    type="hidden"
-                    name="detail_komponen_id[{{ $detail->id }}]"
-                    value="{{ $detail->id }}"
+              @foreach ($komponen as $komp)
+              <div class="form-group col-md-6">
+                <label>
+                  {{ $komp->nama }}
+                  <input
+                      type="{{ $komp->id==11 || $komp->id==12 ? 'checkbox' : 'hidden' }}"
+                      name="cheked{{ $komp->id }}"
+                      
                     />
-                    <input
-                    type="hidden"
-                    name="pemeliharaan2_id[{{ $detail->id }}]"
-                    value="{{ isset($pemeliharaan) ? $pemeliharaan->id : '' }}"
-                    />
-                    
-                    <input
-                    type="checkbox"
-                    name="cheked{{ $detail->id }}"
-                    {{-- value="1" --}}
-                    class="form-check-input"
-                    {{ old('cheked' . $detail->id, isset($pemeliharaan) && $pemeliharaan->formKomponen->where('komponen2_id', $detail->id)->first()->cheked) ? 'checked' : '' }}
-                    />
-                  {{-- <input
-                    type="checkbox"
-                    name="komponen2_id"
-                    value="{{ $detail->id }}"
-                    class="form-check-input"
-                    {{ in_array($detail->id, old('komponen2_id', isset($pemeliharaan) ? $pemeliharaan->komponen->pluck('id')->toArray() : [])) ? 'checked' : '' }}
-                  /> --}}
-                  <label class="form-check-label">{{ $detail->namadetail }}</label>
-                </div>
+                </label>
+                @foreach ($detailKomponen->where('komponen2_id', $komp->id) as $detail)
+                  <div class="form-check">
+                      <input
+                      type="hidden"
+                      name="detail_komponen_id[{{ $detail->id }}]"
+                      value="{{ $detail->id }}"
+                      />
+                      <input
+                      type="hidden"
+                      name="pemeliharaan2_id[{{ $detail->id }}]"
+                      value="{{ isset($pemeliharaan) ? $pemeliharaan->id : '' }}"
+                      />
+                      
+                      <input
+                      type="checkbox"
+                      name="cheked{{ $detail->id }}"
+                      {{-- value="1" --}}
+                      class="form-check-input"
+                      {{ old('cheked' . $detail->id, isset($pemeliharaan) && $pemeliharaan->formKomponen->where('komponen2_id', $detail->id)->first()->cheked) ? 'checked' : '' }}
+                      />
+                    {{-- <input
+                      type="checkbox"
+                      name="komponen2_id"
+                      value="{{ $detail->id }}"
+                      class="form-check-input"
+                      {{ in_array($detail->id, old('komponen2_id', isset($pemeliharaan) ? $pemeliharaan->komponen->pluck('id')->toArray() : [])) ? 'checked' : '' }}
+                    /> --}}
+                    <label class="form-check-label">{{ $detail->namadetail }}</label>
+                  </div>
+                @endforeach
+                @error('komponen2_id')
+                <span class="error invalid-feedback">{{ $message }}</span>
+                @enderror
+              </div>
               @endforeach
-              @error('komponen2_id')
-              <span class="error invalid-feedback">{{ $message }}</span>
-              @enderror
-            </div>
-            @endforeach
             </div>
             
-            {{-- <div class="form-group col-md-6">
-              <label>Lokasi Stasiun</label>
-              <input class="form-control @error('lokasiStasiun') is-invalid @enderror" value="{{ isset($pemeliharaan)? $pemeliharaan->alat->lokasiStasiun :old('lokasiStasiun') }}" name="lokasiStasiun" type="text"/>
-              @error('lokasiStasiun')
-                <span class="error invalid-feedback">{{ $message }} </span>
-              @enderror
-            </div> --}}
 
-            {{-- <div class="form-group col-md-6">
-              <label>Jenis Peralatan</label>
-              <select
-                name="jenis_alat"
-                class="form-control @error('jenis_alat') is-invalid @enderror"
-                required
-              >
-                <option value="">Pilih Jenis Alat</option>
-                @foreach( $jenisAlat as $jenis)
-                <option value="{{ $jenis->id }}" {{ old('jenis_alat', isset($pemeliharaan) && $pemeliharaan->alat_telemetri_id == $alat->id) ? 'selected' : '' }}>
-                  {{ $jenis->namajenis }}
-                </option>
-                @endforeach
-              </select>
-              @error('alat_telemetri_id')
-              <span class="error invalid-feedback">{{ $message }}</span>
-              @enderror
-            </div> --}}
-
-            <div class="card-body">
-            <form method="POST" action="{{ $url_form }}" enctype="multipart/form-data">
-                @csrf
-                {!!(isset($spr))? method_field('PUT') : '' !!}
-              <!-- Grid Layout -->
-              <div class="d-flex justify-content-between">
-                    <!-- Setting Tipping Bucket -->
-                    <div>
-                        <p>Penunjukan Data Setting di Display (LCD)</p>
+            <div class="row" id="form-setting"  style="display: none;">
+              <!-- Add your form setting fields here -->
+              <div class="form-group col-md-6">
+                <p>Penunjukan Data Setting di Display (LCD)</p>
                         <table class="table table-bordered text-center">
                             <thead>
                                 <tr>
@@ -230,10 +201,9 @@
                                 </tr>
                             </tbody>
                         </table>
-                    </div>
-                    <!-- Setting Sensor Water Level -->
-                    <div>
-                        <p>Penunjukan Data Setting di Display (LCD)</p>
+              </div>
+              <div class="form-group col-md-6">
+                <p>Penunjukan Data Setting di Display (LCD)</p>
                         <table class="table table-bordered text-center">
                             <thead>
                                 <tr>
@@ -256,35 +226,36 @@
                                 </tr>
                             </tbody>
                         </table>
-                    </div>
+              </div>
+            </div>
+
+              
+              <div class="form-group col-md-12" style="margin-top: 20px;">
+                <label>Keterangan</label>
+                  <textarea
+                  name="keterangan"
+                  class="form-control @error('keterangan') is-invalid @enderror"
+                  >{{ old('keterangan', isset($pemeliharaan) ? $pemeliharaan->keterangan : '') }}</textarea>
+                  @error('keterangan')
+                  <span class="error invalid-feedback">{{ $message }}</span>
+                  @enderror
+              </div>
+
+            <div class="form-group col-md-12 text-center">
+              <label>Tanda Tangan Mekanik Pemeliharaan</label>
+              <div id="signature-pad" class="signature-pad">
+                <div id="sig" class="kbw-signature">
                 </div>
-                <div class="form-group col-md-12" style="margin-top: 20px;">
-              <label>Keterangan</label>
-                <textarea
-                name="keterangan"
-                class="form-control @error('keterangan') is-invalid @enderror"
-                >{{ old('keterangan', isset($pemeliharaan) ? $pemeliharaan->keterangan : '') }}</textarea>
-                @error('keterangan')
-                <span class="error invalid-feedback">{{ $message }}</span>
-                @enderror
-            </div>
-            </div>
+                <input type="text" id="signature64" name="ttdMekanik" style="display: none">
+                <div class="signature-pad--footer">
+                <button type="button" class="btn btn-sm btn-secondary" id="clear">Hapus</button>
 
-            <!-- <div class="form-group col-md-6">
-              <label>Tanggal Pemeliharaan</label>
-              <input class="form-control @error('simulasi') is-invalid @enderror" value="{{ isset($spr)? $spr->simulasi :old('simulasi') }}" name="simulasi" type="text"/>
-              @error('simulasi')
-                <span class="error invalid-feedback">{{ $message }} </span>
+                </div>
+              </div>
+              @error('ttdMekanik')
+              <span class="error invalid-feedback">{{ $message }}</span>
               @enderror
-            </div> -->
-
-            <!-- <div class="form-group">
-              <label>Nilai Display</label>
-              <input class="form-control @error('display') is-invalid @enderror" value="{{ isset($spr)? $spr->display :old('display') }}" name="display" type="text"/>
-              @error('display')
-                <span class="error invalid-feedback">{{ $message }} </span>
-              @enderror
-            </div> -->
+            </div>
 
             <div class="form-group mt-3">
               <button class="btn btn-sm btn-success">Simpan</button>
@@ -293,5 +264,38 @@
           </form>
         </div>
       </div>
+    </div>
+    
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+          const alatTelemetriSelect = document.getElementById('alat_telemetri_id');
+          const formSetting = document.getElementById('form-setting');
+      
+          alatTelemetriSelect.addEventListener('change', function () {
+              const selectedOption = alatTelemetriSelect.options[alatTelemetriSelect.selectedIndex];
+              const jenisAlat = selectedOption.getAttribute('data-jenis');
+      
+              if (jenisAlat === 'AWLR' || jenisAlat === 'ARR') {
+                  formSetting.style.display = 'flex';
+              } else {
+                  formSetting.style.display = 'none';
+              }
+          });
+      
+          // Trigger change event on page load to handle pre-selected option
+          alatTelemetriSelect.dispatchEvent(new Event('change'));
+      });
+    </script>
+    {{-- <script type="text/javascript">
+        var sig = $('#sig').signature({
+            syncField: '#signature64',
+            syncFormat: 'PNG'
+        });
+        $('#clear').click(function(e) {
+            e.preventDefault();
+            sig.signature('clear');
+            $("#signature64").val('');
+        });
+    </script> --}}
 </section>
 @endsection

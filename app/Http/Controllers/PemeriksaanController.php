@@ -112,7 +112,7 @@ class PemeriksaanController extends Controller
     // Handle the ttd field if it's a base64 image
     if ($request->has('ttd')) {
         try {
-            $folderPath = "uploads/";
+            $folderPath = "uploads/manager/";
             $image_parts = explode(";base64,", $request->input('ttd'));
             $image_type_aux = explode("image/", $image_parts[0]);
             $image_type = isset($image_type_aux[1]) ? $image_type_aux[1] : 'png';

@@ -11,6 +11,8 @@ use App\Models\Komponen2;
 use App\Models\Setting2;
 use App\Models\Pemeliharaan2;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
 use Yajra\DataTables\Facades\DataTables;
 
 class PemeliharaanController extends Controller
@@ -46,6 +48,7 @@ class PemeliharaanController extends Controller
                 'jenis_alat' => $item->AlatTelemetri->JenisAlat->namajenis,
                 'keterangan' => $item->keterangan,
                 'user_id' => $item->User->name,
+                'ttdMekanik' => $item->ttdMekanik,
             ];
         });
         return DataTables::of($data)
@@ -93,16 +96,30 @@ class PemeliharaanController extends Controller
             'keterangan' => ['nullable', 'max:255', 'string'],
             'alat_telemetri_id' => ['required', 'exists:alat_telemetris,id'],
             'user_id' => ['required', 'exists:users,id'],
+            'ttdMekanik' => ['required', 'max:255', 'string'],
         ]);
 
-        // if ($request->file('foto')) {
-        //     $file = $request->file('foto');
-        //     $extension = $file->getClientOriginalExtension();
-        //     $filename = 'sopir-' . 'nama' . '.' . $extension;
-        //     $image_name = $file->storeAs('sopirprofile', $filename, 'public');
-        // }
+        // Initialize the file variable
+        $file = null;
 
-        
+        // Handle the ttd field if it's a base64 image
+        if ($request->has('ttdMekanik')) {
+            try {
+                $folderPath = "uploads/mekanik/";
+                $image_parts = explode(";base64,", $request->input('ttdMekanik'));
+                $image_type_aux = explode("image/", $image_parts[0]);
+                $image_type = isset($image_type_aux[1]) ? $image_type_aux[1] : 'png';
+                $image_base64 = base64_decode($image_parts[1]);
+                $file = $folderPath . uniqid() . '.' . $image_type;
+
+                // Store the image in the public disk
+                Storage::disk('public')->put($file, $image_base64);
+            } catch (\Exception $e) {
+                Log::error('Error storing ttd image: ' . $e->getMessage());
+                return redirect()->back()->withErrors(['ttd' => 'Failed to store signature image.']);
+            }
+        }
+
         $pemeliharaan = Pemeliharaan2::create([
             'tanggal' => $request->input('tanggal'),
             'waktu' => $request->input('waktu'),
@@ -113,6 +130,7 @@ class PemeliharaanController extends Controller
             'alat_telemetri_id' => $request->input('alat_telemetri_id'),
             'user_id' => $request->input('user_id'),
             'keterangan' => $request->input('keterangan'),
+            'ttdMekanik' => $file,
         ]);
 
         // if ($request->has('detailKomponen')) {
