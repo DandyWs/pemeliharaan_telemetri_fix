@@ -117,12 +117,12 @@
                 }
             },
             {
-                data: 'status',
+                data: null,
                 name: 'status',
                 sortable: true,
                 searchable: true,
                 render: function (data, type, row, meta) {
-                    return data ? '<span class="badge badge-success">Confirmed</span>' : '<span class="badge badge-danger">Not Confirmed</span>';
+                    return row.id === row.pemeliharaan2_id ? '<span class="badge badge-success">Confirmed</span>' : '<span class="badge badge-danger">Not Confirmed</span>';
                 }
             },
             {
@@ -130,7 +130,7 @@
                 render: function (data, type, row, meta) {
                     return '<a href="{{ url('pemeriksaan') }}/' + data + '/edit" class="btn btn-success btn-sm mr-1 mt-1"><i class="fa fa-plus"></i> </a>' +
                         // '<button class="btn btn-danger btn-sm btn-delete mt-1" data-id="' + data + '"><i class="fa fa-trash"></i> </button>' +
-                        '<a href="{{ route("pemeliharaan.exportURL") }}/' + data + '" class="btn btn-primary btn-sm mt-1" ><i class="fa fa-print"></i> </a>';
+                        '<a href="{{ url('pemeriksaan/exportData') }}/'+data+'" class="btn btn-primary btn-sm mt-1" ><i class="fa fa-print"></i> </a>';
                     // '<a href="{{ url('pemeriksaan') }}/' + data + '/create" class="btn btn-success btn-sm mr-1"><i class="fa fa-plus"></i> </a>';
                     // `<a href="{{url('/pemeliharaans/')}}/` + data +`"class="btn btn-sm btn-primary "><i class="fas fa fa-info-circle"></i></a>`;
                 }

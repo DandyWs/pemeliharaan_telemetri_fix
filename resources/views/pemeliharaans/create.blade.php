@@ -286,7 +286,7 @@
           alatTelemetriSelect.dispatchEvent(new Event('change'));
       });
     </script>
-    {{-- <script type="text/javascript">
+    <script type="text/javascript">
         var sig = $('#sig').signature({
             syncField: '#signature64',
             syncFormat: 'PNG'
@@ -296,6 +296,6 @@
             sig.signature('clear');
             $("#signature64").val('');
         });
-    </script> --}}
+    </script>
 </section>
 @endsection

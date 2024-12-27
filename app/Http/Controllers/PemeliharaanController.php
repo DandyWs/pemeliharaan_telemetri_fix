@@ -107,31 +107,53 @@ class PemeliharaanController extends Controller
             try {
                 $folderPath = "uploads/mekanik/";
                 $image_parts = explode(";base64,", $request->input('ttdMekanik'));
-                $image_type_aux = explode("image/", $image_parts[0]);
-                $image_type = isset($image_type_aux[1]) ? $image_type_aux[1] : 'png';
-                $image_base64 = base64_decode($image_parts[1]);
-                $file = $folderPath . uniqid() . '.' . $image_type;
-
-                // Store the image in the public disk
-                Storage::disk('public')->put($file, $image_base64);
+                if (count($image_parts) === 2) {
+                    $image_type_aux = explode("image/", $image_parts[0]);
+                    $image_type = isset($image_type_aux[1]) ? $image_type_aux[1] : 'png';
+                    $image_base64 = base64_decode($image_parts[1]);
+                    $file = $folderPath . uniqid() . '.' . $image_type;
+    
+                    // Store the image in the public disk
+                    Storage::disk('public')->put($file, $image_base64);
+                } else {
+                    throw new \Exception('Invalid base64 format.');
+                }
             } catch (\Exception $e) {
                 Log::error('Error storing ttd image: ' . $e->getMessage());
                 return redirect()->back()->withErrors(['ttd' => 'Failed to store signature image.']);
             }
         }
 
-        $pemeliharaan = Pemeliharaan2::create([
-            'tanggal' => $request->input('tanggal'),
-            'waktu' => $request->input('waktu'),
-            'periode' => $request->input('periode'),
-            'cuaca' => $request->input('cuaca'),
-            'no_alatUkur' => $request->input('no_alatUkur'),
-            'no_GSM' => $request->input('no_GSM'),
-            'alat_telemetri_id' => $request->input('alat_telemetri_id'),
-            'user_id' => $request->input('user_id'),
-            'keterangan' => $request->input('keterangan'),
-            'ttdMekanik' => $file,
-        ]);
+        // Create the Pemeliharaan record
+        try {
+            $pemeliharaan = Pemeliharaan2::create([
+                'tanggal' => $request->input('tanggal'),
+                'waktu' => $request->input('waktu'),
+                'periode' => $request->input('periode'),
+                'cuaca' => $request->input('cuaca'),
+                'no_alatUkur' => $request->input('no_alatUkur'),
+                'no_GSM' => $request->input('no_GSM'),
+                'alat_telemetri_id' => $request->input('alat_telemetri_id'),
+                'user_id' => $request->input('user_id'),
+                'keterangan' => $request->input('keterangan'),
+                'ttdMekanik' => $file,
+            ]);
+        } catch (\Exception $e) {
+            Log::error('Error creating Pemeliharaan record: ' . $e->getMessage());
+            return redirect()->back()->withErrors(['error' => 'Failed to create Pemeliharaan record.']);
+        }        
+        // $pemeliharaan = Pemeliharaan2::create([
+        //     'tanggal' => $request->input('tanggal'),
+        //     'waktu' => $request->input('waktu'),
+        //     'periode' => $request->input('periode'),
+        //     'cuaca' => $request->input('cuaca'),
+        //     'no_alatUkur' => $request->input('no_alatUkur'),
+        //     'no_GSM' => $request->input('no_GSM'),
+        //     'alat_telemetri_id' => $request->input('alat_telemetri_id'),
+        //     'user_id' => $request->input('user_id'),
+        //     'keterangan' => $request->input('keterangan'),
+        //     'ttdMekanik' => $file,
+        // ]);
 
         // if ($request->has('detailKomponen')) {
             // foreach ($request->input('detailKomponen') as $detailKomponen) {

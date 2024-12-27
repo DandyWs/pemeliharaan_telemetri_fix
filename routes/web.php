@@ -108,8 +108,8 @@ Route::group(['middleware' => ['auth', 'role:admin']], function(){
 });
 
 Route::get('pemeliharaan/export-pdf', [PemeriksaanController::class, 'exportPDF'])->name('pemeliharaan.export-pdf');
-Route::get('pemeliharaan/exportData/{id}', [PemeriksaanController::class, 'exportData'])->name('pemeliharaan.exportData/{id}');
-Route::get('pemeliharaan/exportData', [PemeriksaanController::class, 'exportData'])->name('pemeliharaan.exportURL');
+// Route::get('pemeliharaan/exportData/{id}', [PemeriksaanController::class, 'exportData'])->name('pemeliharaan.exportData/{id}');
+Route::get('pemeriksaan/exportData/{id}', [PemeriksaanController::class, 'exportData'])->name('pemeriksaan.exportURL');
 Route::get('pemeliharaan/export-excel', [PemeriksaanController::class, 'exportExcel'])->name('pemeliharaan.export-excel');
 
 Route::group(['middleware' => ['auth', 'role:mekanik']], function(){

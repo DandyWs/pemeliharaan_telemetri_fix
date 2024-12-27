@@ -27,13 +27,15 @@ class PemeriksaanController extends Controller
     //  */
     public function index(Request $request)
     {
-        // if($request->has('search')){
-        //     $sopir = Komponen2::where('nama','LIKE','%'.$request->search.'%')->paginate(10);
-        // }else{
-        //     $sopir = Komponen2::paginate(25);
-        // }
+        if ($request->ajax()) {
+            $data = Pemeriksaan::with('pemeliharaan2')->get();
+            return DataTables::of($data)
+                ->addColumn('pemeliharaan2_id', function($row) {
+                    return $row->pemeliharaan2 ? $row->pemeliharaan2->id : null;
+                })
+                ->make(true);
+        }
 
-        // return view('sopir.sopir')->with('sopir',$sopir);
         return view('pemeriksaan.index');
     }
     public function data(){
@@ -53,7 +55,7 @@ class PemeriksaanController extends Controller
                 'alat_telemetri_id' => $item->Pemeliharaan2->AlatTelemetri->lokasiStasiun,
                 'jenis_alat' => $item->Pemeliharaan2->AlatTelemetri->JenisAlat->namajenis,
                 'keterangan' => $item->Pemeliharaan2->keterangan,
-                'status' => $item->pemeliharaan2_id == $item->Pemeliharaan2->id,
+                // 'status' => $item->pemeliharaan2_id == $item->Pemeliharaan2->id,
                 'user_id' => $item->User->name,
             ];
         });
