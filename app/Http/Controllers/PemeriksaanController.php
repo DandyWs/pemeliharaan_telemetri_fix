@@ -264,19 +264,34 @@ class PemeriksaanController extends Controller
 
         public function exportData($id)
         {
+            $pemeliharaan = Pemeliharaan2::find($id);
+            $alat = AlatTelemetri::all();
+            $pemeriksaan = Pemeriksaan::all();
+            $user = User::all();
+            $formKomponen = FormKomponen::where('pemeliharaan2_id', $id)-> pluck('detail_komponen_id')->toArray();
+            $jenisAlat =  JenisAlat::all();
             $komponen = Komponen2::all();
             $detailKomponen = DetailKomponen::all();
 
-            $data = Pemeliharaan2::with([
-                'user', 
-                'alatTelemetri.jenisAlat', 
-                'formKomponens.detailKomponen',
-                'pemeriksaans.user',
-                'formKomponens.detailKomponen.komponen2',
-                'setting2s'
-                ])->get();
+            // $data = Pemeliharaan2::find($id)->with([
+            //     'user', 
+            //     'alatTelemetri.jenisAlat', 
+            //     'formKomponens.detailKomponen',
+            //     'pemeriksaans.user',
+            //     'formKomponens.detailKomponen.komponen2',
+            //     'setting2s'
+            //     ])->get();
 
-            $pdf = Pdf::loadView('pemeriksaan.exportData', compact('data', 'id', 'komponen'))
+            $pdf = Pdf::loadView('pemeriksaan.exportData', 
+            compact('pemeliharaan', 
+                'id', 
+                'komponen',
+                'alat',
+                'user',
+                'formKomponen',
+                'jenisAlat',
+                'pemeriksaan',
+                'detailKomponen'))
                   ->setPaper('a4', 'portrait');
 
             return $pdf->download('laporan_pemeriksaan.pdf');

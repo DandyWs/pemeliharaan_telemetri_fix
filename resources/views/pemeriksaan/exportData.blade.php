@@ -5,103 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
-    <title>Lampiran Laporan Pemeriksaan Telemetri</title>
-</head>
-<body>
-    <style type="text/css">
-    @page {
-        size: landscape;
-        margin: 20mm; /* Menambahkan margin jika diperlukan */
-    }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            text-align: center;
-            margin-left: -60px;
-        }
-        table, th, td {
-            border: 1px solid black;
-        }
-        th, td {
-            padding: 5px;
-            text-align: center;
-        }
-       .title {
-        margin-top : 10px;
-       }
-        .signature {
-            margin-top: 20px;
-            text-align: right;
-        }
-    </style>
-     <center>
-        <div class="card">
-            <div class="card-header text-center">
-                <h3><strong>LAPORAN PEMERIKSAAN{{ $id }}</strong></h3>
-                <h3><strong>KALIBRASI INTERNAL PERALATAN TELEMETRI GSM</strong></h3>
-
-                <br>
-            </div>
-    </center>
-<div class="container mt-2">
-    <div class="row justify-content-center align-items-center">
-        <div class="card">
-
-            <div class="card-body">
-
-                <table class="table table-sm">
-                    <thead>
-                        <tr>
-                            <th>No</th>
-                            <th>Tanggal</th>
-                            <th>waktu</th>
-                            <th>Periode</th>
-                            <th>Cuaca</th>
-                            <th>no_alatUkur</th>
-                            <th>no_GSM</th>
-                            <th>Jenis Alat</th>
-                            <th>Lokasi Stasiun</th>
-                            <th>Pelaksana</th>
-                            <th>Status</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($data as $index => $item)
-                        <tr>
-                            <td>{{ $index + 1 }}</td>
-                            <td>{{ $item->tanggal }}</td>
-                            <td>{{ $item->waktu }}</td> <!-- Menambahkan Waktu -->
-                            <td>{{ $item->periode }}</td>
-                            <td>{{ $item->cuaca }}</td>
-                            <td>{{ $item->no_alatUkur }}</td> <!-- Menambahkan No Alat Ukur -->
-                            <td>{{ $item->no_GSM }}</td> <!-- Menambahkan No GSM -->
-                            <td>{{ $item->alatTelemetri->jenisAlat->namajenis }}</td>
-                            <td>{{ $item->alatTelemetri->lokasiStasiun }}</td>
-                            <td>{{ $item->user->name }}</td>
-                            <td>{{ $item->status ? 'Confirmed' : 'Not Confirmed' }}</td>
-                        </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-                <div class="signature">
-                    <p>Disahkan oleh,</p>
-                    <br><br><br>
-                    <p>_______________________</p>
-                    <p>Nama Pemeriksa</p>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-</body>
-</html> --}}
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
     <link rel="stylesheet" href="resources/style/style.css">
     <title>Lampiran Laporan Pemeliharaan Telemetri</title>
 </head>
@@ -175,7 +78,7 @@
                 </tr>
             </table>
         </nobr>
-    </div> --}}
+    </div> 
     <p>
         <span style="font-family:Nimbus Roman;font-size:9.687818px;font-style:normal;font-weight:normal;color:#000000;">
         <span style="position:absolute;top:1016.807739px;left:630.129639px">
@@ -236,7 +139,6 @@
     </p>
     <div style="position:absolute;top:254.578049px;left:74.977936px">
         <nobr>
-            {{-- @foreach ($komponen as $item) --}}
             <div style="display: flex; flex-wrap: wrap;">
                 @foreach ($komponen as $item)
                 <div style="flex: 1 1 16.66%; padding: 10px;">
@@ -256,7 +158,6 @@
                 </div>
                 @endforeach
             </div>
-            {{-- @endforeach --}}
         </nobr>
     </div>
     <p>
@@ -301,4 +202,136 @@
     </div>
 </body>
 <script src="resources/js/vue.min.js"></script>
+</html> --}}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laporan Pemeliharaan Peralatan</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+        }
+        .table-bordered td, .table-bordered th {
+            border: 1px solid black !important;
+        }
+        .table td, .table th {
+            padding: 0.5rem;
+        }
+        .form-check-input {
+            margin-top: 0.3rem;
+        }
+        .signature {
+            margin-top: 2rem;
+        }
+        .signature div {
+            display: inline-block;
+            width: 45%;
+            text-align: center;
+        }
+        .signature div span {
+            display: block;
+            margin-top: 4rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h5 class="text-center">LAPORAN PEMELIHARAAN PERALATAN</h5>
+        <h6 class="text-center">TELEMETRI WQMS GSM</h6>
+        <div class="row">
+            <div class="col-6">
+                <p>Nama Stasiun Telemetri   : {{ $pemeliharaan->alatTelemetri->lokasiStasiun }}</p>
+                <p>Periode Pemeliharaan     : {{ $pemeliharaan->periode }}</p>
+                <p>Pelaksana Pemeliharaan   : {{ $pemeliharaan->user->name }}</p>
+                <p>Cuaca                    : {{ $pemeliharaan->cuaca }}</p>
+                <p>No GSM                   : {{ $pemeliharaan->no_GSM }}</p>
+            </div>
+            <div class="col-6">
+                <p>Tanggal      : {{ $pemeliharaan->tanggal }}</p>
+                <p>Jam          : {{ $pemeliharaan->waktu }}</p>
+                <p>No. Alat Ukur: {{ $pemeliharaan->no_alatUkur }}</p>
+            </div>
+        </div>
+        <table class="table table-bordered">
+            <tbody>
+                <tr>
+                    <td>a. Modem</td>
+                    <td>
+                        <div>Indikator Led <input type="checkbox" class="form-check-input"></div>
+                        <div>SIM Card Aktif <input type="checkbox" class="form-check-input"></div>
+                    </td>
+                    <td>e. Smart Battery Charger</td>
+                    <td>
+                        <div>Pemeriksaan Kondisi Alat <input type="checkbox" class="form-check-input"></div>
+                        <div>Pemeriksaan Sambungan Kabel <input type="checkbox" class="form-check-input"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>b. Data Logger</td>
+                    <td>
+                        <div>Indikator Led <input type="checkbox" class="form-check-input"></div>
+                        <div>Pembersihan dan Pengecekan SONDE <input type="checkbox" class="form-check-input"></div>
+                    </td>
+                    <td>f. Antena GSM</td>
+                    <td>
+                        <div>Pemeriksaan Kondisi Alat <input type="checkbox" class="form-check-input"></div>
+                        <div>Pemeriksaan Sambungan Kabel <input type="checkbox" class="form-check-input"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>c. AC-DC Converter</td>
+                    <td>
+                        <div>Pemeriksaan Kondisi Alat <input type="checkbox" class="form-check-input"></div>
+                        <div>Pemeriksaan Sambungan Kabel <input type="checkbox" class="form-check-input"></div>
+                    </td>
+                    <td>g. Baterai / Aki</td>
+                    <td>
+                        <div>Pemeriksaan Level Air Aki <input type="checkbox" class="form-check-input"></div>
+                        <div>Pemeriksaan Sambungan Kabel <input type="checkbox" class="form-check-input"></div>
+                        <div>Tegangan : .................. Volt</div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>d. DC-DC Converter</td>
+                    <td>
+                        <div>Pemeriksaan Kondisi Alat <input type="checkbox" class="form-check-input"></div>
+                        <div>Pemeriksaan Sambungan Kabel <input type="checkbox" class="form-check-input"></div>
+                    </td>
+                    <td>h. Sambungan PLN</td>
+                    <td>
+                        <div>Pemeriksaan Kondisi Alat <input type="checkbox" class="form-check-input"></div>
+                        <div>Pemeriksaan Sambungan Kabel <input type="checkbox" class="form-check-input"></div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div>
+            <p>Keterangan :</p>
+            <div style="border: 1px solid black; height: 100px;">
+                @if($pemeliharaan->keterangan)
+                    <p>{{ $pemeliharaan->keterangan }}</p>
+                @else
+                    <p>Pemeliharaan {{ $pemeliharaan->alatTelemetri->jenisAlat->namajenis }}</p>
+                @endif
+            </div>
+        </div>
+        <div class="signature">
+            <div>
+                <p>Mengetahui,</p>
+                <p>Ka. Tim Kalibrasi Divisi</p>
+                <span>...............................</span>
+            </div>
+            <div>
+                <p>Dibuat oleh</p>
+                <p>Pelaksana Kalibrasi</p>
+                <span>...............................</span>
+            </div>
+        </div>
+    </div>
+</body>
 </html>
