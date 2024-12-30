@@ -294,7 +294,7 @@ class PemeriksaanController extends Controller
                 'detailKomponen'))
                   ->setPaper('a4', 'portrait');
 
-            return $pdf->download('laporan_pemeriksaan.pdf');
+            return $pdf->download('laporan_pemeriksaan_' . $pemeliharaan->alatTelemetri->jenisAlat->namajenis . '_' . $pemeliharaan->alatTelemetri->lokasiStasiun . '.pdf');
         }
 
 }
