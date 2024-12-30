@@ -105,7 +105,7 @@ class PemeliharaanController extends Controller
         // Handle the ttd field if it's a base64 image
         if ($request->has('ttdMekanik')) {
             try {
-                $folderPath = "uploads/mekanik/";
+                $folderPath = "mekanik/";
                 $image_parts = explode(";base64,", $request->input('ttdMekanik'));
                 if (count($image_parts) === 2) {
                     $image_type_aux = explode("image/", $image_parts[0]);
@@ -114,7 +114,8 @@ class PemeliharaanController extends Controller
                     $file = $folderPath . uniqid() . '.' . $image_type;
     
                     // Store the image in the public disk
-                    Storage::disk('public')->put($file, $image_base64);
+                    $filePath = public_path('assets/img/ttd/mekanik/' . basename($file));
+                    file_put_contents($filePath, $image_base64);
                 } else {
                     throw new \Exception('Invalid base64 format.');
                 }

@@ -276,7 +276,7 @@
                                     <input type="hidden" name="detail_komponen_id[{{ $detail->id }}]" value="{{ $detail->id }}" />
                                     <input type="hidden" name="pemeliharaan2_id[{{ $detail->id }}]" value="{{ isset($pemeliharaan) ? $pemeliharaan->id : '' }}" />
                                     <label class="form-check-label">{{ $detail->namadetail }}</label>
-                                    <input type="checkbox" name="cheked{{ $detail->id }}" {{ $cheked ? 'checked' : 'disabled' }} class="form-check-input" />
+                                    <input type="checkbox" name="cheked{{ $detail->id }}" {{ $cheked ? 'checked' : 'disabled' }}  />
                                 </div>
                             @endforeach
                         </td>
@@ -303,12 +303,15 @@
             <div>
                 <p>Mengetahui,</p>
                 <p>Ka. Tim Kalibrasi Divisi</p>
-                <span>...............................</span>
+                {{-- {{ dd( $pemeriksaan->ttd) }} --}}
+                <img src="{{ public_path('assets/img/ttd/'.$pemeriksaan->ttd) }}" height="100">
+                <span>{{ $pemeriksaan->user->name }}</span>
             </div>
             <div>
                 <p>Dibuat oleh</p>
                 <p>Pelaksana Kalibrasi</p>
-                <span>...............................</span>
+                <img src="{{ public_path('assets/img/ttd/'.$pemeriksaan->ttd) }}" height="100">
+                <span>{{ $pemeliharaan->user->name }}</span>
             </div>
         </div>
     </div>

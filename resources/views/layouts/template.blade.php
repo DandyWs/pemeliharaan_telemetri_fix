@@ -46,9 +46,8 @@
     <div class="nav-item">
    
       <!-- Brand Logo -->
-      <a href="../../index3.html" class="brand-link" style="display: flex; justify-content: center; align-items: center;">
+      <a href="{{ url('/dashboard') }}" class="brand-link" style="display: flex; justify-content: center; align-items: center;">
         <img src="{{asset('assets/dist/img/logo_jastir1.jpg')}}" class="img-fluid" alt="Logo PJT1" style="width: 100px" width="100px" alt="User Image">
-      
       </a>
   
     </div>

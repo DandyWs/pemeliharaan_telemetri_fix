@@ -114,15 +114,16 @@ class PemeriksaanController extends Controller
     // Handle the ttd field if it's a base64 image
     if ($request->has('ttd')) {
         try {
-            $folderPath = "uploads/manager/";
+            $folderPath = "manager/";
             $image_parts = explode(";base64,", $request->input('ttd'));
             $image_type_aux = explode("image/", $image_parts[0]);
             $image_type = isset($image_type_aux[1]) ? $image_type_aux[1] : 'png';
             $image_base64 = base64_decode($image_parts[1]);
             $file = $folderPath . uniqid() . '.' . $image_type;
 
-            // Store the image in the public disk
-            Storage::disk('public')->put($file, $image_base64);
+            // Store the image in the public assets directory
+            $filePath = public_path('assets/img/ttd/manager/' . basename($file));
+            file_put_contents($filePath, $image_base64);
         } catch (\Exception $e) {
             Log::error('Error storing ttd image: ' . $e->getMessage());
             return redirect()->back()->withErrors(['ttd' => 'Failed to store signature image.']);
@@ -266,7 +267,7 @@ class PemeriksaanController extends Controller
         {
             $pemeliharaan = Pemeliharaan2::find($id);
             $alat = AlatTelemetri::all();
-            $pemeriksaan = Pemeriksaan::all();
+            $pemeriksaan = Pemeriksaan::where('pemeliharaan2_id', $id)->first();
             $user = User::all();
             $formKomponen = FormKomponen::where('pemeliharaan2_id', $id)-> pluck('detail_komponen_id')->toArray();
             $jenisAlat =  JenisAlat::all();
