@@ -242,7 +242,7 @@
 <body>
     <div class="container">
         <h5 class="text-center">LAPORAN PEMELIHARAAN PERALATAN</h5>
-        <h6 class="text-center">TELEMETRI WQMS GSM</h6>
+        <h5 class="text-center">TELEMETRI {{ $pemeliharaan->alatTelemetri->jenisAlat->namajenis}} GSM</h5>
         <div class="row">
             <div class="col-6">
                 <p>Nama Stasiun Telemetri   : {{ $pemeliharaan->alatTelemetri->lokasiStasiun }}</p>
@@ -259,55 +259,34 @@
         </div>
         <table class="table table-bordered">
             <tbody>
-                <tr>
-                    <td>a. Modem</td>
-                    <td>
-                        <div>Indikator Led <input type="checkbox" class="form-check-input"></div>
-                        <div>SIM Card Aktif <input type="checkbox" class="form-check-input"></div>
-                    </td>
-                    <td>e. Smart Battery Charger</td>
-                    <td>
-                        <div>Pemeriksaan Kondisi Alat <input type="checkbox" class="form-check-input"></div>
-                        <div>Pemeriksaan Sambungan Kabel <input type="checkbox" class="form-check-input"></div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>b. Data Logger</td>
-                    <td>
-                        <div>Indikator Led <input type="checkbox" class="form-check-input"></div>
-                        <div>Pembersihan dan Pengecekan SONDE <input type="checkbox" class="form-check-input"></div>
-                    </td>
-                    <td>f. Antena GSM</td>
-                    <td>
-                        <div>Pemeriksaan Kondisi Alat <input type="checkbox" class="form-check-input"></div>
-                        <div>Pemeriksaan Sambungan Kabel <input type="checkbox" class="form-check-input"></div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>c. AC-DC Converter</td>
-                    <td>
-                        <div>Pemeriksaan Kondisi Alat <input type="checkbox" class="form-check-input"></div>
-                        <div>Pemeriksaan Sambungan Kabel <input type="checkbox" class="form-check-input"></div>
-                    </td>
-                    <td>g. Baterai / Aki</td>
-                    <td>
-                        <div>Pemeriksaan Level Air Aki <input type="checkbox" class="form-check-input"></div>
-                        <div>Pemeriksaan Sambungan Kabel <input type="checkbox" class="form-check-input"></div>
-                        <div>Tegangan : .................. Volt</div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>d. DC-DC Converter</td>
-                    <td>
-                        <div>Pemeriksaan Kondisi Alat <input type="checkbox" class="form-check-input"></div>
-                        <div>Pemeriksaan Sambungan Kabel <input type="checkbox" class="form-check-input"></div>
-                    </td>
-                    <td>h. Sambungan PLN</td>
-                    <td>
-                        <div>Pemeriksaan Kondisi Alat <input type="checkbox" class="form-check-input"></div>
-                        <div>Pemeriksaan Sambungan Kabel <input type="checkbox" class="form-check-input"></div>
-                    </td>
-                </tr>
+                {{-- @foreach ($komponen as $komponen) --}}
+                    @foreach ($komponen->chunk(2) as $chunk)
+                    <tr>
+                        @foreach ($chunk as $komponen)
+                        <td>{{ chr(64 + $loop->parent->iteration) }}. {{ $komponen->nama }}
+                            <br>
+                            @foreach ($detailKomponen->where('komponen2_id', $komponen->id) as $detail)
+                            @php
+                                    $cheked = false;
+                                    if (in_array($detail->id, $formKomponen)) {
+                                        $cheked = true;
+                                    }
+                                @endphp
+                                <div class="form-check">
+                                    <input type="hidden" name="detail_komponen_id[{{ $detail->id }}]" value="{{ $detail->id }}" />
+                                    <input type="hidden" name="pemeliharaan2_id[{{ $detail->id }}]" value="{{ isset($pemeliharaan) ? $pemeliharaan->id : '' }}" />
+                                    <label class="form-check-label">{{ $detail->namadetail }}</label>
+                                    <input type="checkbox" name="cheked{{ $detail->id }}" {{ $cheked ? 'checked' : 'disabled' }} class="form-check-input" />
+                                </div>
+                            @endforeach
+                        </td>
+                        @endforeach
+                        @if ($chunk->count() < 2)
+                        <td></td>
+                        @endif
+                    </tr>
+                    @endforeach
+                {{-- @endforeach --}}
             </tbody>
         </table>
         <div>

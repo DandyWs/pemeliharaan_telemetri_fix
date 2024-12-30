@@ -99,7 +99,7 @@ Route::group(['middleware' => 'auth'], function() {
 });
 
 Route::get('/unauthorized', function () {
-    return view('unauthorized'); // Create this view
+    return view('unauthorized');
 })->name('unauthorized');
 
 Route::get('/', [IndexController::class, 'index'])->name('dashboard');
