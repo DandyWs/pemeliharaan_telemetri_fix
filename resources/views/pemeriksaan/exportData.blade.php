@@ -241,17 +241,22 @@
 </head>
 <body>
     <div class="container">
-        <h5 class="text-center">LAPORAN PEMELIHARAAN PERALATAN</h5>
-        <h5 class="text-center">TELEMETRI {{ $pemeliharaan->alatTelemetri->jenisAlat->namajenis}} GSM</h5>
+        @if ($pemeliharaan->alatTelemetri->jenisAlat->namajenis == 'AWLR' || $pemeliharaan->alatTelemetri->jenisAlat->namajenis == 'ARR')
+            <h5 class="text-center">LAPORAN PEMELIHARAAN DAN KALIBRASI INTERNAL</h5>
+            <h5 class="text-center">PERALATAN TELEMETRI {{ $pemeliharaan->alatTelemetri->jenisAlat->namajenis }} GSM</h5>
+        @else
+            <h5 class="text-center">LAPORAN PEMELIHARAAN PERALATAN</h5>
+            <h5 class="text-center">TELEMETRI {{ $pemeliharaan->alatTelemetri->jenisAlat->namajenis }} GSM</h5>
+        @endif
         <div class="row">
-            <div class="col-6">
+            <div class="col-sm">
                 <p>Nama Stasiun Telemetri   : {{ $pemeliharaan->alatTelemetri->lokasiStasiun }}</p>
                 <p>Periode Pemeliharaan     : {{ $pemeliharaan->periode }}</p>
                 <p>Pelaksana Pemeliharaan   : {{ $pemeliharaan->user->name }}</p>
                 <p>Cuaca                    : {{ $pemeliharaan->cuaca }}</p>
                 <p>No GSM                   : {{ $pemeliharaan->no_GSM }}</p>
             </div>
-            <div class="col-6">
+            <div class="col-sm">
                 <p>Tanggal      : {{ $pemeliharaan->tanggal }}</p>
                 <p>Jam          : {{ $pemeliharaan->waktu }}</p>
                 <p>No. Alat Ukur: {{ $pemeliharaan->no_alatUkur }}</p>
@@ -259,45 +264,44 @@
         </div>
         <table class="table table-bordered">
             <tbody>
-                {{-- @foreach ($komponen as $komponen) --}}
-                    @foreach ($komponen->chunk(2) as $chunk)
-                    <tr>
-                        @foreach ($chunk as $komponen)
-                        <td>{{ chr(64 + $loop->parent->iteration) }}. {{ $komponen->nama }}
-                            <br>
-                            @foreach ($detailKomponen->where('komponen2_id', $komponen->id) as $detail)
-                            @php
-                                    $cheked = false;
-                                    if (in_array($detail->id, $formKomponen)) {
-                                        $cheked = true;
-                                    }
-                                @endphp
-                                <div class="form-check">
-                                    <input type="hidden" name="detail_komponen_id[{{ $detail->id }}]" value="{{ $detail->id }}" />
-                                    <input type="hidden" name="pemeliharaan2_id[{{ $detail->id }}]" value="{{ isset($pemeliharaan) ? $pemeliharaan->id : '' }}" />
-                                    <label class="form-check-label">{{ $detail->namadetail }}</label>
-                                    <input type="checkbox" name="cheked{{ $detail->id }}" {{ $cheked ? 'checked' : 'disabled' }}  />
-                                </div>
-                            @endforeach
-                        </td>
-                        @endforeach
-                        @if ($chunk->count() < 2)
-                        <td></td>
-                        @endif
-                    </tr>
-                    @endforeach
-                {{-- @endforeach --}}
+            @foreach ($komponen->chunk(2) as $chunk)
+            <tr>
+                @foreach ($chunk as $komponen)
+                <td style="width: 50%;">{{ chr(64 + $loop->parent->iteration) }}. {{ $komponen->nama }}
+                <br><br>
+                @foreach ($detailKomponen->where('komponen2_id', $komponen->id) as $detail)
+                @php
+                    $cheked = false;
+                    if (in_array($detail->id, $formKomponen)) {
+                        $cheked = true;
+                    }
+                    @endphp
+                    <div class="form-check">
+                    <input type="hidden" name="detail_komponen_id[{{ $detail->id }}]" value="{{ $detail->id }}" />
+                    <input type="hidden" name="pemeliharaan2_id[{{ $detail->id }}]" value="{{ isset($pemeliharaan) ? $pemeliharaan->id : '' }}" />
+                    <label class="form-check-label">{{ $detail->namadetail }}</label>
+                    <input type="checkbox" name="cheked{{ $detail->id }}" {{ $cheked ? 'checked' : 'disabled' }}  />
+                    </div>
+                @endforeach
+                </td>
+                @endforeach
+                @if ($chunk->count() < 2)
+                <td style="width: 50%;"></td>
+                @endif
+            </tr>
+            @endforeach
             </tbody>
         </table>
         <div>
             <p>Keterangan :</p>
-            <div style="border: 1px solid black; height: 100px;">
+            <div style="border: 1px solid black; height: 80px;">
                 @if($pemeliharaan->keterangan)
                     <p>{{ $pemeliharaan->keterangan }}</p>
                 @else
                     <p>Pemeliharaan {{ $pemeliharaan->alatTelemetri->jenisAlat->namajenis }}</p>
                 @endif
             </div>
+            <br>
         </div>
         <div class="signature">
             <div>
@@ -305,13 +309,14 @@
                 <p>Ka. Tim Kalibrasi Divisi</p>
                 {{-- {{ dd( $pemeriksaan->ttd) }} --}}
                 <img src="{{ public_path('assets/img/ttd/'.$pemeriksaan->ttd) }}" height="100">
-                <span>{{ $pemeriksaan->user->name }}</span>
+                <p>{{ $pemeriksaan->user->name }}</p>
             </div>
             <div>
                 <p>Dibuat oleh</p>
                 <p>Pelaksana Kalibrasi</p>
                 <img src="{{ public_path('assets/img/ttd/'.$pemeriksaan->ttd) }}" height="100">
-                <span>{{ $pemeliharaan->user->name }}</span>
+                <p>{{ $pemeliharaan->user->name }}</p>
+                {{-- {{ dd($pemeliharaan->user->name) }} --}}
             </div>
         </div>
     </div>

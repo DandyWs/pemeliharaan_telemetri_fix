@@ -79,7 +79,7 @@
             processing:true,
             serverside:true,
             ajax:{
-                'url': '{{  route('data_pemeliharaan') }}',
+                'url': '{{  route('data_pemeriksaan') }}',
                 'dataType': 'json',
                 'type': 'POST',
             },
@@ -91,21 +91,21 @@
             },
             {
                 data: null,
-                name: 'tanggal_waktu',
+                name: 'tanggal',
                 sortable: true,
                 searchable: true,
                 render: function (data, type, row, meta) {
                     return row.tanggal + ' ' + row.waktu;
                 }
             },
-            // { data: 'waktu', name: 'waktu', sortable: true, searchable: true },
+            { data: 'waktu', name: 'waktu', sortable: true, searchable: true },
             { data: 'periode', name: 'periode', sortable: true, searchable: true },
             { data: 'cuaca', name: 'cuaca', sortable: true, searchable: true },
-                // { data: 'no_alatUkur', name: 'no_alatUkur', sortable: true, searchable: true },
-                // { data: 'no_GSM', name: 'no_GSM', sortable: true, searchable: true },
-            { data: 'jenis_alat', name: 'jenis_alat', sortable: true, searchable: true },
-            { data: 'alat_telemetri_id', name: 'alat_telemetri_id', sortable: true, searchable: true },
-            { data: 'user_id', name: 'user_id', sortable: true, searchable: true },
+                { data: 'no_alatUkur', name: 'no_alatUkur', sortable: true, searchable: true },
+                { data: 'no_GSM', name: 'no_GSM', sortable: true, searchable: true },
+            // // { data: 'jenis_alat', name: 'jenis_alat', sortable: true, searchable: true },
+            // { data: 'alat_telemetri_id', name: 'alat_telemetri_id', sortable: true, searchable: true },
+            // { data: 'user_id', name: 'user_id', sortable: true, searchable: true },
             {
                 data: 'keterangan',
                 name: 'keterangan',
@@ -117,12 +117,12 @@
                 }
             },
             {
-                data: null,
-                name: 'status',
+                data: 'ttd',
+                name: 'ttd',
                 sortable: true,
                 searchable: true,
                 render: function (data, type, row, meta) {
-                    return row.id === row.pemeliharaan2_id ? '<span class="badge badge-success">Confirmed</span>' : '<span class="badge badge-danger">Not Confirmed</span>';
+                    return data ? '<span class="badge badge-success">Confirmed</span>' : '<span class="badge badge-danger">Not Confirmed</span>';
                 }
             },
             {

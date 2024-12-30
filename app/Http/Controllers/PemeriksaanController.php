@@ -17,6 +17,7 @@ use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\DB;
 
 class PemeriksaanController extends Controller
 {
@@ -38,25 +39,51 @@ class PemeriksaanController extends Controller
 
         return view('pemeriksaan.index');
     }
+    // public function data(){
+    //     $data = Pemeliharaan2::with('AlatTelemetri')->get();
+    //     $data = $data->map(function ($item) {
+    //         return [
+    //             'id' => $item->id,
+    //             'tanggal' => $item->tanggal,
+    //             'waktu' => $item->waktu,
+    //             'periode' => $item->periode,
+    //             'cuaca' => $item->cuaca,
+    //             'no_alatUkur' => $item->no_alatUkur,
+    //             'no_GSM' => $item->no_GSM,
+    //             'alat_telemetri_id' => $item->AlatTelemetri->lokasiStasiun,
+    //             'jenis_alat' => $item->AlatTelemetri->JenisAlat->namajenis,
+    //             'keterangan' => $item->keterangan,
+    //             'user_id' => $item->User->name,
+    //             'ttdMekanik' => $item->ttdMekanik,
+                
+    //         ];
+    //     });
+    //     return DataTables::of($data)
+    //                 ->addIndexColumn()
+    //                 ->make(true);
+
+    // }
     public function data(){
-        $data = Pemeriksaan::with('Pemeliharaan2')->get();
+        //$data = Pemeriksaan::with('Pemeliharaan2s')->with('AlatTelemetri')->get();
+        $data = DB::table('pemeliharaan2s')
+            ->leftJoin('pemeriksaans', 'pemeliharaan2s.id', '=', 'pemeriksaans.pemeliharaan2_id')
+            ->get();
         $data = $data->map(function ($item) {
             return [
-                'id' => $item->id,
-                'ttd' => $item->ttd,
-                'catatan' => $item->catatan,
-                'pemeliharaan_id' => $item->Pemeliharaan2->id,
-                'tanggal' => $item->Pemeliharaan2->tanggal,
-                'waktu' => $item->Pemeliharaan2->waktu,
-                'periode' => $item->Pemeliharaan2->periode,
-                'cuaca' => $item->Pemeliharaan2->cuaca,
-                'no_alatUkur' => $item->Pemeliharaan2->no_alatUkur,
-                'no_GSM' => $item->Pemeliharaan2->no_GSM,
-                'alat_telemetri_id' => $item->Pemeliharaan2->AlatTelemetri->lokasiStasiun,
-                'jenis_alat' => $item->Pemeliharaan2->AlatTelemetri->JenisAlat->namajenis,
-                'keterangan' => $item->Pemeliharaan2->keterangan,
-                // 'status' => $item->pemeliharaan2_id == $item->Pemeliharaan2->id,
-                'user_id' => $item->User->name,
+                'id' => $item->Pemeliharaan2s->id,
+                'tanggal' => $item->tanggal,
+                'waktu' => $item->waktu,
+                'periode' => $item->periode,
+                'cuaca' => $item->cuaca,
+                'no_alatUkur' => $item->no_alatUkur,
+                'no_GSM' => $item->no_GSM,
+                // // 'alat_telemetri_id' => $item->AlatTelemetri->lokasiStasiun,
+                // // 'jenis_alat' => $item->AlatTelemetri->JenisAlat->namajenis,
+                'keterangan' => $item->keterangan,
+                // 'user_id' => $item->User->name,
+                'ttdMekanik' => $item->ttdMekanik,
+                'ttd' => $item->ttd
+                
             ];
         });
         return DataTables::of($data)
@@ -132,19 +159,19 @@ class PemeriksaanController extends Controller
 
     // Create the Pemeriksaan record
     try {
-        Pemeriksaan::create([
-            'ttd' => $file,
-            'catatan' => $request->input('catatan'),
-            'pemeliharaan2_id' => $request->input('pemeliharaan2_id'),
-            'user_id' => $request->input('user_id'),
-        ]);
-    } catch (\Exception $e) {
-        Log::error('Error creating Pemeriksaan record: ' . $e->getMessage());
-        return redirect()->back()->withErrors(['error' => 'Failed to create Pemeriksaan record.']);
-    }
+            Pemeriksaan::create([
+                'ttd' => $file,
+                'catatan' => $request->input('catatan'),
+                'pemeliharaan2_id' => $request->input('pemeliharaan2_id'),
+                'user_id' => $request->input('user_id'),
+            ]);
+        } catch (\Exception $e) {
+            Log::error('Error creating Pemeriksaan record: ' . $e->getMessage());
+            return redirect()->back()->withErrors(['error' => 'Failed to create Pemeriksaan record.']);
+        }
 
-        return redirect('pemeriksaan')->with('success', 'Form Pemeliharaan telah Diperiksa');
-    }
+            return redirect('pemeriksaan')->with('success', 'Form Pemeliharaan telah Diperiksa');
+        }
 
     /**
      * Display the specified resource.

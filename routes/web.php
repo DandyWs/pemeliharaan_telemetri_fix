@@ -71,7 +71,7 @@ Route::group(['middleware' => 'auth'], function() {
     Route::resource('/pemeriksaan', PemeriksaanController::class)->parameter('pemeriksaan','id');
     Route::get('pemeriksaan/{id}/create', [PemeriksaanController::class, 'create'])->name('pemeriksaan.create');
     Route::post('pemeriksaan/{id}', [PemeriksaanController::class, 'create'])->name('pemeriksaan.create');
-    Route::post('pemeriksaan/data',[PemeriksaanController::class,'data'])->name('data_pemeriksaan');
+    Route::post('pemeriksaans/data',[PemeriksaanController::class,'data'])->name('data_pemeriksaan');
 
     Route::resource('/alat', AlatController::class)->parameter('alat','id');
     Route::post('alat/data',[AlatController::class,'data'])->name('data_alat');

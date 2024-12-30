@@ -129,7 +129,7 @@
             <div class="row">
               @foreach ($komponen as $komp)
               <div class="form-group col-md-6">
-                <label>
+                <label class="example" id="{{ $komp->id==11 || $komp->id==12 ? $komp->id : '' }}">
                   {{ $komp->nama }}
                   <input
                       type="{{ $komp->id==11 || $komp->id==12 ? 'checkbox' : 'hidden' }}"
@@ -166,7 +166,23 @@
                     /> --}}
                     <label class="form-check-label">{{ $detail->namadetail }}</label>
                   </div>
+                  
+                  
                 @endforeach
+                @if ($komp->id==7)
+                    {{-- <div class="form-group col-md-6"> --}}
+                      <span>Tegangan</span>
+                      <input
+                        type="text"
+                        name="tegangan"
+                        class="form-control @error('tegangan') is-invalid @enderror"
+                        placeholder="Tegangan"
+                      />
+                      @error('tegangan')
+                      <span class="error invalid-feedback">{{ $message }}</span>
+                      @enderror
+                  {{-- </div> --}}
+                  @endif
                 @error('komponen2_id')
                 <span class="error invalid-feedback">{{ $message }}</span>
                 @enderror
@@ -175,7 +191,7 @@
             </div>
             
 
-            <div class="row" id="form-setting"  style="display: none;">
+            <div class="row example" id="form-setting"  style="display: none;">
               <!-- Add your form setting fields here -->
               <div class="form-group col-md-6">
                 <p>Penunjukan Data Setting di Display (LCD)</p>
@@ -270,6 +286,8 @@
       document.addEventListener('DOMContentLoaded', function () {
           const alatTelemetriSelect = document.getElementById('alat_telemetri_id');
           const formSetting = document.getElementById('form-setting');
+          const label11 = document.getElementById('11');
+          const label12 = document.getElementById('12');
       
           alatTelemetriSelect.addEventListener('change', function () {
               const selectedOption = alatTelemetriSelect.options[alatTelemetriSelect.selectedIndex];
@@ -277,8 +295,12 @@
       
               if (jenisAlat === 'AWLR' || jenisAlat === 'ARR') {
                   formSetting.style.display = 'flex';
+                  label11.style.display = 'flex';
+                  label12.style.display = 'flex';
               } else {
                   formSetting.style.display = 'none';
+                  label11.style.display = 'none';
+                  label12.style.display = 'none';
               }
           });
       

@@ -96,7 +96,7 @@ class PemeliharaanController extends Controller
             'keterangan' => ['nullable', 'max:255', 'string'],
             'alat_telemetri_id' => ['required', 'exists:alat_telemetris,id'],
             'user_id' => ['required', 'exists:users,id'],
-            'ttdMekanik' => ['required', 'max:255', 'string'],
+            // 'ttdMekanik' => ['required', 'max:255', 'string'],
         ]);
 
         // Initialize the file variable
@@ -125,36 +125,37 @@ class PemeliharaanController extends Controller
             }
         }
 
-        // Create the Pemeliharaan record
-        try {
-            $pemeliharaan = Pemeliharaan2::create([
-                'tanggal' => $request->input('tanggal'),
-                'waktu' => $request->input('waktu'),
-                'periode' => $request->input('periode'),
-                'cuaca' => $request->input('cuaca'),
-                'no_alatUkur' => $request->input('no_alatUkur'),
-                'no_GSM' => $request->input('no_GSM'),
-                'alat_telemetri_id' => $request->input('alat_telemetri_id'),
-                'user_id' => $request->input('user_id'),
-                'keterangan' => $request->input('keterangan'),
-                'ttdMekanik' => $file,
-            ]);
-        } catch (\Exception $e) {
-            Log::error('Error creating Pemeliharaan record: ' . $e->getMessage());
-            return redirect()->back()->withErrors(['error' => 'Failed to create Pemeliharaan record.']);
-        }        
-        // $pemeliharaan = Pemeliharaan2::create([
-        //     'tanggal' => $request->input('tanggal'),
-        //     'waktu' => $request->input('waktu'),
-        //     'periode' => $request->input('periode'),
-        //     'cuaca' => $request->input('cuaca'),
-        //     'no_alatUkur' => $request->input('no_alatUkur'),
-        //     'no_GSM' => $request->input('no_GSM'),
-        //     'alat_telemetri_id' => $request->input('alat_telemetri_id'),
-        //     'user_id' => $request->input('user_id'),
-        //     'keterangan' => $request->input('keterangan'),
-        //     'ttdMekanik' => $file,
-        // ]);
+        // // Create the Pemeliharaan record
+        // try {
+        //     $pemeliharaan = Pemeliharaan2::create([
+        //         'tanggal' => $request->input('tanggal'),
+        //         'waktu' => $request->input('waktu'),
+        //         'periode' => $request->input('periode'),
+        //         'cuaca' => $request->input('cuaca'),
+        //         'no_alatUkur' => $request->input('no_alatUkur'),
+        //         'no_GSM' => $request->input('no_GSM'),
+        //         'alat_telemetri_id' => $request->input('alat_telemetri_id'),
+        //         'user_id' => $request->input('user_id'),
+        //         'keterangan' => $request->input('keterangan'),
+        //         // 'ttdMekanik' => $file,
+        //     ]);
+        // } catch (\Exception $e) {
+        //     Log::error('Error creating Pemeliharaan record: ' . $e->getMessage());
+        //     return redirect()->back()->withErrors(['error' => 'Failed to create Pemeliharaan record.']);
+        // }        
+        $pemeliharaan = Pemeliharaan2::create([
+            'tanggal' => $request->input('tanggal'),
+            'waktu' => $request->input('waktu'),
+            'periode' => $request->input('periode'),
+            'cuaca' => $request->input('cuaca'),
+            'no_alatUkur' => $request->input('no_alatUkur'),
+            'no_GSM' => $request->input('no_GSM'),
+            'alat_telemetri_id' => $request->input('alat_telemetri_id'),
+            'user_id' => $request->input('user_id'),
+            'keterangan' => $request->input('keterangan'),
+            'ttdMekanik' => $file,
+            'tegangan' => $request->input('tegangan'),
+        ]);
 
         // if ($request->has('detailKomponen')) {
             // foreach ($request->input('detailKomponen') as $detailKomponen) {
