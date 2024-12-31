@@ -238,6 +238,11 @@
             margin-top: 4rem;
         }
     </style>
+    <style>
+        .table-borderless td {
+        padding: 0.2rem !important;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
@@ -248,40 +253,56 @@
             <h5 class="text-center">LAPORAN PEMELIHARAAN PERALATAN</h5>
             <h5 class="text-center">TELEMETRI {{ $pemeliharaan->alatTelemetri->jenisAlat->namajenis }} GSM</h5>
         @endif
-        <div class="row">
-            <div class="col-sm">
-                <p>Nama Stasiun Telemetri   : {{ $pemeliharaan->alatTelemetri->lokasiStasiun }}</p>
-                <p>Periode Pemeliharaan     : {{ $pemeliharaan->periode }}</p>
-                <p>Pelaksana Pemeliharaan   : {{ $pemeliharaan->user->name }}</p>
-                <p>Cuaca                    : {{ $pemeliharaan->cuaca }}</p>
-                <p>No GSM                   : {{ $pemeliharaan->no_GSM }}</p>
-            </div>
-            <div class="col-sm">
-                <p>Tanggal      : {{ $pemeliharaan->tanggal }}</p>
-                <p>Jam          : {{ $pemeliharaan->waktu }}</p>
-                <p>No. Alat Ukur: {{ $pemeliharaan->no_alatUkur }}</p>
-            </div>
-        </div>
-        <table class="table table-bordered">
+        <table class="table table-borderless">
+            <tr>
+            <td>Nama Stasiun Telemetri</td>
+            <td>: {{ $pemeliharaan->alatTelemetri->lokasiStasiun }}</td>
+            <td>Tanggal</td>
+            <td>: {{ $pemeliharaan->tanggal }}</td>
+            </tr>
+            <tr>
+            <td>Periode Pemeliharaan</td>
+            <td>: {{ $pemeliharaan->periode }}</td>
+            <td>Jam</td>
+            <td>: {{ $pemeliharaan->waktu }}</td>
+            </tr>
+            <tr>
+            <td>Pelaksana Pemeliharaan</td>
+            <td>: {{ $pemeliharaan->user->name }}</td>
+            <td>No. Alat Ukur</td>
+            <td>: {{ $pemeliharaan->no_alatUkur }}</td>
+            </tr>
+            <tr>
+            <td>Cuaca</td>
+            <td>: {{ $pemeliharaan->cuaca }}</td>
+            <td>No GSM</td>
+            <td>: {{ $pemeliharaan->no_GSM }}</td>
+            </tr>
+        </table>
+        <table class="table" style="border: 1px solid black;">
             <tbody>
             @foreach ($komponen->chunk(2) as $chunk)
             <tr>
                 @foreach ($chunk as $komponen)
-                <td style="width: 50%;">{{ chr(64 + $loop->parent->iteration) }}. {{ $komponen->nama }}
+                <td style="width: 50%; border: 1px solid black;">{{ chr(65 + $loop->parent->index * 2 + $loop->index) }}. {{ $komponen->nama }}
                 <br><br>
                 @foreach ($detailKomponen->where('komponen2_id', $komponen->id) as $detail)
-                @php
-                    $cheked = false;
-                    if (in_array($detail->id, $formKomponen)) {
-                        $cheked = true;
-                    }
-                    @endphp
-                    <div class="form-check">
-                    <input type="hidden" name="detail_komponen_id[{{ $detail->id }}]" value="{{ $detail->id }}" />
-                    <input type="hidden" name="pemeliharaan2_id[{{ $detail->id }}]" value="{{ isset($pemeliharaan) ? $pemeliharaan->id : '' }}" />
-                    <label class="form-check-label">{{ $detail->namadetail }}</label>
-                    <input type="checkbox" name="cheked{{ $detail->id }}" {{ $cheked ? 'checked' : 'disabled' }}  />
-                    </div>
+                <table class="table table-borderless">
+                    <tr>
+                        <td style="width:90%; padding: 0.2rem;">{{ $detail->namadetail }}</td>
+                        <td style="width:10%">
+                            @php
+                                $cheked = false;
+                                if (in_array($detail->id, $formKomponen)) {
+                                    $cheked = true;
+                                }
+                            @endphp
+                            <input type="hidden" name="detail_komponen_id[{{ $detail->id }}]" value="{{ $detail->id }}" />
+                            <input type="hidden" name="pemeliharaan2_id[{{ $detail->id }}]" value="{{ isset($pemeliharaan) ? $pemeliharaan->id : '' }}" />
+                            <input type="checkbox" name="cheked{{ $detail->id }}" {{ $cheked ? 'checked' : 'disabled' }} />
+                        </td>
+                    </tr>
+                </table>
                 @endforeach
                 </td>
                 @endforeach
@@ -314,7 +335,7 @@
             <div>
                 <p>Dibuat oleh</p>
                 <p>Pelaksana Kalibrasi</p>
-                <img src="{{ public_path('assets/img/ttd/'.$pemeriksaan->ttd) }}" height="100">
+                <img src="{{ public_path('assets/img/ttd/'.$pemeliharaan->ttdMekanik) }}" height="100">
                 <p>{{ $pemeliharaan->user->name }}</p>
                 {{-- {{ dd($pemeliharaan->user->name) }} --}}
             </div>

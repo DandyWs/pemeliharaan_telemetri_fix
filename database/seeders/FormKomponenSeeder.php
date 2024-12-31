@@ -102,26 +102,6 @@ class FormKomponenSeeder extends Seeder
                 'pemeliharaan2_id' => 1,
                 'detail_komponen_id' => 17,
                 'cheked' => TRUE
-            ],[
-                'id' => 18,
-                'pemeliharaan2_id' => 1,
-                'detail_komponen_id' => 18,
-                'cheked' => TRUE
-            ],[
-                'id' => 19,
-                'pemeliharaan2_id' => 1,
-                'detail_komponen_id' => 19,
-                'cheked' => TRUE
-            ],[
-                'id' => 20,
-                'pemeliharaan2_id' => 1,
-                'detail_komponen_id' => 20,
-                'cheked' => TRUE
-            ],[
-                'id' => 21,
-                'pemeliharaan2_id' => 1,
-                'detail_komponen_id' => 21,
-                'cheked' => TRUE
             ]
             ]);
     }

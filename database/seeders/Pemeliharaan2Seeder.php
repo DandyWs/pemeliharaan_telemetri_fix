@@ -19,8 +19,8 @@ class Pemeliharaan2Seeder extends Seeder
         DB::table('pemeliharaan2s')->insert([
             [   
                 'id' => 1,
-                'tanggal' => '2021-08-01 00:00:00',
-                'waktu' => '2021-08-01 08:00:00',
+                'tanggal' => '2021-08-01',
+                'waktu' => '08:00:00',
                 'periode' => 'Bulanan',
                 'cuaca' => 'Cerah',
                 'no_alatUkur' => 1,

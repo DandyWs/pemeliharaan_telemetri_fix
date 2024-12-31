@@ -12,7 +12,7 @@ return new class extends Migration {
     {
         Schema::create('pemeliharaan2s', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->dateTime('tanggal');
+            $table->date('tanggal');
             $table->time('waktu');
             $table->string('periode');
             $table->string('cuaca');
