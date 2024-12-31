@@ -171,7 +171,7 @@ class PemeliharaanController extends Controller
                 ]);
             
             }
-            if ($request->input('cheked11')){
+            if ($request->input('cheked9')){
                 Setting2::create([
                     'pemeliharaan2_id' => $pemeliharaan->id,
                     'simulasi' => $request->input('simulasi_sebelum'),
@@ -185,7 +185,7 @@ class PemeliharaanController extends Controller
                     'kondisi' => '1',
                 ]);
             }
-            if ($request->input('cheked12')){
+            if ($request->input('cheked10')){
                 Setting2::create([
                     'pemeliharaan2_id' => $pemeliharaan->id,
                     'simulasi' => $request->input('aktual_sebelum'),

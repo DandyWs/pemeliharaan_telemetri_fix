@@ -25,7 +25,8 @@ class Setting2Factory extends Factory
         return [
             'simulasi' => $this->faker->text(255),
             'display' => $this->faker->text(255),
-            'form_komponen_id' => \App\Models\FormKomponen::factory(),
+            'kondisi' => $this->faker->boolean(),
+            'pemeliharaan2_id' => \App\Models\Pemeliharaan2::factory(),
         ];
     }
 }

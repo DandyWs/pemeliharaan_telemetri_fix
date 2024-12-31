@@ -67,20 +67,24 @@ class PemeriksaanController extends Controller
         //$data = Pemeriksaan::with('Pemeliharaan2s')->with('AlatTelemetri')->get();
         $data = DB::table('pemeliharaan2s')
             ->leftJoin('pemeriksaans', 'pemeliharaan2s.id', '=', 'pemeriksaans.pemeliharaan2_id')
+            ->leftJoin('alat_telemetris', 'pemeliharaan2s.alat_telemetri_id', '=', 'alat_telemetris.id')
+            ->leftJoin('jenis_alats', 'alat_telemetris.jenis_alat_id', '=', 'jenis_alats.id')
+            ->leftJoin('users', 'pemeliharaan2s.user_id', '=', 'users.id')
+            ->select('pemeliharaan2s.*', 'pemeriksaans.ttd', 'pemeriksaans.catatan', 'pemeriksaans.user_id', 'alat_telemetris.lokasiStasiun', 'jenis_alats.namajenis', 'users.name')
             ->get();
         $data = $data->map(function ($item) {
             return [
-                'id' => $item->Pemeliharaan2s->id,
+                'id' => $item->id,
                 'tanggal' => $item->tanggal,
                 'waktu' => $item->waktu,
                 'periode' => $item->periode,
                 'cuaca' => $item->cuaca,
                 'no_alatUkur' => $item->no_alatUkur,
                 'no_GSM' => $item->no_GSM,
-                // // 'alat_telemetri_id' => $item->AlatTelemetri->lokasiStasiun,
-                // // 'jenis_alat' => $item->AlatTelemetri->JenisAlat->namajenis,
+                'alat_telemetri_id' => $item->lokasiStasiun,
+                'jenis_alat' => $item->namajenis,
                 'keterangan' => $item->keterangan,
-                // 'user_id' => $item->User->name,
+                'user_id' => $item->name,
                 'ttdMekanik' => $item->ttdMekanik,
                 'ttd' => $item->ttd
                 

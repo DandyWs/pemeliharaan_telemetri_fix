@@ -14,7 +14,8 @@ return new class extends Migration {
             $table->bigIncrements('id');
             $table->string('simulasi');
             $table->string('display');
-            $table->unsignedBigInteger('form_komponen_id');
+            $table->string('kondisi');
+            $table->unsignedBigInteger('pemeliharaan2_id');
 
             $table->timestamps();
         });
