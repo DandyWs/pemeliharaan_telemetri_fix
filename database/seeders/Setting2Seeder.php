@@ -22,24 +22,28 @@ class Setting2Seeder extends Seeder
                 'simulasi' => '255',
                 'display' => '255',
                 'kondisi' => TRUE,
+                'jenis' => 'bucket',
                 'pemeliharaan2_id' => 1
             ],[
                 'id' => 2,
                 'simulasi' => '255',
                 'display' => '255',
                 'kondisi' => TRUE,
+                'jenis' => 'bucket',
                 'pemeliharaan2_id' => 1
             ],[
                 'id' => 3,
                 'simulasi' => '255',
                 'display' => '255',
                 'kondisi' => FALSE,
+                'jenis' => 'water',
                 'pemeliharaan2_id' => 1
             ],[
                 'id' => 4,
                 'simulasi' => '255',
                 'display' => '255',
                 'kondisi' => FALSE,
+                'jenis' => 'water',
                 'pemeliharaan2_id' => 1
             ]
             ]);

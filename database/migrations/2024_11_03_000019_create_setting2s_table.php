@@ -15,6 +15,7 @@ return new class extends Migration {
             $table->string('simulasi');
             $table->string('display');
             $table->string('kondisi');
+            $table->string('jenis');
             $table->unsignedBigInteger('pemeliharaan2_id');
 
             $table->timestamps();

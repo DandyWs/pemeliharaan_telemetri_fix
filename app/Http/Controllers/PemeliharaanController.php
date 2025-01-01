@@ -176,12 +176,14 @@ class PemeliharaanController extends Controller
                     'pemeliharaan2_id' => $pemeliharaan->id,
                     'simulasi' => $request->input('simulasi_sebelum'),
                     'display' => $request->input('display_sebelum'),
+                    'jenis' => 'bucket',
                     'kondisi' => '0',
                 ]);
                 Setting2::create([
                     'pemeliharaan2_id' => $pemeliharaan->id,
                     'simulasi' => $request->input('simulasi_sesudah'),
                     'display' => $request->input('display_sesudah'),
+                    'jenis' => 'bucket',
                     'kondisi' => '1',
                 ]);
             }
@@ -190,12 +192,14 @@ class PemeliharaanController extends Controller
                     'pemeliharaan2_id' => $pemeliharaan->id,
                     'simulasi' => $request->input('aktual_sebelum'),
                     'display' => $request->input('display_aktual_sebelum'),
+                    'jenis' => 'water',
                     'kondisi' => '0',
                 ]);
                 Setting2::create([
                     'pemeliharaan2_id' => $pemeliharaan->id,
                     'simulasi' => $request->input('aktual_sesudah'),
                     'display' => $request->input('display_aktual_sesudah'),
+                    'jenis' => 'water',
                     'kondisi' => '1',
                 ]);
             }
@@ -212,16 +216,14 @@ class PemeliharaanController extends Controller
      */
     public function show($id)
     {
-        $data = Pemeliharaan2::where('id', $id)->first();
+        $pemeliharaan = Pemeliharaan2::where('id', $id)->first();
         $formKomponen = FormKomponen::where('pemeliharaan2_id', $id)-> pluck('detail_komponen_id')->toArray();
         $detailKomponen = DetailKomponen::all();
         $komponen = Komponen2::all();
-        return view('pemeliharaans.show', [
-            'pemeliharaan' => $data, 
-            'formKomponen' => $formKomponen,
-            'detailKomponen' => $detailKomponen,
-            'komponen' => $komponen
-        ]);
+        $setting2 = Setting2::where('pemeliharaan2_id', $id)->get();
+        // dd($setting2);
+        return view('pemeliharaans.show', compact('pemeliharaan', 'formKomponen', 'detailKomponen', 'komponen', 'setting2'))
+        ;
     }
 
     /**
