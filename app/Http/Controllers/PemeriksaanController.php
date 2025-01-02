@@ -18,6 +18,7 @@ use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Gate;
 
 class PemeriksaanController extends Controller
 {
@@ -131,6 +132,7 @@ class PemeriksaanController extends Controller
      */
     public function store(Request $request)
     {
+        Gate::authorize('create', Pemeriksaan::class);
         // Validate the incoming request data
     $request->validate([
         'ttd' => ['required', 'string'],

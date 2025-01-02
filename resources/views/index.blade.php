@@ -33,9 +33,9 @@
           <li><a href="#tentang-kami">Pemeliharaan Telemetri</a></li>
           <li><a href="#temukan-kami">Temukan Kami</a></li>
             @if(Auth::check())
-            <li><a href="{{ url('/dashboard') }}" target="_blank">Dashboard</a></li>
+            <li><a href="{{ url('/dashboard') }}">Dashboard</a></li>
             @else
-            <li><a href="{{ url('/login') }}" target="_blank">Login</a></li>
+            <li><a href="{{ url('/login') }}">Login</a></li>
             @endif
         </ul>
       </header>

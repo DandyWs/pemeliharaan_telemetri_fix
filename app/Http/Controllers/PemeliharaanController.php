@@ -14,6 +14,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Yajra\DataTables\Facades\DataTables;
+use Illuminate\Support\Facades\Gate;
 
 class PemeliharaanController extends Controller
 {
@@ -34,21 +35,28 @@ class PemeliharaanController extends Controller
         return view('pemeliharaans.index');
     }
     public function data(){
-        $data = Pemeliharaan2::with('AlatTelemetri')->get();
+        if (auth()->user()->role == 'mekanik') {
+            $data = Pemeliharaan2::with('AlatTelemetri')
+            ->where('user_id', auth()->id())
+            ->get();
+        } else {
+            $data = Pemeliharaan2::with('AlatTelemetri')->get();
+        }
+
         $data = $data->map(function ($item) {
             return [
-                'id' => $item->id,
-                'tanggal' => $item->tanggal,
-                'waktu' => $item->waktu,
-                'periode' => $item->periode,
-                'cuaca' => $item->cuaca,
-                'no_alatUkur' => $item->no_alatUkur,
-                'no_GSM' => $item->no_GSM,
-                'alat_telemetri_id' => $item->AlatTelemetri->lokasiStasiun,
-                'jenis_alat' => $item->AlatTelemetri->JenisAlat->namajenis,
-                'keterangan' => $item->keterangan,
-                'user_id' => $item->User->name,
-                'ttdMekanik' => $item->ttdMekanik,
+            'id' => $item->id,
+            'tanggal' => $item->tanggal,
+            'waktu' => $item->waktu,
+            'periode' => $item->periode,
+            'cuaca' => $item->cuaca,
+            'no_alatUkur' => $item->no_alatUkur,
+            'no_GSM' => $item->no_GSM,
+            'alat_telemetri_id' => $item->AlatTelemetri->lokasiStasiun,
+            'jenis_alat' => $item->AlatTelemetri->JenisAlat->namajenis,
+            'keterangan' => $item->keterangan,
+            'user_id' => $item->User->name,
+            'ttdMekanik' => $item->ttdMekanik,
             ];
         });
         return DataTables::of($data)
@@ -234,6 +242,7 @@ class PemeliharaanController extends Controller
      */
     public function edit($id)
     {
+        Gate::authorize('update', $id);
         $pemeliharaan = Pemeliharaan2::find($id);
         $alat = AlatTelemetri::all();
         $formKomponen = FormKomponen:: pluck('detail_komponen_id');
@@ -266,6 +275,7 @@ class PemeliharaanController extends Controller
      */
     public function update(Request $request, $id)
     {
+        Gate::authorize('update', $id);
         $request->validate([
             'tanggal' => ['required', 'date'],
             'waktu' => ['required', 'date_format:H:i'],
@@ -315,6 +325,7 @@ class PemeliharaanController extends Controller
      */
     public function destroy($id)
     {
+        Gate::authorize('delete', $id);
         $sopir = Pemeliharaan2::find($id);
 
         $sopir->delete();

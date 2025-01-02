@@ -85,7 +85,7 @@
                         @if (Auth::user()->role == 'manager')
                         <div class="small-box bg-success">
                           <div class="inner">
-                            <h3>{{ $hitungPemKet}}</h3>
+                            <h3>{{ $hitungTtd}}</h3>
                             <p>Pemeliharaan Menunggu Konfirmasi</p>
                           </div>
                           <div class="icon">
@@ -150,6 +150,18 @@
                             </form>
 
                             <div class="card-body">
+                              <!-- Dropdown to select number of rows -->
+                                <div class="row mb-3">
+                                    <div class="col-md-2">
+                                        <label for="perPage">Show:</label>
+                                        <select id="perPage" class="form-control">
+                                            <option value="10">10</option>
+                                            <option value="25">25</option>
+                                            <option value="50">50</option>
+                                            <option value="100">100</option>
+                                        </select>
+                                    </div>
+                                </div>
 
                                 <table class="table table-bordered table-striped">
                                   <thead>
@@ -159,7 +171,8 @@
                                       <th>Periode</th>
                                       <th>Cuaca</th>
                                       <th>User</th>
-                                      <th>Peralatan Telemetri</th>
+                                      <th>Lokasi Stasiun</th>
+                                      <th>Alat</th>
                                       <th>Keterangan</th>
                                     </tr>
                                   </thead>
@@ -173,6 +186,7 @@
                                           <td>{{$k->cuaca}}</td>
                                           <td>{{$k->user->name}}</td>
                                           <td>{{$k->alatTelemetri->lokasiStasiun}}</td>
+                                          <td>{{$k->alatTelemetri->jenisAlat->namajenis}}</td>
                                           @if($k->keterangan != NULL)
                                             <td>{{$k->keterangan}}</td>
                                           @else
@@ -188,6 +202,15 @@
                                     @endif
                                   </tbody>
                                 </table>
+
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div>
+                                        Showing {{ $transaksi->firstItem() }} to {{ $transaksi->lastItem() }} of {{ $transaksi->total() }} entries
+                                    </div>
+                                    <div>
+                                        {{ $transaksi->links() }}
+                                    </div>
+                                </div>
                               </div>
                             </div>
                         </div>
@@ -200,4 +223,19 @@
           </section>
         </div>
       </div>
+      <script>
+        document.getElementById('perPage').addEventListener('change', function() {
+            const perPage = this.value;
+            const url = new URL(window.location.href);
+            url.searchParams.set('perPage', perPage);
+            window.location.href = url.toString();
+        });
+    
+        // Set the selected value in the dropdown
+        const urlParams = new URLSearchParams(window.location.search);
+        const perPageParam = urlParams.get('perPage');
+        if (perPageParam) {
+            document.getElementById('perPage').value = perPageParam;
+        }
+    </script>
 @endsection
