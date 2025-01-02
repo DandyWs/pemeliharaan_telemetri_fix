@@ -49,7 +49,14 @@
               <div class="row">
                     @foreach ($komponen as $komp)
                         <div class="form-group col-md-6"> 
-                            <label id="{{ $komp->id==9 || $komp->id==10 ? $komp->id : '' }}">{{ $komp->nama }}</label>
+                            <label id="{{ $komp->id==9 || $komp->id==10 ? $komp->id : '' }}">{{ $komp->nama }}
+                                <input
+                                type="{{ $komp->id==9 || $komp->id==10 ? 'checkbox' : 'hidden' }}"
+                                name="cheked{{ $komp->id }}"
+                                {{ $komp->id==9 || $komp->id==10 ? 'checked' : '' }}
+                                
+                                />
+                            </label>
                             @foreach ($detailKomponen->where('komponen2_id', $komp->id) as $detail)
                                 @php
                                     $cheked = false;
@@ -64,6 +71,35 @@
                                     <label class="form-check-label">{{ $detail->namadetail }}</label>
                                 </div>
                             @endforeach
+                            @if ($komp->id==7)
+                    {{-- <div class="form-group col-md-6"> --}}
+                        <div class="row">
+                            <div class="col-md-3 d-flex align-items-center justify-content-center">
+                            <span>Tegangan: </span>
+                            </div>
+                          <div class="col-md-6">
+                            <input
+                              type="text"
+                              name="tegangan"
+                              value="{{ $pemeliharaan->tegangan }}"
+                              class="form-control @error('tegangan') is-invalid @enderror"
+                              placeholder="Tegangan"
+                              disabled
+                            />
+                            @error('tegangan')
+                            <span class="error invalid-feedback">{{ $message }}</span>
+                            @enderror
+                          </div>
+                          <div class="col-md-3 d-flex align-items-center">
+                            <span>Volt</span>
+                          </div>
+                        </div>
+                      
+                      @error('tegangan')
+                      <span class="error invalid-feedback">{{ $message }}</span>
+                      @enderror
+                  {{-- </div> --}}
+                  @endif
                             @error('komponen2_id')
                                 <span class="error invalid-feedback">{{ $message }}</span>
                             @enderror

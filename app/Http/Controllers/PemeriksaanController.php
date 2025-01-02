@@ -10,6 +10,7 @@ use App\Models\Pemeriksaan;
 use App\Models\Pemeliharaan2;
 use App\Models\FormKomponen;
 use App\Models\User;
+use App\Models\Setting2;
 use Illuminate\Support\Facades\Storage;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\PemeriksaanExport;
@@ -29,6 +30,10 @@ class PemeriksaanController extends Controller
     //  */
     public function index(Request $request)
     {
+
+        if (!auth()->user()->role == 'admin' && auth()->user()->role == 'manager') {
+            return redirect()->back()->withErrors(['error' => 'You do not have permission to access this resource.']);
+        }
         if ($request->ajax()) {
             $data = Pemeriksaan::with('pemeliharaan2')->get();
             return DataTables::of($data)
@@ -108,6 +113,7 @@ class PemeriksaanController extends Controller
         $pemelihaaran = Pemeliharaan2::find($id);
         $pemeriksaan = Pemeriksaan::all();
         $user = User::all();
+        $setting2 = Setting2::all();
         $formKomponen = FormKomponen::where('pemeliharaan2_id', $id)-> pluck('detail_komponen_id')->toArray();
         $jenisAlat =  JenisAlat::all();
         $komponen = Komponen2::all();
@@ -120,6 +126,7 @@ class PemeriksaanController extends Controller
             ->with('pemeriksaan', $pemeriksaan)
             ->with('jenisAlat', $jenisAlat)
             ->with('komponen', $komponen)
+            ->with('setting2', $setting2)
             ->with('detailKomponen', $detailKomponen)
             ->with('url_form', url('/pemeriksaan'));
         }
@@ -207,6 +214,7 @@ class PemeriksaanController extends Controller
         $alat = AlatTelemetri::all();
         $pemeriksaan = Pemeriksaan::all();
         $user = User::all();
+        $setting2 = Setting2::where('pemeliharaan2_id', $id)->get();
         $formKomponen = FormKomponen::where('pemeliharaan2_id', $id)-> pluck('detail_komponen_id')->toArray();
         $jenisAlat =  JenisAlat::all();
         $komponen = Komponen2::all();
@@ -218,6 +226,7 @@ class PemeriksaanController extends Controller
             ->with('pemeriksaan', $pemeriksaan)
             ->with('jenisAlat', $jenisAlat)
             ->with('komponen', $komponen)
+            ->with('setting2', $setting2)
             ->with('detailKomponen', $detailKomponen)
         ->with('pemeliharaan', $pemelihaaran)->with('url_form', url('/pemeriksaan'));
     }

@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\DB;
 
 class PemeliharaanController extends Controller
 {
@@ -37,11 +38,26 @@ class PemeliharaanController extends Controller
     }
     public function data(){
         if (auth()->user()->role == 'mekanik') {
-            $data = Pemeliharaan2::with('AlatTelemetri')
-            ->where('user_id', auth()->id())
+            // $data = Pemeliharaan2::with('AlatTelemetri')
+            // ->where('user_id', auth()->id())
+            // ->get();
+            $data = DB::table('pemeliharaan2s')
+            ->leftJoin('pemeriksaans', 'pemeliharaan2s.id', '=', 'pemeriksaans.pemeliharaan2_id')
+            ->leftJoin('alat_telemetris', 'pemeliharaan2s.alat_telemetri_id', '=', 'alat_telemetris.id')
+            ->leftJoin('jenis_alats', 'alat_telemetris.jenis_alat_id', '=', 'jenis_alats.id')
+            ->leftJoin('users', 'pemeliharaan2s.user_id', '=', 'users.id')
+            ->select('pemeliharaan2s.*', 'pemeriksaans.ttd', 'pemeriksaans.catatan', 'pemeriksaans.user_id', 'alat_telemetris.lokasiStasiun', 'jenis_alats.namajenis', 'users.name')
+            ->where('pemeliharaan2s.user_id', auth()->id())
             ->get();
         } else {
-            $data = Pemeliharaan2::with('AlatTelemetri')->get();
+            // $data = Pemeliharaan2::with('AlatTelemetri')->get();
+            $data = DB::table('pemeliharaan2s')
+            ->leftJoin('pemeriksaans', 'pemeliharaan2s.id', '=', 'pemeriksaans.pemeliharaan2_id')
+            ->leftJoin('alat_telemetris', 'pemeliharaan2s.alat_telemetri_id', '=', 'alat_telemetris.id')
+            ->leftJoin('jenis_alats', 'alat_telemetris.jenis_alat_id', '=', 'jenis_alats.id')
+            ->leftJoin('users', 'pemeliharaan2s.user_id', '=', 'users.id')
+            ->select('pemeliharaan2s.*', 'pemeriksaans.ttd', 'pemeriksaans.catatan', 'pemeriksaans.user_id', 'alat_telemetris.lokasiStasiun', 'jenis_alats.namajenis', 'users.name')
+            ->get();
         }
 
         $data = $data->map(function ($item) {
@@ -53,11 +69,12 @@ class PemeliharaanController extends Controller
             'cuaca' => $item->cuaca,
             'no_alatUkur' => $item->no_alatUkur,
             'no_GSM' => $item->no_GSM,
-            'alat_telemetri_id' => $item->AlatTelemetri->lokasiStasiun,
-            'jenis_alat' => $item->AlatTelemetri->JenisAlat->namajenis,
+            'alat_telemetri_id' => $item->lokasiStasiun,
+            'jenis_alat' => $item->namajenis,
             'keterangan' => $item->keterangan,
-            'user_id' => $item->User->name,
+            'user_id' => $item->name,
             'ttdMekanik' => $item->ttdMekanik,
+            'ttd' => $item->ttd,
             ];
         });
         return DataTables::of($data)
@@ -251,32 +268,40 @@ class PemeliharaanController extends Controller
      */
     public function edit($id)
     {
-        $pemeliharaan = Pemeliharaan2::find($id);
+        // $pemeliharaan = Pemeliharaan2::find($id);
+        // // Debugging statements
+        // if (is_null($pemeliharaan)) {
+        //     abort(404, 'Pemeliharaan not found.');
+        // }
+
+        // $alat = AlatTelemetri::all();
+        // $formKomponen = FormKomponen:: pluck('detail_komponen_id');
+        // $user = User::all();
+        // $jenisAlat =  JenisAlat::all();
+        // $detailKomponen = DetailKomponen::where('id', $pemeliharaan->detail_komponen_id)->get();
+        // $komponen = Komponen2::where('id', $pemeliharaan->komponen_id)->get();
+
+        // // Check ownership
+        // if (!in_array(auth()->user()->role, ['admin'])&&$pemeliharaan->user_id !== auth()->id()) {
+        //     abort(403, 'You are not authorized to edit this record.');
+        // }
+        
+        $pemeliharaan = Pemeliharaan2::where('id', $id)->first();
         // Debugging statements
         if (is_null($pemeliharaan)) {
             abort(404, 'Pemeliharaan not found.');
         }
 
-        $alat = AlatTelemetri::all();
-        $formKomponen = FormKomponen:: pluck('detail_komponen_id');
-        $user = User::all();
-        $jenisAlat =  JenisAlat::all();
-        $detailKomponen = DetailKomponen::where('id', $pemeliharaan->detail_komponen_id)->get();
-        $komponen = Komponen2::where('id', $pemeliharaan->komponen_id)->get();
-
-        // Check ownership
-        if (!in_array(auth()->user()->role, ['admin'])&&$pemeliharaan->user_id !== auth()->id()) {
-            abort(403, 'You are not authorized to edit this record.');
+        if (!in_array(auth()->user()->role, ['admin']) && $pemeliharaan->user_id !== auth()->id()) {
+            abort(403, 'You are not authorized to see this record.');
         }
+        $formKomponen = FormKomponen::where('pemeliharaan2_id', $id)-> pluck('detail_komponen_id')->toArray();
+        $detailKomponen = DetailKomponen::all();
+        $komponen = Komponen2::all();
+        $alat = AlatTelemetri::all();
+        $setting2 = Setting2::where('pemeliharaan2_id', $id)->get();
 
-        return view('pemeliharaans.create')
-            ->with('alat', $alat)
-            ->with('formKomponen', $formKomponen)
-            ->with('user', $user)
-            ->with('jenisAlat', $jenisAlat)
-            ->with('komponen', $komponen)
-            ->with('detailKomponen', $detailKomponen)
-        ->with('pemeliharaan', $pemeliharaan)->with('url_form', url('/pemeliharaans/'.$id));
+        return view('pemeliharaans.edit', compact('pemeliharaan', 'formKomponen', 'detailKomponen', 'komponen', 'setting2', 'alat'));
     }
 
     /**
@@ -340,7 +365,9 @@ class PemeliharaanController extends Controller
      */
     public function destroy($id)
     {
-        
+        if (!auth()->check()) {
+            abort(403, 'Unauthorized action.');
+        }
         $sopir = Pemeliharaan2::find($id);
         $setting2 = Setting2::where('pemeliharaan2_id', $id)->get();
         $formKomponen = FormKomponen::where('pemeliharaan2_id', $id)->get();

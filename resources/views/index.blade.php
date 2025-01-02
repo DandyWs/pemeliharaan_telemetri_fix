@@ -45,7 +45,7 @@
           <p>Memantau perkembangan dan keadaan alat-alat telemetri yang ada di Setiap Stasiun, Anda dapat melakukan pengecekan berkala dan melakukan Pemeriksaan disini.
             Setelahnya Form akan langsung di tinjau oleh Kami.
           </p>
-          <a href="#gabung">Daftar Menjadi Mekanik</a>
+          <a href="{{ url('/register') }}">Daftar Menjadi Mekanik</a>
         </div>
         <div class="imgBox">
           <img src="assets\dist\img\login5 copy.png" alt="" width="650px">
@@ -69,6 +69,7 @@
         </div>
       </div>
       <div class="icons">
+        <a href="{{ url('/pemeliharaans') }}" style="text-decoration: none; color: inherit;">
         <img src="assets/dist/img/setor.svg" alt="">
         <div class="info">
           <h6>Pemeliharaan</h6>
@@ -76,6 +77,7 @@
         </div>
       </div>
       <div class="icons">
+        <a href="{{ url('/pemeriksaan') }}" style="text-decoration: none; color: inherit;">
         <img src="assets/dist/img/ambil.svg" alt="">
         <div class="info">
           <h6>Pemeriksaan</h6>
@@ -83,6 +85,7 @@
         </div>
       </div>
       <div class="icons">
+        <a href="{{ url('/pemeriksaan') }}" style="text-decoration: none; color: inherit;">
         <img src="assets/dist/img/edit.svg" alt="">
         <div class="info">
           <h6>Konfirmasi</h6>
@@ -107,16 +110,19 @@
   <!-- Footer -->
   <footer class="bg text- 
      text-white">
-    <div class="container p-4 pb-0">
-      <section class="mb-4">
-        <a class="btn btn-outline-success btn-floating m-1" href="https://wa.me/6285755252327" role="button">
+    <div class="container p-4 pb-0 text-center">
+      <section class="mb-4 justify-content-center">
+        <a class="btn btn-outline-success btn-floating m-1" href="https://wa.me/6281232771862" role="button">
           <i class="fab fa-whatsapp"></i>
+          WhatsApp
         </a>
-        <a class="btn btn-outline-success btn-floating m-1" href="mailto:nadacika17@gmail.com" role="button">
+        <a class="btn btn-outline-success btn-floating m-1" href="mailto:mlg@jasatirta1.co.id" role="button">
           <i class="far fa-envelope"></i>
+          Email
         </a>
-        <a class="btn btn-outline-success btn-floating m-1" href="tel:+6285755252327" role="button">
+        <a class="btn btn-outline-success btn-floating m-1" href="tel:(0341)551971" role="button">
           <i class="fas fa-phone"></i>
+          Phone
         </a>
       </section>
     </div>
