@@ -10,6 +10,7 @@ use App\Models\JenisAlat;
 use App\Models\Komponen2;
 use App\Models\Setting2;
 use App\Models\Pemeliharaan2;
+use App\Models\Pemeriksaan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
@@ -225,6 +226,14 @@ class PemeliharaanController extends Controller
     public function show($id)
     {
         $pemeliharaan = Pemeliharaan2::where('id', $id)->first();
+        // Debugging statements
+        if (is_null($pemeliharaan)) {
+            abort(404, 'Pemeliharaan not found.');
+        }
+
+        if (!in_array(auth()->user()->role, ['admin']) && $pemeliharaan->user_id !== auth()->id()) {
+            abort(403, 'You are not authorized to see this record.');
+        }
         $formKomponen = FormKomponen::where('pemeliharaan2_id', $id)-> pluck('detail_komponen_id')->toArray();
         $detailKomponen = DetailKomponen::all();
         $komponen = Komponen2::all();
@@ -242,8 +251,12 @@ class PemeliharaanController extends Controller
      */
     public function edit($id)
     {
-        Gate::authorize('update', $id);
         $pemeliharaan = Pemeliharaan2::find($id);
+        // Debugging statements
+        if (is_null($pemeliharaan)) {
+            abort(404, 'Pemeliharaan not found.');
+        }
+
         $alat = AlatTelemetri::all();
         $formKomponen = FormKomponen:: pluck('detail_komponen_id');
         $user = User::all();
@@ -251,9 +264,9 @@ class PemeliharaanController extends Controller
         $detailKomponen = DetailKomponen::where('id', $pemeliharaan->detail_komponen_id)->get();
         $komponen = Komponen2::where('id', $pemeliharaan->komponen_id)->get();
 
-        // Debugging statements
-        if (is_null($pemeliharaan)) {
-            dd("Pemeliharaan with ID $id not found");
+        // Check ownership
+        if (!in_array(auth()->user()->role, ['admin'])&&$pemeliharaan->user_id !== auth()->id()) {
+            abort(403, 'You are not authorized to edit this record.');
         }
 
         return view('pemeliharaans.create')
@@ -275,7 +288,6 @@ class PemeliharaanController extends Controller
      */
     public function update(Request $request, $id)
     {
-        Gate::authorize('update', $id);
         $request->validate([
             'tanggal' => ['required', 'date'],
             'waktu' => ['required', 'date_format:H:i'],
@@ -289,6 +301,9 @@ class PemeliharaanController extends Controller
         ]);
 
         $sopir = Pemeliharaan2::find($id);
+        if ($sopir->user_id !== auth()->id()) {
+            abort(403, 'You are not authorized to edit this record.');
+        }
 
         // if ($request->hasFile('foto')) {
         //     $foto = $request->file('foto');
@@ -325,10 +340,24 @@ class PemeliharaanController extends Controller
      */
     public function destroy($id)
     {
-        Gate::authorize('delete', $id);
+        
         $sopir = Pemeliharaan2::find($id);
+        $setting2 = Setting2::where('pemeliharaan2_id', $id)->get();
+        $formKomponen = FormKomponen::where('pemeliharaan2_id', $id)->get();
+        $pemeriksaan = Pemeriksaan::where('pemeliharaan2_id', $id)->get();
+        foreach ($pemeriksaan as $item) {
+            $item->delete();
+        }
 
         $sopir->delete();
+        foreach ($setting2 as $setting) {
+            $setting->delete();
+        }
+        foreach ($formKomponen as $form) {
+            $form->delete();
+        }
+
+
 
         return redirect('pemeliharaans')
             ->with('success', 'Pemeliharaan Berhasil Dihapus');

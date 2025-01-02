@@ -132,7 +132,6 @@ class PemeriksaanController extends Controller
      */
     public function store(Request $request)
     {
-        Gate::authorize('create', Pemeriksaan::class);
         // Validate the incoming request data
     $request->validate([
         'ttd' => ['required', 'string'],
