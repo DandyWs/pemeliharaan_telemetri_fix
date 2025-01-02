@@ -9,6 +9,7 @@
 
     <!-- CSS -->
     <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <!-- Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
     <!-- Google Font -->
@@ -61,7 +62,6 @@
   <section id="tentang-kami">
     <div class="layanan-container" id="layanan">
       <div class="icons">
-      <a href="{{ url('/register') }}" style="text-decoration: none; color: inherit;">
         <img src="assets/dist/img/edit.svg" alt="">
         <div class="info">
           <h6>Daftar</h6>
@@ -108,28 +108,25 @@
 
   
   <!-- Footer -->
-  <footer class="bg text- 
-     text-white">
-    <div class="container p-4 pb-0 text-center">
-      <section class="mb-4 justify-content-center">
-        <a class="btn btn-outline-success btn-floating m-1" href="https://wa.me/6281232771862" role="button">
-          <i class="fab fa-whatsapp"></i>
-          WhatsApp
-        </a>
-        <a class="btn btn-outline-success btn-floating m-1" href="mailto:mlg@jasatirta1.co.id" role="button">
-          <i class="far fa-envelope"></i>
-          Email
-        </a>
-        <a class="btn btn-outline-success btn-floating m-1" href="tel:(0341)551971" role="button">
-          <i class="fas fa-phone"></i>
-          Phone
-        </a>
-      </section>
+
+  <body>
+  <footer style="background: linear-gradient(to bottom, #48c6ef, #6f86d6); color: white; text-align: center; padding: 20px 10px;">
+    <p>Jl. Surabaya 2A, Malang 65145, PO BOX 39</p>
+    <p>Telp. (0341) 551971 | Faks. (0341) 551976</p>
+    <p><a href="http://www.jasatirta1.co.id" target="_blank" style="color: white; text-decoration: none;">www.jasatirta1.co.id</a></p>
+    <p><a href="mailto:mlg@jasatirta1.co.id" style="color: white; text-decoration: none;">mlg@jasatirta1.co.id</a></p>
+    <div style="text-align: center; margin-top: 15px;">
+    <a href="https://www.facebook.com/people/Perum-Jasa-Tirta-I/100063762302564/" style="font-size: 30px; color: black;"><i class="fab fa-facebook"></i></a>
+    <a href="https://x.com/perumjasatirta1" style="font-size: 30px; color: black;"><i class="fab fa-twitter"></i></a>
+    <a href="https://www.youtube.com/channel/UCFl_VO82S8oLmiEnlOHJTsA" style="font-size: 30px; color: black;"><i class="fab fa-youtube"></i></a>
+    <a href="https://www.instagram.com/perumjasatirta1/?hl=en" style="font-size: 30px; color: black;"><i class="fab fa-instagram"></i></a>
     </div>
-    <div class="copyright text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
-      Copyright©2024 <strong>Perum Jasa Tirta 1.</strong>
-    </div>
-  </footer>  
+  </footer>
+  <div class="copyright text-center p-3" style="background: linear-gradient(to bottom, #48c6ef, #6f86d6); color: white;">
+  Copyright All Rights Reserve © 2024 <strong>Perum Jasa Tirta 1.</strong>
+  </div>
+</body>
+
 
   
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
