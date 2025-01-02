@@ -26,7 +26,7 @@ class Pemeriksaan extends Model implements CanBeSigned
 
     public function pemeliharaan2()
     {
-        return $this->belongsTo(Pemeliharaan2::class);
+        return $this->belongsTo(Pemeliharaan2::class, 'pemeliharaan2_id');
     }
     public function user()
     {

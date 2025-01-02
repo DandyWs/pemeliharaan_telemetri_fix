@@ -9,24 +9,39 @@
 </head>
 <body>
     <style type="text/css">
-       table{
-        margin-top: 0%;
-        margin-bottom: 10%;
-        border-collapse: collapse;
-        width: 100%;
-       }
-       table tr td, table tr th{
-        border: 1px solid black;
-        padding: 8px;
-        font-size: 9pt;
-       }
+    @page {
+        size: landscape;
+        margin: 20mm; /* Menambahkan margin jika diperlukan */
+    }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: center;
+            margin-left: -60px;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 5px;
+            text-align: center;
+        }
        .title {
-        margin-top : 50px;
+        margin-top : 10px;
        }
+        .signature {
+            margin-top: 20px;
+            text-align: right;
+        }
     </style>
      <center>
-        <h4 class="title">LAPORAN PEMELIHARAAN PERALATAN</h4>
-        <h4 class="sub-title">TELEMETRI WQMS GSM </h4><br><br>
+        <div class="card">
+            <div class="card-header text-center">
+                <h3><strong>LAPORAN PEMELIHARAAN DAN</strong></h3>
+                <h3><strong>KALIBRASI INTERNAL PERALATAN TELEMETRI GSM</strong></h3>
+
+                <br>
+            </div>
     </center>
 <div class="container mt-2">
     <div class="row justify-content-center align-items-center">
@@ -34,35 +49,46 @@
 
             <div class="card-body">
 
-                    <table class="table table-sm">
+                <table class="table table-sm">
                     <thead>
                         <tr>
                             <th>No</th>
-                            <th>Tanggal Pemeliharaan</th>
-                            <th>Waktu Mulai</th>
+                            <th>Tanggal</th>
+                            <th>waktu</th>
                             <th>Periode</th>
                             <th>Cuaca</th>
-                            <th>No Alat Ukur</th>
-                            <th>No GSM</th>
-                            <th>User</th>
-                            <th>Peralatan Telemetri</th>
+                            <th>no_alatUkur</th>
+                            <th>no_GSM</th>
+                            <th>Jenis Alat</th>
+                            <th>Lokasi Stasiun</th>
+                            <th>Pelaksana</th>
+                            <th>Status</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($pemeliharaans as $pemeliharaan)
+                        @foreach ($data as $index => $item)
                         <tr>
-                            <td>{{ $loop->iteration }}</td>
-                            <td>{{ $pemeliharaan->waktuMulaiPemeliharan }}</td>
-                            <td>{{ $pemeliharaan->periodePemeliharaan }}</td>
-                            <td>{{ $pemeliharaan->cuaca }}</td>
-                            <td>{{ $pemeliharaan->no_AlatUkur }}</td>
-                            <td>{{ $pemeliharaan->no_GSM }}</td>
-                            <td>{{ optional($pemeliharaan->user)->name }}</td>
-                            <td>{{ optional($pemeliharaan->peralatanTelemetri)->namaAlat }}</td>
+                            <td>{{ $index + 1 }}</td>
+                            <td>{{ $item->tanggal }}</td>
+                            <td>{{ $item->waktu }}</td> <!-- Menambahkan Waktu -->
+                            <td>{{ $item->periode }}</td>
+                            <td>{{ $item->cuaca }}</td>
+                            <td>{{ $item->no_alatUkur }}</td> <!-- Menambahkan No Alat Ukur -->
+                            <td>{{ $item->no_GSM }}</td> <!-- Menambahkan No GSM -->
+                            <td>{{ $item->alatTelemetri->jenisAlat->namajenis }}</td>
+                            <td>{{ $item->alatTelemetri->lokasiStasiun }}</td>
+                            <td>{{ $item->user->name }}</td>
+                            <td>{{ $item->status ? 'Confirmed' : 'Not Confirmed' }}</td>
                         </tr>
                         @endforeach
                     </tbody>
                 </table>
+                <div class="signature">
+                    <p>Disahkan oleh,</p>
+                    <br><br><br>
+                    <p>_______________________</p>
+                    <p>Nama Pemeriksa</p>
+                </div>
             </div>
         </div>
     </div>

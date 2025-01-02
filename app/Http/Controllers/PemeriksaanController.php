@@ -8,13 +8,18 @@ use App\Models\JenisAlat;
 use App\Models\Komponen2;
 use App\Models\Pemeriksaan;
 use App\Models\Pemeliharaan2;
+use App\Models\FormKomponen;
 use App\Models\User;
+use App\Models\Setting2;
 use Illuminate\Support\Facades\Storage;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\PemeriksaanExport;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Gate;
 
 class PemeriksaanController extends Controller
 {
@@ -25,35 +30,70 @@ class PemeriksaanController extends Controller
     //  */
     public function index(Request $request)
     {
-        // if($request->has('search')){
-        //     $sopir = Komponen2::where('nama','LIKE','%'.$request->search.'%')->paginate(10);
-        // }else{
-        //     $sopir = Komponen2::paginate(25);
-        // }
 
-        // return view('sopir.sopir')->with('sopir',$sopir);
+        if (!auth()->user()->role == 'admin' && auth()->user()->role == 'manager') {
+            return redirect()->back()->withErrors(['error' => 'You do not have permission to access this resource.']);
+        }
+        if ($request->ajax()) {
+            $data = Pemeriksaan::with('pemeliharaan2')->get();
+            return DataTables::of($data)
+                ->addColumn('pemeliharaan2_id', function($row) {
+                    return $row->pemeliharaan2 ? $row->pemeliharaan2->id : null;
+                })
+                ->make(true);
+        }
+
         return view('pemeriksaan.index');
     }
+    // public function data(){
+    //     $data = Pemeliharaan2::with('AlatTelemetri')->get();
+    //     $data = $data->map(function ($item) {
+    //         return [
+    //             'id' => $item->id,
+    //             'tanggal' => $item->tanggal,
+    //             'waktu' => $item->waktu,
+    //             'periode' => $item->periode,
+    //             'cuaca' => $item->cuaca,
+    //             'no_alatUkur' => $item->no_alatUkur,
+    //             'no_GSM' => $item->no_GSM,
+    //             'alat_telemetri_id' => $item->AlatTelemetri->lokasiStasiun,
+    //             'jenis_alat' => $item->AlatTelemetri->JenisAlat->namajenis,
+    //             'keterangan' => $item->keterangan,
+    //             'user_id' => $item->User->name,
+    //             'ttdMekanik' => $item->ttdMekanik,
+                
+    //         ];
+    //     });
+    //     return DataTables::of($data)
+    //                 ->addIndexColumn()
+    //                 ->make(true);
+
+    // }
     public function data(){
-        $data = Pemeriksaan::with('Pemeliharaan2')->get();
+        //$data = Pemeriksaan::with('Pemeliharaan2s')->with('AlatTelemetri')->get();
+        $data = DB::table('pemeliharaan2s')
+            ->leftJoin('pemeriksaans', 'pemeliharaan2s.id', '=', 'pemeriksaans.pemeliharaan2_id')
+            ->leftJoin('alat_telemetris', 'pemeliharaan2s.alat_telemetri_id', '=', 'alat_telemetris.id')
+            ->leftJoin('jenis_alats', 'alat_telemetris.jenis_alat_id', '=', 'jenis_alats.id')
+            ->leftJoin('users', 'pemeliharaan2s.user_id', '=', 'users.id')
+            ->select('pemeliharaan2s.*', 'pemeriksaans.ttd', 'pemeriksaans.catatan', 'pemeriksaans.user_id', 'alat_telemetris.lokasiStasiun', 'jenis_alats.namajenis', 'users.name')
+            ->get();
         $data = $data->map(function ($item) {
             return [
                 'id' => $item->id,
-                'ttd' => $item->ttd,
-                'catatan' => $item->catatan,
-                'pemeliharaan_id' => $item->pemeliharaan2_id,
-                'pemeliharaan2_id' => $item->Pemeliharaan2->id,
-                'tanggal' => $item->Pemeliharaan2->tanggal,
-                'waktu' => $item->Pemeliharaan2->waktu,
-                'periode' => $item->Pemeliharaan2->periode,
-                'cuaca' => $item->Pemeliharaan2->cuaca,
-                'no_alatUkur' => $item->Pemeliharaan2->no_alatUkur,
-                'no_GSM' => $item->Pemeliharaan2->no_GSM,
-                'alat_telemetri_id' => $item->Pemeliharaan2->AlatTelemetri->lokasiStasiun,
-                'jenis_alat' => $item->Pemeliharaan2->AlatTelemetri->JenisAlat->namajenis,
-                'keterangan' => $item->Pemeliharaan2->keterangan,
-                'status' => $item->Pemeliharaan2->id,
-                'user_id' => $item->User->name,
+                'tanggal' => $item->tanggal,
+                'waktu' => $item->waktu,
+                'periode' => $item->periode,
+                'cuaca' => $item->cuaca,
+                'no_alatUkur' => $item->no_alatUkur,
+                'no_GSM' => $item->no_GSM,
+                'alat_telemetri_id' => $item->lokasiStasiun,
+                'jenis_alat' => $item->namajenis,
+                'keterangan' => $item->keterangan,
+                'user_id' => $item->name,
+                'ttdMekanik' => $item->ttdMekanik,
+                'ttd' => $item->ttd
+                
             ];
         });
         return DataTables::of($data)
@@ -73,18 +113,22 @@ class PemeriksaanController extends Controller
         $pemelihaaran = Pemeliharaan2::find($id);
         $pemeriksaan = Pemeriksaan::all();
         $user = User::all();
+        $setting2 = Setting2::all();
+        $formKomponen = FormKomponen::where('pemeliharaan2_id', $id)-> pluck('detail_komponen_id')->toArray();
         $jenisAlat =  JenisAlat::all();
         $komponen = Komponen2::all();
         $detailKomponen = DetailKomponen::all();
         return view('pemeriksaan.create')
             ->with('alat', $alat)
             ->with('user', $user)
+            ->with('formKomponen', $formKomponen)
             ->with('pemeliharaan', $pemelihaaran)
             ->with('pemeriksaan', $pemeriksaan)
             ->with('jenisAlat', $jenisAlat)
             ->with('komponen', $komponen)
+            ->with('setting2', $setting2)
             ->with('detailKomponen', $detailKomponen)
-            ->with('url_form', url('/pemeriksaan/'.$id));
+            ->with('url_form', url('/pemeriksaan'));
         }
 
     /**
@@ -93,32 +137,53 @@ class PemeriksaanController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, $id)
+    public function store(Request $request)
     {
-        $request->validate([
-            'ttd' => ['required', 'max:255', 'string'],
-            'catatan' => ['required', 'max:255', 'string'],
-            'pemeliharaan2_id' => ['required', 'exists:pemeliharaan2s,id'],
-            'user_id' => ['required', 'exists:users,id'],
-        ]);
+        // Validate the incoming request data
+    $request->validate([
+        'ttd' => ['required', 'string'],
+        'catatan' => ['required', 'max:255', 'string'],
+        'pemeliharaan2_id' => ['required', 'exists:pemeliharaan2s,id'],
+        'user_id' => ['required', 'exists:users,id'],
+    ]);
 
-        // if ($request->file('foto')) {
-        //     $file = $request->file('foto');
-        //     $extension = $file->getClientOriginalExtension();
-        //     $filename = 'sopir-' . 'nama' . '.' . $extension;
-        //     $image_name = $file->storeAs('sopirprofile', $filename, 'public');
-        // }
+    // Initialize the file variable
+    $file = null;
 
+    // Handle the ttd field if it's a base64 image
+    if ($request->has('ttd')) {
+        try {
+            $folderPath = "manager/";
+            $image_parts = explode(";base64,", $request->input('ttd'));
+            $image_type_aux = explode("image/", $image_parts[0]);
+            $image_type = isset($image_type_aux[1]) ? $image_type_aux[1] : 'png';
+            $image_base64 = base64_decode($image_parts[1]);
+            $file = $folderPath . uniqid() . '.' . $image_type;
 
-        Pemeriksaan::create([
-            'ttd' => $request->input('ttd'),
-            'catatan' => $request->input('catatan'),
-            'pemeliharaan2_id' => $request->input('pemeliharaan2_id'),
-            'user_id' => $request->input('user_id'),
-        ]);
-
-        return redirect('pemeriksaan')->with('success', 'Form Pemeliharaan telah Diperiksa');
+            // Store the image in the public assets directory
+            $filePath = public_path('assets/img/ttd/manager/' . basename($file));
+            file_put_contents($filePath, $image_base64);
+        } catch (\Exception $e) {
+            Log::error('Error storing ttd image: ' . $e->getMessage());
+            return redirect()->back()->withErrors(['ttd' => 'Failed to store signature image.']);
+        }
     }
+
+    // Create the Pemeriksaan record
+    try {
+            Pemeriksaan::create([
+                'ttd' => $file,
+                'catatan' => $request->input('catatan'),
+                'pemeliharaan2_id' => $request->input('pemeliharaan2_id'),
+                'user_id' => $request->input('user_id'),
+            ]);
+        } catch (\Exception $e) {
+            Log::error('Error creating Pemeriksaan record: ' . $e->getMessage());
+            return redirect()->back()->withErrors(['error' => 'Failed to create Pemeriksaan record.']);
+        }
+
+            return redirect('pemeriksaan')->with('success', 'Form Pemeliharaan telah Diperiksa');
+        }
 
     /**
      * Display the specified resource.
@@ -149,17 +214,21 @@ class PemeriksaanController extends Controller
         $alat = AlatTelemetri::all();
         $pemeriksaan = Pemeriksaan::all();
         $user = User::all();
+        $setting2 = Setting2::where('pemeliharaan2_id', $id)->get();
+        $formKomponen = FormKomponen::where('pemeliharaan2_id', $id)-> pluck('detail_komponen_id')->toArray();
         $jenisAlat =  JenisAlat::all();
         $komponen = Komponen2::all();
         $detailKomponen = DetailKomponen::all();
         return view('pemeriksaan.create')
             ->with('alat', $alat)
             ->with('user', $user)
+            ->with('formKomponen', $formKomponen)
             ->with('pemeriksaan', $pemeriksaan)
             ->with('jenisAlat', $jenisAlat)
             ->with('komponen', $komponen)
+            ->with('setting2', $setting2)
             ->with('detailKomponen', $detailKomponen)
-        ->with('pemeliharaan', $pemelihaaran)->with('url_form', url('/pemeriksaan/'.$id));
+        ->with('pemeliharaan', $pemelihaaran)->with('url_form', url('/pemeriksaan'));
     }
 
     /**
@@ -218,22 +287,56 @@ class PemeriksaanController extends Controller
         return redirect('pemeliharaans')
             ->with('success', 'Pemeliharaan Berhasil Dihapus');
     }
+        // Export PDF
+        public function exportPDF()
+        {
+            $data = Pemeliharaan2::with(['user', 'alatTelemetri.jenisAlat'])->get();
 
-    public function export(Request $request, $format)
-    {
-        $this->authorize('view-any', Pemeliharaan2::class);
+            $pdf = Pdf::loadView('pemeriksaan.export_pdf', compact('data'))
+                      ->setPaper('a4', 'landscape');
 
-        $pemeriksaans = Pemeriksaan::all();
-
-        if ($format === 'pdf') {
-            $pdf = Pdf::loadView('app.pemeriksaans.export_pdf', compact('pemeriksaans'));
-            return $pdf->download('pemeriksaan_list.pdf');
-        } elseif ($format === 'xlsx') {
-            return Excel::download(new PemeriksaanExport, 'pemeriksaan_list.xlsx');
+            return $pdf->download('laporan_pemeriksaan.pdf');
         }
 
-        return redirect()->route('pemeriksaans.index')
-            ->withErrors(__('crud.common.export_failed'));
-    }
+        // Export Excel
+        public function exportExcel()
+        {
+            return Excel::download(new PemeriksaanExport, 'laporan_pemeriksaan.xlsx');
+        }
+
+        public function exportData($id)
+        {
+            $pemeliharaan = Pemeliharaan2::find($id);
+            $alat = AlatTelemetri::all();
+            $pemeriksaan = Pemeriksaan::where('pemeliharaan2_id', $id)->first();
+            $user = User::all();
+            $formKomponen = FormKomponen::where('pemeliharaan2_id', $id)-> pluck('detail_komponen_id')->toArray();
+            $jenisAlat =  JenisAlat::all();
+            $komponen = Komponen2::all();
+            $detailKomponen = DetailKomponen::all();
+
+            // $data = Pemeliharaan2::find($id)->with([
+            //     'user', 
+            //     'alatTelemetri.jenisAlat', 
+            //     'formKomponens.detailKomponen',
+            //     'pemeriksaans.user',
+            //     'formKomponens.detailKomponen.komponen2',
+            //     'setting2s'
+            //     ])->get();
+
+            $pdf = Pdf::loadView('pemeriksaan.exportData', 
+            compact('pemeliharaan', 
+                'id', 
+                'komponen',
+                'alat',
+                'user',
+                'formKomponen',
+                'jenisAlat',
+                'pemeriksaan',
+                'detailKomponen'))
+                  ->setPaper('a4', 'portrait');
+
+            return $pdf->download('laporan_pemeriksaan_' . $pemeliharaan->alatTelemetri->jenisAlat->namajenis . '_' . $pemeliharaan->alatTelemetri->lokasiStasiun . '.pdf');
+        }
 
 }

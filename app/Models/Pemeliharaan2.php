@@ -21,6 +21,8 @@ class Pemeliharaan2 extends Model
         'keterangan',
         'alat_telemetri_id',
         'user_id',
+        'ttdMekanik',
+        'tegangan'
     ];
 
     protected $searchableFields = ['*'];
@@ -48,5 +50,10 @@ class Pemeliharaan2 extends Model
     public function pemeriksaans()
     {
         return $this->hasMany(Pemeriksaan::class);
+    }
+
+    public function setting2s()
+    {
+        return $this->hasMany(Setting2::class);
     }
 }

@@ -15,11 +15,11 @@
             <div class="row d-flex justify-between" style="width: 100%; justify-content: space-between; align-items: center; margin: 0">
               {{-- <a href="{{url('pemeriksaan/create')}}" class="btn -btn sm btn-success my-2">Tambah Data</a> --}}
               <div class="col-md-12 text-right mb-3" style="width: 100%">
-                <a href="{{ route('pemeliharaans.export', ['format' => 'pdf']) }}" class="btn btn-danger ml-2">
+                <a href="{{ route('pemeliharaan.export-pdf') }}" class="btn btn-danger ml-2">
                     <i class="icon ion-md-download"></i> Export PDF
                 </a>
-                <a href="{{ route('pemeliharaans.export', ['format' => 'xlsx']) }}" class="btn btn-success ml-2">
-                    <i class="icon ion-md-download"></i> Export XLSX
+                <a href="{{ route('pemeliharaan.export-excel') }}" class="btn btn-success ml-2">
+                    <i class="icon ion-md-download"></i> Export Excel
                 </a>
             </div>
             </div>
@@ -79,7 +79,7 @@
             processing:true,
             serverside:true,
             ajax:{
-                'url': '{{  route('data_pemeliharaan') }}',
+                'url': '{{  route('data_pemeriksaan') }}',
                 'dataType': 'json',
                 'type': 'POST',
             },
@@ -91,7 +91,7 @@
             },
             {
                 data: null,
-                name: 'tanggal_waktu',
+                name: 'tanggal',
                 sortable: true,
                 searchable: true,
                 render: function (data, type, row, meta) {
@@ -113,12 +113,12 @@
                 searchable: true,
                 render: function (data, type, row, meta) {
                     return data ? data : 'Pemeliharaan'+ ' ' + row.jenis_alat;
-                
+
                 }
             },
             {
-                data: 'status',
-                name: 'status',
+                data: 'ttd',
+                name: 'ttd',
                 sortable: true,
                 searchable: true,
                 render: function (data, type, row, meta) {
@@ -128,8 +128,14 @@
             {
                 data: 'id', name: 'id', searchable: false, sortable: false,
                 render: function (data, type, row, meta) {
-                    return '<a href="{{ url('pemeriksaan') }}/' + data + '/create" class="btn btn-success btn-sm mr-1"><i class="fa fa-plus"></i> </a>' +
-                        '<button class="btn btn-danger btn-sm btn-delete" data-id="' + data + '"><i class="fa fa-trash"></i> </button>';
+                    if (row.ttd != null) {
+                        return '<a href="{{ url('pemeriksaan/exportData') }}/'+data+'" class="btn btn-primary btn-sm mt-1" ><i class="fa fa-print"></i> </a>';
+                    } else {
+                        return '<a href="{{ url('pemeriksaan') }}/' + data + '/edit" class="btn btn-success btn-sm mr-1 mt-1"><i class="fa fa-plus"></i> </a>';
+                    }
+                    // return '<a href="{{ url('pemeriksaan') }}/' + data + '/edit" class="btn btn-success btn-sm mr-1 mt-1"><i class="fa fa-plus"></i> </a>' +
+                    //     // '<button class="btn btn-danger btn-sm btn-delete mt-1" data-id="' + data + '"><i class="fa fa-trash"></i> </button>' +
+                    //     '<a href="{{ url('pemeriksaan/exportData') }}/'+data+'" class="btn btn-primary btn-sm mt-1" ><i class="fa fa-print"></i> </a>';
                     // '<a href="{{ url('pemeriksaan') }}/' + data + '/create" class="btn btn-success btn-sm mr-1"><i class="fa fa-plus"></i> </a>';
                     // `<a href="{{url('/pemeliharaans/')}}/` + data +`"class="btn btn-sm btn-primary "><i class="fas fa fa-info-circle"></i></a>`;
                 }

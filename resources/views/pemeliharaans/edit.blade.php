@@ -1,47 +1,353 @@
 @extends('layouts.template')
 
 @section('content')
-<div class="container">
+<section class="content">
     <div class="card">
+        <div class="card-header text-center">
+        <h2><strong>LAPORAN PEMELIHARAAN DAN</strong></h2>
+            <h2><strong>KALIBRASI INTERNAL PERALATAN TELEMETRI GSM</strong></h2>
+            </h2>
+            <br>
+        </div>
         <div class="card-body">
-            <h4 class="card-title">
-                <a href="{{ route('pemeliharaans.index') }}" class="mr-4"
-                    ><i class="icon ion-md-arrow-back"></i
-                ></a>
-                @lang('crud.forms.edit_title')
-            </h4>
-
-            <x-form
-                method="PUT"
-                action="{{ route('pemeliharaans.update', $pemeliharaan) }}"
-                class="mt-4"
-            >
-                @include('app.pemeliharaans.form-inputs')
-
-                <div class="mt-4">
-                    <a
-                        href="{{ route('pemeliharaans.index') }}"
-                        class="btn btn-light"
-                    >
-                        <i class="icon ion-md-return-left text-primary"></i>
-                        @lang('crud.common.back')
-                    </a>
-
-                    <a
-                        href="{{ route('pemeliharaans.create') }}"
-                        class="btn btn-light"
-                    >
-                        <i class="icon ion-md-add text-primary"></i>
-                        @lang('crud.common.create')
-                    </a>
-
-                    <button type="submit" class="btn btn-primary float-right">
-                        <i class="icon ion-md-save"></i>
-                        @lang('crud.common.update')
-                    </button>
+        {{-- <div class="row">
+              <div class="form-group col-md-6">
+                <label>Nama Stasiun -- Jenis Alat</label>
+                <p class="form-control-static" style="border: 1px solid #ced4da; background-color: #e9ecef; padding: .375rem .75rem;">{{ $pemeliharaan->alatTelemetri->lokasiStasiun }} -- {{ $pemeliharaan->alatTelemetri->jenisAlat->namajenis }}</p>
+              <input type="hidden" name="pemeliharaan2_id" value="{{ $pemeliharaan->id }}">
+              </div>
+              <div class="form-group col-md-6">
+              <label>Tanggal Pemeliharaan</label>
+              <p class="form-control-static" style="border: 1px solid #ced4da; background-color: #e9ecef; padding: .375rem .75rem;">{{ $pemeliharaan->tanggal }}</p>
+              </div>
+              <div class="form-group col-md-6">
+              <label>Periode Pemeliharaan</label>
+              <p class="form-control-static" style="border: 1px solid #ced4da; background-color: #e9ecef; padding: .375rem .75rem;">{{ $pemeliharaan->periode }}</p>
+              </div>
+              <div class="form-group col-md-6">
+              <label>Waktu Pemeliharaan</label>
+              <p class="form-control-static" style="border: 1px solid #ced4da; background-color: #e9ecef; padding: .375rem .75rem;">{{ $pemeliharaan->waktu }}</p>
+              </div>
+              <div class="form-group col-md-6">
+              <label>Pelaksana Pemeliharaan</label>
+              <p class="form-control-static" style="border: 1px solid #ced4da; background-color: #e9ecef; padding: .375rem .75rem;">{{ $pemeliharaan->user->name }}</p>
+              </div>
+              <div class="form-group col-md-6">
+              <label>Cuaca</label>
+              <p class="form-control-static" style="border: 1px solid #ced4da; background-color: #e9ecef; padding: .375rem .75rem;">{{ $pemeliharaan->cuaca }}</p>
+              </div>
+              <div class="form-group col-md-6">
+              <label>No Alat Ukur</label>
+              <p class="form-control-static" style="border: 1px solid #ced4da; background-color: #e9ecef; padding: .375rem .75rem;">{{ $pemeliharaan->no_alatUkur }}</p>
+              </div>
+              <div class="form-group col-md-6">
+              <label>No GSM</label>
+              <p class="form-control-static" style="border: 1px solid #ced4da; background-color: #e9ecef; padding: .375rem .75rem;">{{ $pemeliharaan->no_GSM }}</p>
+              </div> --}}
+              <div class="row">
+                <div class="form-group col-md-6">
+                  <label>Nama Stasiun -- Jenis Alat</label>
+                  <select
+                    id="alat_telemetri_id"
+                    name="alat_telemetri_id"
+                    class="form-control @error('alat_telemetri_id') is-invalid @enderror"
+                    required
+                  >
+                    <option value="">Pilih Peralatan Telemetri</option>
+                    @foreach( $alat as $alat)
+                    {{-- <option value="{{ $alat->id }}" {{ old('alat_telemetri_id', isset($pemeliharaan) && $pemeliharaan->alat_telemetri_id == $alat->id) ? 'selected' : '' }}> --}}
+                    <option value="{{ $alat->id }}" data-jenis="{{ $alat->jenisAlat->namajenis }}" {{ old('alat_telemetri_id', isset($pemeliharaan) && $pemeliharaan->alat_telemetri_id == $alat->id) ? 'selected' : '' }}>
+                      {{ $alat->lokasiStasiun }} -- {{ $alat->jenisAlat->namajenis }}
+                    </option>
+                    @endforeach
+                  </select>
+                  @error('alat_telemetri_id')
+                  <span class="error invalid-feedback">{{ $message }}</span>
+                  @enderror
                 </div>
-            </x-form>
+                <div class="form-group col-md-6">
+                  <label>Tanggal Pemeliharaan</label>
+                  {{-- <input
+                    type="date"
+                    name="tanggal"
+                    class="form-control @error('tanggal') is-invalid @enderror"
+                    value="{{ old('tanggal', isset($pemeliharaan) ? optional($pemeliharaan->tanggal)->format('Y-m-d') : '') }}"
+                    required
+                  /> --}}
+                  <input type="date" name="tanggal" class="form-control" value="{{ isset($pemeliharaan) ? $pemeliharaan->tanggal : old('tanggal') }}">
+                  @error('tanggal')
+                  <span class="error invalid-feedback">{{ $message }}</span>
+                  @enderror
+              </div>
+  
+              <div class="form-group col-md-6">
+                <label>Periode Pemeliharaan</label>
+                  <input type="text" name="periode" class="form-control @error('periode') is-invalid @enderror" value="{{ old('periode', isset($pemeliharaan) ? $pemeliharaan->periode : '') }}" placeholder="Periode" required />
+                  @error('periode')
+                  <span class="error invalid-feedback">{{ $message }}</span>
+                  @enderror
+              </div>
+              <div class="form-group col-md-6">
+                <label>Waktu Mulai Pemeliharaan</label>
+                <input type="time" name="waktu" class="form-control" value="{{ isset($pemeliharaan) ? $pemeliharaan->waktu : old('waktu') }}">
+                  @error('waktu')
+                  <span class="error invalid-feedback">{{ $message }}</span>
+                  @enderror
+              </div>
+              <div class="form-group col-md-6">
+                <label>Pelaksana Pemeliharaan</label>
+                  <input
+                  type="hidden"
+                  name="user_id"
+                  value="{{ Auth::user()->id }}"
+                  />
+                  <input
+                  type="text"
+                  class="form-control"
+                  value="{{ Auth::user()->name }}"
+                  readonly
+                  />
+                  @error('user_id')
+                  <span class="error invalid-feedback">{{ $message }}</span>
+                  @enderror
+              </div>
+              <div class="form-group col-md-6">
+                <label>Cuaca</label>
+                  <input
+                    type="text"
+                    name="cuaca"
+                    class="form-control @error('cuaca') is-invalid @enderror"
+                    value="{{ old('cuaca', isset($pemeliharaan) ? $pemeliharaan->cuaca : '') }}"
+                    placeholder="Cuaca"
+                    required
+                  />
+                  @error('cuaca')
+                  <span class="error invalid-feedback">{{ $message }}</span>
+                  @enderror
+              </div>
+              
+              <div class="form-group col-md-6">
+                <label>No Alat Ukur</label>
+                  <input
+                    type="text"
+                    name="no_alatUkur"
+                    class="form-control @error('no_alatUkur') is-invalid @enderror"
+                    value="{{ old('no_alatUkur', isset($pemeliharaan) ? $pemeliharaan->no_alatUkur : '') }}"
+                    placeholder="No Alat Ukur"
+                    required
+                  />
+                  @error('no_alatUkur')
+                  <span class="error invalid-feedback">{{ $message }}</span>
+                  @enderror
+              </div>
+  
+              <div class="form-group col-md-6">
+                <label>No GSM</label>
+                  <input
+                    type="text"
+                    name="no_GSM"
+                    class="form-control @error('no_GSM') is-invalid @enderror"
+                    value="{{ old('no_GSM', isset($pemeliharaan) ? $pemeliharaan->no_GSM : '') }}"
+                    placeholder="No GSM"
+                    required
+                  />
+                  @error('no_GSM')
+                  <span class="error invalid-feedback">{{ $message }}</span>
+                  @enderror
+              </div>
+            </div>
+              <br>
+              <div class="row">
+                    @foreach ($komponen as $komp)
+                        <div class="form-group col-md-6"> 
+                            <label id="{{ $komp->id==9 || $komp->id==10 ? $komp->id : '' }}">{{ $komp->nama }}
+                                <input
+                                type="{{ $komp->id==9 || $komp->id==10 ? 'checkbox' : 'hidden' }}"
+                                name="cheked{{ $komp->id }}"
+                                {{ $komp->id==9 || $komp->id==10 ? 'checked' : '' }}
+                                
+                                />
+                            </label>
+                            @foreach ($detailKomponen->where('komponen2_id', $komp->id) as $detail)
+                                @php
+                                    $cheked = false;
+                                    if (in_array($detail->id, $formKomponen)) {
+                                        $cheked = true;
+                                    }
+                                @endphp
+                                <div class="form-check">
+                                    <input type="hidden" name="detail_komponen_id[{{ $detail->id }}]" value="{{ $detail->id }}" />
+                                    <input type="hidden" name="pemeliharaan2_id[{{ $detail->id }}]" value="{{ isset($pemeliharaan) ? $pemeliharaan->id : '' }}" />
+                                    <input type="checkbox" name="cheked{{ $detail->id }}" {{ $cheked ? 'checked' : '' }} class="form-check-input" />
+                                    <label class="form-check-label">{{ $detail->namadetail }}</label>
+                                </div>
+                            @endforeach
+                            @if ($komp->id==7)
+                    {{-- <div class="form-group col-md-6"> --}}
+                        <div class="row">
+                            <div class="col-md-3 d-flex align-items-center justify-content-center">
+                            <span>Tegangan: </span>
+                            </div>
+                          <div class="col-md-6">
+                            <input
+                              type="text"
+                              name="tegangan"
+                              value="{{ $pemeliharaan->tegangan }}"
+                              class="form-control @error('tegangan') is-invalid @enderror"
+                              placeholder="Tegangan"
+                            />
+                            @error('tegangan')
+                            <span class="error invalid-feedback">{{ $message }}</span>
+                            @enderror
+                          </div>
+                          <div class="col-md-3 d-flex align-items-center">
+                            <span>Volt</span>
+                          </div>
+                        </div>
+                      
+                      @error('tegangan')
+                      <span class="error invalid-feedback">{{ $message }}</span>
+                      @enderror
+                  {{-- </div> --}}
+                  @endif
+                            @error('komponen2_id')
+                                <span class="error invalid-feedback">{{ $message }}</span>
+                            @enderror
+                        </div>
+                    @endforeach
+              </div>
+              <div class="row example" id="form-setting"  style="display: none;">
+                <!-- Add your form setting fields here -->
+                <div class="form-group col-md-6">
+                  <p>Penunjukan Data Setting di Display (LCD)</p>
+                          <table class="table table-bordered text-center">
+                              <thead>
+                                  <tr>
+                                      <th colspan="2">Sebelum Kalibrasi</th>
+                                      <th colspan="2">Sesudah Kalibrasi</th>
+                                  </tr>
+                                  <tr>
+                                      <th>Simulasi</th>
+                                      <th>Display</th>
+                                      <th>Simulasi</th>
+                                      <th>Display</th>
+                                  </tr>
+                              </thead>
+                              <tbody>
+                                  <tr>
+                                      {{-- <td><p class="form-control-static" style="border: 1px solid #ced4da; background-color: #e9ecef; padding: .375rem .75rem;">{{ $setting2->where('kondisi', 0)->where('jenis', 'bucket')->first()->simulasi ?? ' '}}</p></td>
+                                      <td><p class="form-control-static" style="border: 1px solid #ced4da; background-color: #e9ecef; padding: .375rem .75rem;">{{ $setting2->where('kondisi', 0)->where('jenis', 'bucket')->first()->display ?? ' '}}</p></td>
+                                      <td><p class="form-control-static" style="border: 1px solid #ced4da; background-color: #e9ecef; padding: .375rem .75rem;">{{ $setting2->where('kondisi', 1)->where('jenis', 'bucket')->first()->simulasi ?? ' '}}</p></td>
+                                      <td><p class="form-control-static" style="border: 1px solid #ced4da; background-color: #e9ecef; padding: .375rem .75rem;">{{ $setting2->where('kondisi', 1)->where('jenis', 'bucket')->first()->display ?? ' '}}</p></td> --}}
+                                      <td><input type="text" name="simulasi_sebelum" value="{{ $setting2->where('kondisi', 0)->where('jenis', 'bucket')->first()->simulasi ?? ' '}}" class="form-control" /></td>
+                                    <td><input type="text" name="display_sebelum" value="{{ $setting2->where('kondisi', 0)->where('jenis', 'bucket')->first()->display ?? ' '}}" class="form-control" /></td>
+                                    <td><input type="text" name="simulasi_sesudah" value="{{ $setting2->where('kondisi', 1)->where('jenis', 'bucket')->first()->simulasi ?? ' '}}" class="form-control" /></td>
+                                    <td><input type="text" name="display_sesudah" value="{{ $setting2->where('kondisi', 1)->where('jenis', 'bucket')->first()->display ?? ' '}}" class="form-control" /></td>
+                                  </tr>
+                              </tbody>
+                          </table>
+                </div>
+                <div class="form-group col-md-6">
+                  <p>Penunjukan Data Setting di Display (LCD)</p>
+                          <table class="table table-bordered text-center">
+                              <thead>
+                                  <tr>
+                                      <th colspan="2">Sebelum Kalibrasi</th>
+                                      <th colspan="2">Sesudah Kalibrasi</th>
+                                  </tr>
+                                  <tr>
+                                      <th>Aktual</th>
+                                      <th>Display</th>
+                                      <th>Aktual</th>
+                                      <th>Display</th>
+                                  </tr>
+                              </thead>
+                              <tbody>
+                                  <tr>
+                                    {{-- <td><p class="form-control-static" style="border: 1px solid #ced4da; background-color: #e9ecef; padding: .375rem .75rem;">{{ $setting2->where('kondisi', 0)->where('jenis', 'water')->first()->simulasi ?? ' ' }}</p></td>
+                                    <td><p class="form-control-static" style="border: 1px solid #ced4da; background-color: #e9ecef; padding: .375rem .75rem;">{{ $setting2->where('kondisi', 0)->where('jenis', 'water')->first()->display  ?? ' ' }}</p></td>
+                                    <td><p class="form-control-static" style="border: 1px solid #ced4da; background-color: #e9ecef; padding: .375rem .75rem;">{{ $setting2->where('kondisi', 1)->where('jenis', 'water')->first()->simulasi ?? ' ' }}</p></td>
+                                    <td><p class="form-control-static" style="border: 1px solid #ced4da; background-color: #e9ecef; padding: .375rem .75rem;">{{ $setting2->where('kondisi', 1)->where('jenis', 'water')->first()->display ?? ' ' }}</p></td> --}}
+                                    <td><input type="text" name="aktual_sebelum"
+                                        value="{{ $setting2->where('kondisi', 0)->where('jenis', 'water')->first()->simulasi ?? ' ' }}" class="form-control" /></td>
+                                    <td><input type="text" name="display_aktual_sebelum" 
+                                        value="{{ $setting2->where('kondisi', 0)->where('jenis', 'water')->first()->display  ?? ' ' }}" class="form-control" /></td>
+                                    <td><input type="text" name="aktual_sesudah" value="{{ $setting2->where('kondisi', 1)->where('jenis', 'water')->first()->simulasi ?? ' ' }}" class="form-control" /></td>
+                                    <td><input type="text" name="display_aktual_sesudah" value="{{ $setting2->where('kondisi', 1)->where('jenis', 'water')->first()->display ?? ' ' }}" class="form-control" /></td>
+                                  </tr>
+                              </tbody>
+                          </table>
+                </div>
+              </div>
+            <div class="row">
+                <div class="col-md-12">
+                  <label>Keterangan</label>
+                  <textarea
+                  name="keterangan"
+                  class="form-control @error('keterangan') is-invalid @enderror"
+                  >{{ old('keterangan', isset($pemeliharaan) ? $pemeliharaan->keterangan : '') }}</textarea>
+                  @error('keterangan')
+                  <span class="error invalid-feedback">{{ $message }}</span>
+                  @enderror
+                </div>
+                <div class="col-md-12 text-center">
+                    <label>Dibuat oleh, <br> Pelaksana Kalibrasi</label>
+                <div id="signature-pad" class="signature-pad">
+                    <div id="sig" class="kbw-signature">
+                    </div>
+                    <input type="text" id="signature64" name="ttdMekanik" style="display: none">
+                    <div class="signature-pad--footer">
+                        <label>{{ Auth::user()->name }}</label><br>
+                    <button type="button" class="btn btn-sm btn-secondary" id="clear">Hapus</button>
+    
+                    </div>
+                  </div>
+                  @error('ttdMekanik')
+                  <span class="error invalid-feedback">{{ $message }}</span>
+                  @enderror
+                </div>
+            </div>
+              
+            <a class="btn btn-md btn-primary" href="{{ url('/pemeliharaans') }}">Kembali</a>
         </div>
     </div>
-</div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const alatTelemetriSelect = document.getElementById('alat_telemetri_id');
+            const formSetting = document.getElementById('form-setting');
+            const label11 = document.getElementById('9');
+            const label12 = document.getElementById('10');
+        
+            alatTelemetriSelect.addEventListener('change', function () {
+                const selectedOption = alatTelemetriSelect.options[alatTelemetriSelect.selectedIndex];
+                const jenisAlat = selectedOption.getAttribute('data-jenis');
+        
+                if (jenisAlat === 'AWLR' || jenisAlat === 'ARR') {
+                    formSetting.style.display = 'flex';
+                    label11.style.display = 'flex';
+                    label12.style.display = 'flex';
+                } else {
+                    formSetting.style.display = 'none';
+                    label11.style.display = 'none';
+                    label12.style.display = 'none';
+                }
+            });
+        
+            // Trigger change event on page load to handle pre-selected option
+            alatTelemetriSelect.dispatchEvent(new Event('change'));
+        });
+      </script>
+      <script type="text/javascript">
+        var sig = $('#sig').signature({
+            syncField: '#signature64',
+            syncFormat: 'PNG'
+        });
+        $('#clear').click(function(e) {
+            e.preventDefault();
+            sig.signature('clear');
+            $("#signature64").val('');
+        });
+    </script>
+</section>
 @endsection

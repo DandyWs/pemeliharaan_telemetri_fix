@@ -34,9 +34,9 @@
           <li><a href="#tentang-kami">Pemeliharaan Telemetri</a></li>
           <li><a href="#temukan-kami">Temukan Kami</a></li>
             @if(Auth::check())
-            <li><a href="{{ url('/dashboard') }}" target="_blank">Dashboard</a></li>
+            <li><a href="{{ url('/dashboard') }}">Dashboard</a></li>
             @else
-            <li><a href="{{ url('/login') }}" target="_blank">Login</a></li>
+            <li><a href="{{ url('/login') }}">Login</a></li>
             @endif
         </ul>
       </header>
@@ -46,7 +46,7 @@
           <p>Memantau perkembangan dan keadaan alat-alat telemetri yang ada di Setiap Stasiun, Anda dapat melakukan pengecekan berkala dan melakukan Pemeriksaan disini.
             Setelahnya Form akan langsung di tinjau oleh Kami.
           </p>
-          <a href="#gabung">Daftar Menjadi Mekanik</a>
+          <a href="{{ url('/register') }}">Daftar Menjadi Mekanik</a>
         </div>
         <div class="imgBox">
           <img src="assets\dist\img\login5 copy.png" alt="" width="650px">
@@ -69,6 +69,7 @@
         </div>
       </div>
       <div class="icons">
+        <a href="{{ url('/pemeliharaans') }}" style="text-decoration: none; color: inherit;">
         <img src="assets/dist/img/setor.svg" alt="">
         <div class="info">
           <h6>Pemeliharaan</h6>
@@ -76,6 +77,7 @@
         </div>
       </div>
       <div class="icons">
+        <a href="{{ url('/pemeriksaan') }}" style="text-decoration: none; color: inherit;">
         <img src="assets/dist/img/ambil.svg" alt="">
         <div class="info">
           <h6>Pemeriksaan</h6>
@@ -83,6 +85,7 @@
         </div>
       </div>
       <div class="icons">
+        <a href="{{ url('/pemeriksaan') }}" style="text-decoration: none; color: inherit;">
         <img src="assets/dist/img/edit.svg" alt="">
         <div class="info">
           <h6>Konfirmasi</h6>
@@ -105,6 +108,7 @@
 
   
   <!-- Footer -->
+
   <body>
   <footer style="background: linear-gradient(to bottom, #48c6ef, #6f86d6); color: white; text-align: center; padding: 20px 10px;">
     <p>Jl. Surabaya 2A, Malang 65145, PO BOX 39</p>
@@ -118,7 +122,6 @@
     <a href="https://www.instagram.com/perumjasatirta1/?hl=en" style="font-size: 30px; color: black;"><i class="fab fa-instagram"></i></a>
     </div>
   </footer>
-
   <div class="copyright text-center p-3" style="background: linear-gradient(to bottom, #48c6ef, #6f86d6); color: white;">
   Copyright All Rights Reserve © 2024 <strong>Perum Jasa Tirta 1.</strong>
   </div>
