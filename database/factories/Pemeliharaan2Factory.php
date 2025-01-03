@@ -29,6 +29,8 @@ class Pemeliharaan2Factory extends Factory
             'cuaca' => $this->faker->text(255),
             'no_alatUkur' => $this->faker->randomNumber(0),
             'no_GSM' => $this->faker->randomNumber(0),
+            'ttdMekanik' => $this->faker->text(255),
+            'tegangan' => $this->faker->text(50),
             'alat_telemetri_id' => \App\Models\AlatTelemetri::factory(),
             'user_id' => \App\Models\User::factory(),
         ];

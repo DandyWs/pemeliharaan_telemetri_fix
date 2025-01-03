@@ -129,10 +129,10 @@
             <div class="row">
               @foreach ($komponen as $komp)
               <div class="form-group col-md-6">
-                <label class="example" id="{{ $komp->id==11 || $komp->id==12 ? $komp->id : '' }}">
+                <label class="example" id="{{ $komp->id==9 || $komp->id==10 ? $komp->id : '' }}">
                   {{ $komp->nama }}
                   <input
-                      type="{{ $komp->id==11 || $komp->id==12 ? 'checkbox' : 'hidden' }}"
+                      type="{{ $komp->id==9 || $komp->id==10 ? 'checkbox' : 'hidden' }}"
                       name="cheked{{ $komp->id }}"
                       
                     />
@@ -150,34 +150,47 @@
                       value="{{ isset($pemeliharaan) ? $pemeliharaan->id : '' }}"
                       />
                       
-                      <input
+                      {{-- <input
                       type="checkbox"
                       name="cheked{{ $detail->id }}"
-                      {{-- value="1" --}}
+                      {{-- value="1" 
                       class="form-check-input"
                       {{ old('cheked' . $detail->id, isset($pemeliharaan) && $pemeliharaan->formKomponen->where('komponen2_id', $detail->id)->first()->cheked) ? 'checked' : '' }}
-                      />
-                    {{-- <input
+                      /> --}}
+                    <input
                       type="checkbox"
-                      name="komponen2_id"
-                      value="{{ $detail->id }}"
+                      name="cheked{{ $detail->id }}"
                       class="form-check-input"
-                      {{ in_array($detail->id, old('komponen2_id', isset($pemeliharaan) ? $pemeliharaan->komponen->pluck('id')->toArray() : [])) ? 'checked' : '' }}
-                    /> --}}
-                    <label class="form-check-label">{{ $detail->namadetail }}</label>
+                      id="detail{{ $detail->id }}"
+                      {{ old('cheked' . $detail->id, isset($pemeliharaan) && $pemeliharaan->formKomponen->where('komponen2_id', $detail->id)->first()->cheked) ? 'checked' : '' }}
+                    />
+                    <label class="form-check-label" for="detail{{ $detail->id }}">{{ $detail->namadetail }}</label>
                   </div>
                   
                   
                 @endforeach
                 @if ($komp->id==7)
                     {{-- <div class="form-group col-md-6"> --}}
-                      <span>Tegangan</span>
-                      <input
-                        type="text"
-                        name="tegangan"
-                        class="form-control @error('tegangan') is-invalid @enderror"
-                        placeholder="Tegangan"
-                      />
+                        <div class="row">
+                            <div class="col-md-3 d-flex align-items-center justify-content-center">
+                            <span>Tegangan: </span>
+                            </div>
+                          <div class="col-md-6">
+                            <input
+                              type="text"
+                              name="tegangan"
+                              class="form-control @error('tegangan') is-invalid @enderror"
+                              placeholder="Tegangan"
+                            />
+                            @error('tegangan')
+                            <span class="error invalid-feedback">{{ $message }}</span>
+                            @enderror
+                          </div>
+                          <div class="col-md-3 d-flex align-items-center">
+                            <span>Volt</span>
+                          </div>
+                        </div>
+                      
                       @error('tegangan')
                       <span class="error invalid-feedback">{{ $message }}</span>
                       @enderror
@@ -286,8 +299,8 @@
       document.addEventListener('DOMContentLoaded', function () {
           const alatTelemetriSelect = document.getElementById('alat_telemetri_id');
           const formSetting = document.getElementById('form-setting');
-          const label11 = document.getElementById('11');
-          const label12 = document.getElementById('12');
+          const label11 = document.getElementById('9');
+          const label12 = document.getElementById('10');
       
           alatTelemetriSelect.addEventListener('change', function () {
               const selectedOption = alatTelemetriSelect.options[alatTelemetriSelect.selectedIndex];

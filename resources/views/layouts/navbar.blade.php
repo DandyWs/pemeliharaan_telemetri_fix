@@ -9,12 +9,12 @@
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
         <!-- Notifikasi -->
-        <li class="nav-item dropdown">
+        {{-- <li class="nav-item dropdown">
             <a class="nav-link" data-toggle="dropdown" href="#" aria-haspopup="true" aria-expanded="false">
                 <i class="fas fa-bell fa-2x"></i>
                 <span class="badge badge-danger navbar-badge" id="notificationCount">3</span>
             </a>
-            <div class="dropdown-menu dropdown-menu-right">
+            {{-- <div class="dropdown-menu dropdown-menu-right">
                 <span class="dropdown-item dropdown-header">3 Notifikasi Baru</span>
                 <div class="dropdown-divider"></div>
                 <a href="#" class="dropdown-item">
@@ -29,14 +29,14 @@
                 <div class="dropdown-divider"></div>
                 <a href="#" class="dropdown-item dropdown-footer">Lihat Semua Notifikasi</a>
             </div>
-        </li>
+        </li> --}}
 
         <!-- Profile Dropdown -->
         <li class="nav-item dropdown">
             <div class="dropdown">
                 <div class="mt-1 d-flex" role="button" id="profileDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <div class="profile rounded-circle mr-2">
-                            <img src="assets/dist/img/profile.png" class="" alt="User Image" width="40px">
+                            <img src="{{asset('assets/dist/img/profile.png') }}" class="" alt="User Image" width="40px">
                         {{-- @elseif(Auth::user()->role == "nasabah")
                             @if (empty($nasabah->foto))
                                 <img src="assets/dist/img/profile.png" class="" alt="User Image" width="40px">

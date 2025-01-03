@@ -98,14 +98,14 @@
                     return row.tanggal + ' ' + row.waktu;
                 }
             },
-            { data: 'waktu', name: 'waktu', sortable: true, searchable: true },
+            // { data: 'waktu', name: 'waktu', sortable: true, searchable: true },
             { data: 'periode', name: 'periode', sortable: true, searchable: true },
             { data: 'cuaca', name: 'cuaca', sortable: true, searchable: true },
-                { data: 'no_alatUkur', name: 'no_alatUkur', sortable: true, searchable: true },
-                { data: 'no_GSM', name: 'no_GSM', sortable: true, searchable: true },
-            // // { data: 'jenis_alat', name: 'jenis_alat', sortable: true, searchable: true },
-            // { data: 'alat_telemetri_id', name: 'alat_telemetri_id', sortable: true, searchable: true },
-            // { data: 'user_id', name: 'user_id', sortable: true, searchable: true },
+                // { data: 'no_alatUkur', name: 'no_alatUkur', sortable: true, searchable: true },
+                // { data: 'no_GSM', name: 'no_GSM', sortable: true, searchable: true },
+            { data: 'jenis_alat', name: 'jenis_alat', sortable: true, searchable: true },
+            { data: 'alat_telemetri_id', name: 'alat_telemetri_id', sortable: true, searchable: true },
+            { data: 'user_id', name: 'user_id', sortable: true, searchable: true },
             {
                 data: 'keterangan',
                 name: 'keterangan',
@@ -128,9 +128,14 @@
             {
                 data: 'id', name: 'id', searchable: false, sortable: false,
                 render: function (data, type, row, meta) {
-                    return '<a href="{{ url('pemeriksaan') }}/' + data + '/edit" class="btn btn-success btn-sm mr-1 mt-1"><i class="fa fa-plus"></i> </a>' +
-                        // '<button class="btn btn-danger btn-sm btn-delete mt-1" data-id="' + data + '"><i class="fa fa-trash"></i> </button>' +
-                        '<a href="{{ url('pemeriksaan/exportData') }}/'+data+'" class="btn btn-primary btn-sm mt-1" ><i class="fa fa-print"></i> </a>';
+                    if (row.ttd != null) {
+                        return '<a href="{{ url('pemeriksaan/exportData') }}/'+data+'" class="btn btn-primary btn-sm mt-1" ><i class="fa fa-print"></i> </a>';
+                    } else {
+                        return '<a href="{{ url('pemeriksaan') }}/' + data + '/edit" class="btn btn-success btn-sm mr-1 mt-1"><i class="fa fa-plus"></i> </a>';
+                    }
+                    // return '<a href="{{ url('pemeriksaan') }}/' + data + '/edit" class="btn btn-success btn-sm mr-1 mt-1"><i class="fa fa-plus"></i> </a>' +
+                    //     // '<button class="btn btn-danger btn-sm btn-delete mt-1" data-id="' + data + '"><i class="fa fa-trash"></i> </button>' +
+                    //     '<a href="{{ url('pemeriksaan/exportData') }}/'+data+'" class="btn btn-primary btn-sm mt-1" ><i class="fa fa-print"></i> </a>';
                     // '<a href="{{ url('pemeriksaan') }}/' + data + '/create" class="btn btn-success btn-sm mr-1"><i class="fa fa-plus"></i> </a>';
                     // `<a href="{{url('/pemeliharaans/')}}/` + data +`"class="btn btn-sm btn-primary "><i class="fas fa fa-info-circle"></i></a>`;
                 }

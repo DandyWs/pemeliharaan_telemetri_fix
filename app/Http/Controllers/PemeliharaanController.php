@@ -10,10 +10,13 @@ use App\Models\JenisAlat;
 use App\Models\Komponen2;
 use App\Models\Setting2;
 use App\Models\Pemeliharaan2;
+use App\Models\Pemeriksaan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Yajra\DataTables\Facades\DataTables;
+use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\DB;
 
 class PemeliharaanController extends Controller
 {
@@ -34,21 +37,44 @@ class PemeliharaanController extends Controller
         return view('pemeliharaans.index');
     }
     public function data(){
-        $data = Pemeliharaan2::with('AlatTelemetri')->get();
+        if (auth()->user()->role == 'mekanik') {
+            // $data = Pemeliharaan2::with('AlatTelemetri')
+            // ->where('user_id', auth()->id())
+            // ->get();
+            $data = DB::table('pemeliharaan2s')
+            ->leftJoin('pemeriksaans', 'pemeliharaan2s.id', '=', 'pemeriksaans.pemeliharaan2_id')
+            ->leftJoin('alat_telemetris', 'pemeliharaan2s.alat_telemetri_id', '=', 'alat_telemetris.id')
+            ->leftJoin('jenis_alats', 'alat_telemetris.jenis_alat_id', '=', 'jenis_alats.id')
+            ->leftJoin('users', 'pemeliharaan2s.user_id', '=', 'users.id')
+            ->select('pemeliharaan2s.*', 'pemeriksaans.ttd', 'pemeriksaans.catatan', 'pemeriksaans.user_id', 'alat_telemetris.lokasiStasiun', 'jenis_alats.namajenis', 'users.name')
+            ->where('pemeliharaan2s.user_id', auth()->id())
+            ->get();
+        } else {
+            // $data = Pemeliharaan2::with('AlatTelemetri')->get();
+            $data = DB::table('pemeliharaan2s')
+            ->leftJoin('pemeriksaans', 'pemeliharaan2s.id', '=', 'pemeriksaans.pemeliharaan2_id')
+            ->leftJoin('alat_telemetris', 'pemeliharaan2s.alat_telemetri_id', '=', 'alat_telemetris.id')
+            ->leftJoin('jenis_alats', 'alat_telemetris.jenis_alat_id', '=', 'jenis_alats.id')
+            ->leftJoin('users', 'pemeliharaan2s.user_id', '=', 'users.id')
+            ->select('pemeliharaan2s.*', 'pemeriksaans.ttd', 'pemeriksaans.catatan', 'pemeriksaans.user_id', 'alat_telemetris.lokasiStasiun', 'jenis_alats.namajenis', 'users.name')
+            ->get();
+        }
+
         $data = $data->map(function ($item) {
             return [
-                'id' => $item->id,
-                'tanggal' => $item->tanggal,
-                'waktu' => $item->waktu,
-                'periode' => $item->periode,
-                'cuaca' => $item->cuaca,
-                'no_alatUkur' => $item->no_alatUkur,
-                'no_GSM' => $item->no_GSM,
-                'alat_telemetri_id' => $item->AlatTelemetri->lokasiStasiun,
-                'jenis_alat' => $item->AlatTelemetri->JenisAlat->namajenis,
-                'keterangan' => $item->keterangan,
-                'user_id' => $item->User->name,
-                'ttdMekanik' => $item->ttdMekanik,
+            'id' => $item->id,
+            'tanggal' => $item->tanggal,
+            'waktu' => $item->waktu,
+            'periode' => $item->periode,
+            'cuaca' => $item->cuaca,
+            'no_alatUkur' => $item->no_alatUkur,
+            'no_GSM' => $item->no_GSM,
+            'alat_telemetri_id' => $item->lokasiStasiun,
+            'jenis_alat' => $item->namajenis,
+            'keterangan' => $item->keterangan,
+            'user_id' => $item->name,
+            'ttdMekanik' => $item->ttdMekanik,
+            'ttd' => $item->ttd,
             ];
         });
         return DataTables::of($data)
@@ -171,31 +197,35 @@ class PemeliharaanController extends Controller
                 ]);
             
             }
-            if ($request->input('cheked11')){
+            if ($request->input('cheked9')){
                 Setting2::create([
                     'pemeliharaan2_id' => $pemeliharaan->id,
                     'simulasi' => $request->input('simulasi_sebelum'),
                     'display' => $request->input('display_sebelum'),
+                    'jenis' => 'bucket',
                     'kondisi' => '0',
                 ]);
                 Setting2::create([
                     'pemeliharaan2_id' => $pemeliharaan->id,
                     'simulasi' => $request->input('simulasi_sesudah'),
                     'display' => $request->input('display_sesudah'),
+                    'jenis' => 'bucket',
                     'kondisi' => '1',
                 ]);
             }
-            if ($request->input('cheked12')){
+            if ($request->input('cheked10')){
                 Setting2::create([
                     'pemeliharaan2_id' => $pemeliharaan->id,
                     'simulasi' => $request->input('aktual_sebelum'),
                     'display' => $request->input('display_aktual_sebelum'),
+                    'jenis' => 'water',
                     'kondisi' => '0',
                 ]);
                 Setting2::create([
                     'pemeliharaan2_id' => $pemeliharaan->id,
                     'simulasi' => $request->input('aktual_sesudah'),
                     'display' => $request->input('display_aktual_sesudah'),
+                    'jenis' => 'water',
                     'kondisi' => '1',
                 ]);
             }
@@ -212,16 +242,22 @@ class PemeliharaanController extends Controller
      */
     public function show($id)
     {
-        $data = Pemeliharaan2::where('id', $id)->first();
+        $pemeliharaan = Pemeliharaan2::where('id', $id)->first();
+        // Debugging statements
+        if (is_null($pemeliharaan)) {
+            abort(404, 'Pemeliharaan not found.');
+        }
+
+        if (!in_array(auth()->user()->role, ['admin']) && $pemeliharaan->user_id !== auth()->id()) {
+            abort(403, 'You are not authorized to see this record.');
+        }
         $formKomponen = FormKomponen::where('pemeliharaan2_id', $id)-> pluck('detail_komponen_id')->toArray();
         $detailKomponen = DetailKomponen::all();
         $komponen = Komponen2::all();
-        return view('pemeliharaans.show', [
-            'pemeliharaan' => $data, 
-            'formKomponen' => $formKomponen,
-            'detailKomponen' => $detailKomponen,
-            'komponen' => $komponen
-        ]);
+        $setting2 = Setting2::where('pemeliharaan2_id', $id)->get();
+        // dd($setting2);
+        return view('pemeliharaans.show', compact('pemeliharaan', 'formKomponen', 'detailKomponen', 'komponen', 'setting2'))
+        ;
     }
 
     /**
@@ -232,27 +268,40 @@ class PemeliharaanController extends Controller
      */
     public function edit($id)
     {
-        $pemeliharaan = Pemeliharaan2::find($id);
-        $alat = AlatTelemetri::all();
-        $formKomponen = FormKomponen:: pluck('detail_komponen_id');
-        $user = User::all();
-        $jenisAlat =  JenisAlat::all();
-        $detailKomponen = DetailKomponen::where('id', $pemeliharaan->detail_komponen_id)->get();
-        $komponen = Komponen2::where('id', $pemeliharaan->komponen_id)->get();
+        // $pemeliharaan = Pemeliharaan2::find($id);
+        // // Debugging statements
+        // if (is_null($pemeliharaan)) {
+        //     abort(404, 'Pemeliharaan not found.');
+        // }
 
+        // $alat = AlatTelemetri::all();
+        // $formKomponen = FormKomponen:: pluck('detail_komponen_id');
+        // $user = User::all();
+        // $jenisAlat =  JenisAlat::all();
+        // $detailKomponen = DetailKomponen::where('id', $pemeliharaan->detail_komponen_id)->get();
+        // $komponen = Komponen2::where('id', $pemeliharaan->komponen_id)->get();
+
+        // // Check ownership
+        // if (!in_array(auth()->user()->role, ['admin'])&&$pemeliharaan->user_id !== auth()->id()) {
+        //     abort(403, 'You are not authorized to edit this record.');
+        // }
+        
+        $pemeliharaan = Pemeliharaan2::where('id', $id)->first();
         // Debugging statements
         if (is_null($pemeliharaan)) {
-            dd("Pemeliharaan with ID $id not found");
+            abort(404, 'Pemeliharaan not found.');
         }
 
-        return view('pemeliharaans.create')
-            ->with('alat', $alat)
-            ->with('formKomponen', $formKomponen)
-            ->with('user', $user)
-            ->with('jenisAlat', $jenisAlat)
-            ->with('komponen', $komponen)
-            ->with('detailKomponen', $detailKomponen)
-        ->with('pemeliharaan', $pemeliharaan)->with('url_form', url('/pemeliharaans/'.$id));
+        if (!in_array(auth()->user()->role, ['admin']) && $pemeliharaan->user_id !== auth()->id()) {
+            abort(403, 'You are not authorized to see this record.');
+        }
+        $formKomponen = FormKomponen::where('pemeliharaan2_id', $id)-> pluck('detail_komponen_id')->toArray();
+        $detailKomponen = DetailKomponen::all();
+        $komponen = Komponen2::all();
+        $alat = AlatTelemetri::all();
+        $setting2 = Setting2::where('pemeliharaan2_id', $id)->get();
+
+        return view('pemeliharaans.edit', compact('pemeliharaan', 'formKomponen', 'detailKomponen', 'komponen', 'setting2', 'alat'));
     }
 
     /**
@@ -277,6 +326,9 @@ class PemeliharaanController extends Controller
         ]);
 
         $sopir = Pemeliharaan2::find($id);
+        if ($sopir->user_id !== auth()->id()) {
+            abort(403, 'You are not authorized to edit this record.');
+        }
 
         // if ($request->hasFile('foto')) {
         //     $foto = $request->file('foto');
@@ -313,9 +365,26 @@ class PemeliharaanController extends Controller
      */
     public function destroy($id)
     {
+        if (!auth()->check()) {
+            abort(403, 'Unauthorized action.');
+        }
         $sopir = Pemeliharaan2::find($id);
+        $setting2 = Setting2::where('pemeliharaan2_id', $id)->get();
+        $formKomponen = FormKomponen::where('pemeliharaan2_id', $id)->get();
+        $pemeriksaan = Pemeriksaan::where('pemeliharaan2_id', $id)->get();
+        foreach ($pemeriksaan as $item) {
+            $item->delete();
+        }
 
         $sopir->delete();
+        foreach ($setting2 as $setting) {
+            $setting->delete();
+        }
+        foreach ($formKomponen as $form) {
+            $form->delete();
+        }
+
+
 
         return redirect('pemeliharaans')
             ->with('success', 'Pemeliharaan Berhasil Dihapus');

@@ -11,7 +11,7 @@ class Setting2 extends Model
     use HasFactory;
     use Searchable;
 
-    protected $fillable = ['simulasi','pemeliharaan2_id', 'display', 'form_komponen_id','kondisi'];
+    protected $fillable = ['simulasi','pemeliharaan2_id', 'display', 'kondisi', 'jenis'];
 
     protected $searchableFields = ['*'];
 

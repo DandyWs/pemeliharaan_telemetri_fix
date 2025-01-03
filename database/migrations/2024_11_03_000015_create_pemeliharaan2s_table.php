@@ -12,12 +12,15 @@ return new class extends Migration {
     {
         Schema::create('pemeliharaan2s', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->dateTime('tanggal');
+            $table->date('tanggal');
             $table->time('waktu');
             $table->string('periode');
             $table->string('cuaca');
             $table->integer('no_alatUkur');
             $table->integer('no_GSM');
+            $table->string('keterangan');
+            $table->string('ttdMekanik');
+            $table->string('tegangan');
             $table->unsignedBigInteger('alat_telemetri_id');
             $table->unsignedBigInteger('user_id');
 

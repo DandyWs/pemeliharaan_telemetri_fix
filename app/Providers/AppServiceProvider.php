@@ -38,6 +38,10 @@ class AppServiceProvider extends ServiceProvider
             $view->with('hitungPemeliharaan', Pemeliharaan2::count());
             $view->with('hitungPem', Pemeliharaan2::whereDate('tanggal', now()->toDateString())->count());
             $view->with('hitungPemKet', Pemeliharaan2::whereNull('keterangan')->count());
+            $view->with('hitungTtd', DB::table('pemeliharaan2s')
+                ->leftJoin('pemeriksaans', 'pemeliharaan2s.id', '=', 'pemeriksaans.pemeliharaan2_id')
+                ->whereNull('pemeriksaans.ttd')
+                ->count());
             $view->with('hitungAlat', AlatTelemetri::count());
             $view->with('hitungJenis', JenisAlat::count());
         });
