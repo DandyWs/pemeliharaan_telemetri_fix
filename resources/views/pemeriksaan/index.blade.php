@@ -15,11 +15,8 @@
             <div class="row d-flex justify-between" style="width: 100%; justify-content: space-between; align-items: center; margin: 0">
               {{-- <a href="{{url('pemeriksaan/create')}}" class="btn -btn sm btn-success my-2">Tambah Data</a> --}}
               <div class="col-md-12 text-right mb-3" style="width: 100%">
-                <a href="{{ route('pemeliharaan.export-pdf') }}" class="btn btn-danger ml-2">
+                <a href="{{ url('export-pdf') }}" class="btn btn-danger ml-2">
                     <i class="icon ion-md-download"></i> Export PDF
-                </a>
-                <a href="{{ route('pemeliharaan.export-excel') }}" class="btn btn-success ml-2">
-                    <i class="icon ion-md-download"></i> Export Excel
                 </a>
             </div>
             </div>
@@ -129,7 +126,7 @@
                 data: 'id', name: 'id', searchable: false, sortable: false,
                 render: function (data, type, row, meta) {
                     if (row.ttd != null) {
-                        return '<a href="{{ url('pemeriksaan/exportData') }}/'+data+'" class="btn btn-primary btn-sm mt-1" ><i class="fa fa-print"></i> </a>';
+                        return '<a href="{{ url('export-data') }}/'+data+'" class="btn btn-primary btn-sm mt-1" ><i class="fa fa-print"></i> </a>';
                     } else {
                         return '<a href="{{ url('pemeriksaan') }}/' + data + '/edit" class="btn btn-success btn-sm mr-1 mt-1"><i class="fa fa-plus"></i> </a>';
                     }

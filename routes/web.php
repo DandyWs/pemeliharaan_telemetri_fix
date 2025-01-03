@@ -24,6 +24,7 @@ use App\Http\Controllers\ProfileController;
 // use App\Http\Controllers\JenisAlatController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\KomponenController;
+use App\Http\Controllers\PrintController;
 use App\Http\Controllers\TransaksibaruController;
 use App\Http\Controllers\TransaksiController;
 use App\Models\DetailKomponen;
@@ -72,6 +73,9 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('pemeriksaan/{id}/create', [PemeriksaanController::class, 'create'])->name('pemeriksaan.create');
     Route::post('pemeriksaan/{id}', [PemeriksaanController::class, 'create'])->name('pemeriksaan.create');
     Route::post('pemeriksaans/data',[PemeriksaanController::class,'data'])->name('data_pemeriksaan');
+
+    Route::get('/export-pdf', [PrintController::class, 'exportPDF']);
+    Route::get('/export-data/{id}', [PrintController::class, 'exportData']);
 
     Route::resource('/alat', AlatController::class)->parameter('alat','id');
     Route::post('alat/data',[AlatController::class,'data'])->name('data_alat');

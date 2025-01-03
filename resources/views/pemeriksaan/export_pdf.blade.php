@@ -43,54 +43,44 @@
                 <br>
             </div>
     </center>
-<div class="container mt-2">
-    <div class="row justify-content-center align-items-center">
-        <div class="card">
-
-            <div class="card-body">
-
-                <table class="table table-sm">
-                    <thead>
-                        <tr>
-                            <th>No</th>
-                            <th>Tanggal</th>
-                            <th>waktu</th>
-                            <th>Periode</th>
-                            <th>Cuaca</th>
-                            <th>no_alatUkur</th>
-                            <th>no_GSM</th>
-                            <th>Jenis Alat</th>
-                            <th>Lokasi Stasiun</th>
-                            <th>Pelaksana</th>
-                            <th>Status</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($data as $index => $item)
-                        <tr>
-                            <td>{{ $index + 1 }}</td>
-                            <td>{{ $item->tanggal }}</td>
-                            <td>{{ $item->waktu }}</td> <!-- Menambahkan Waktu -->
-                            <td>{{ $item->periode }}</td>
-                            <td>{{ $item->cuaca }}</td>
-                            <td>{{ $item->no_alatUkur }}</td> <!-- Menambahkan No Alat Ukur -->
-                            <td>{{ $item->no_GSM }}</td> <!-- Menambahkan No GSM -->
-                            <td>{{ $item->alatTelemetri->jenisAlat->namajenis }}</td>
-                            <td>{{ $item->alatTelemetri->lokasiStasiun }}</td>
-                            <td>{{ $item->user->name }}</td>
-                            <td>{{ $item->status ? 'Confirmed' : 'Not Confirmed' }}</td>
-                        </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-                <div class="signature">
-                    <p>Disahkan oleh,</p>
-                    <br><br><br>
-                    <p>_______________________</p>
-                    <p>Nama Pemeriksa</p>
-                </div>
-            </div>
-        </div>
+<div class="container mt-2 align-items-center">
+    <div class="card text-center">
+        <center>
+            <table style="width: 100%; border: 1px solid black; border-collapse: collapse;">
+                <thead>
+                <tr>
+                    <th style="border: 1px solid black; padding: 5px;">No</th>
+                    <th style="border: 1px solid black; padding: 5px;">Tanggal</th>
+                    <th style="border: 1px solid black; padding: 5px;">Waktu</th>
+                    <th style="border: 1px solid black; padding: 5px;">Periode</th>
+                    <th style="border: 1px solid black; padding: 5px;">Cuaca</th>
+                    <th style="border: 1px solid black; padding: 5px;">Alat Ukur</th>
+                    <th style="border: 1px solid black; padding: 5px;">GSM</th>
+                    <th style="border: 1px solid black; padding: 5px;">Jenis Alat</th>
+                    <th style="border: 1px solid black; padding: 5px;">Lokasi Stasiun</th>
+                    <th style="border: 1px solid black; padding: 5px;">Pelaksana</th>
+                    <th style="border: 1px solid black; padding: 5px;">Status</th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach ($data as $index => $item)
+                <tr>
+                    <td style="border: 1px solid black; padding: 5px;">{{ $index + 1 }}</td>
+                    <td style="border: 1px solid black; padding: 5px;">{{ $item->tanggal }}</td>
+                    <td style="border: 1px solid black; padding: 5px;">{{ $item->waktu }}</td>
+                    <td style="border: 1px solid black; padding: 5px;">{{ $item->periode }}</td>
+                    <td style="border: 1px solid black; padding: 5px;">{{ $item->cuaca }}</td>
+                    <td style="border: 1px solid black; padding: 5px;">{{ $item->no_alatUkur }}</td>
+                    <td style="border: 1px solid black; padding: 5px;">{{ $item->no_GSM }}</td>
+                    <td style="border: 1px solid black; padding: 5px;">{{ $item->namajenis }}</td>
+                    <td style="border: 1px solid black; padding: 5px;">{{ $item->lokasiStasiun }}</td>
+                    <td style="border: 1px solid black; padding: 5px;">{{ $item->name }}</td>
+                    <td style="border: 1px solid black; padding: 5px;">{{ $item->ttd ? 'Confirmed' : 'Not Confirmed' }}</td>
+                </tr>
+                @endforeach
+                </tbody>
+            </table>
+        <center>
     </div>
 </div>
 </body>
