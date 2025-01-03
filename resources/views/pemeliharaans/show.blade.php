@@ -52,8 +52,9 @@
                             <label id="{{ $komp->id==9 || $komp->id==10 ? $komp->id : '' }}">{{ $komp->nama }}
                                 <input
                                 type="{{ $komp->id==9 || $komp->id==10 ? 'checkbox' : 'hidden' }}"
-                                name="cheked{{ $komp->id }}"
-                                {{ $komp->id==9 || $komp->id==10 ? 'checked' : '' }}
+                                name="chekedsetting{{ $komp->id }}"
+                                {{  $setting2->where('jenis', 'bucket')->first() && $komp->id==9 ? 'checked' : '' }}
+                                {{  $setting2->where('jenis', 'water')->first() && $komp->id==10 ? 'checked' : '' }}
                                 
                                 />
                             </label>
@@ -125,10 +126,10 @@
                               </thead>
                               <tbody>
                                   <tr>
-                                      <td><p class="form-control-static" style="border: 1px solid #ced4da; background-color: #e9ecef; padding: .375rem .75rem;">{{ $setting2->where('kondisi', 0)->where('jenis', 'bucket')->first()->simulasi ?? ' '}}</p></td>
-                                      <td><p class="form-control-static" style="border: 1px solid #ced4da; background-color: #e9ecef; padding: .375rem .75rem;">{{ $setting2->where('kondisi', 0)->where('jenis', 'bucket')->first()->display ?? ' '}}</p></td>
-                                      <td><p class="form-control-static" style="border: 1px solid #ced4da; background-color: #e9ecef; padding: .375rem .75rem;">{{ $setting2->where('kondisi', 1)->where('jenis', 'bucket')->first()->simulasi ?? ' '}}</p></td>
-                                      <td><p class="form-control-static" style="border: 1px solid #ced4da; background-color: #e9ecef; padding: .375rem .75rem;">{{ $setting2->where('kondisi', 1)->where('jenis', 'bucket')->first()->display ?? ' '}}</p></td>
+                                      <td><p class="form-control-static" style="border: 1px solid #ced4da; background-color: #e9ecef; padding: .375rem .75rem;">{{ $setting2->where('kondisi', 0)->where('jenis', 'bucket')->first()->simulasi ?? ' '}}&nbsp;</p></td>
+                                      <td><p class="form-control-static" style="border: 1px solid #ced4da; background-color: #e9ecef; padding: .375rem .75rem;">{{ $setting2->where('kondisi', 0)->where('jenis', 'bucket')->first()->display ?? ' '}}&nbsp;</p></td>
+                                      <td><p class="form-control-static" style="border: 1px solid #ced4da; background-color: #e9ecef; padding: .375rem .75rem;">{{ $setting2->where('kondisi', 1)->where('jenis', 'bucket')->first()->simulasi ?? ' '}}&nbsp;</p></td>
+                                      <td><p class="form-control-static" style="border: 1px solid #ced4da; background-color: #e9ecef; padding: .375rem .75rem;">{{ $setting2->where('kondisi', 1)->where('jenis', 'bucket')->first()->display ?? ' '}}&nbsp;</p></td>
                                   </tr>
                               </tbody>
                           </table>
@@ -150,10 +151,10 @@
                               </thead>
                               <tbody>
                                   <tr>
-                                    <td><p class="form-control-static" style="border: 1px solid #ced4da; background-color: #e9ecef; padding: .375rem .75rem;">{{ $setting2->where('kondisi', 0)->where('jenis', 'water')->first()->simulasi ?? ' ' }}</p></td>
-                                    <td><p class="form-control-static" style="border: 1px solid #ced4da; background-color: #e9ecef; padding: .375rem .75rem;">{{ $setting2->where('kondisi', 0)->where('jenis', 'water')->first()->display  ?? ' ' }}</p></td>
-                                    <td><p class="form-control-static" style="border: 1px solid #ced4da; background-color: #e9ecef; padding: .375rem .75rem;">{{ $setting2->where('kondisi', 1)->where('jenis', 'water')->first()->simulasi ?? ' ' }}</p></td>
-                                    <td><p class="form-control-static" style="border: 1px solid #ced4da; background-color: #e9ecef; padding: .375rem .75rem;">{{ $setting2->where('kondisi', 1)->where('jenis', 'water')->first()->display ?? ' ' }}</p></td>
+                                    <td><p class="form-control-static" style="border: 1px solid #ced4da; background-color: #e9ecef; padding: .375rem .75rem;">{{ $setting2->where('kondisi', 0)->where('jenis', 'water')->first()->simulasi ?? ' ' }}&nbsp;</p></td>
+                                    <td><p class="form-control-static" style="border: 1px solid #ced4da; background-color: #e9ecef; padding: .375rem .75rem;">{{ $setting2->where('kondisi', 0)->where('jenis', 'water')->first()->display  ?? ' ' }}&nbsp;</p></td>
+                                    <td><p class="form-control-static" style="border: 1px solid #ced4da; background-color: #e9ecef; padding: .375rem .75rem;">{{ $setting2->where('kondisi', 1)->where('jenis', 'water')->first()->simulasi ?? ' ' }}&nbsp;</p></td>
+                                    <td><p class="form-control-static" style="border: 1px solid #ced4da; background-color: #e9ecef; padding: .375rem .75rem;">{{ $setting2->where('kondisi', 1)->where('jenis', 'water')->first()->display ?? ' ' }}&nbsp;</p></td>
                                   </tr>
                               </tbody>
                           </table>

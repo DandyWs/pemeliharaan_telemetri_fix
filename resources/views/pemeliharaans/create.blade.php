@@ -133,7 +133,7 @@
                   {{ $komp->nama }}
                   <input
                       type="{{ $komp->id==9 || $komp->id==10 ? 'checkbox' : 'hidden' }}"
-                      name="cheked{{ $komp->id }}"
+                      name="chekedsetting{{ $komp->id }}"
                       
                     />
                 </label>
@@ -172,7 +172,7 @@
                 @if ($komp->id==7)
                     {{-- <div class="form-group col-md-6"> --}}
                         <div class="row">
-                            <div class="col-md-3 d-flex align-items-center justify-content-center">
+                            <div class="col-md-3 d-flex align-items-center">
                             <span>Tegangan: </span>
                             </div>
                           <div class="col-md-6">

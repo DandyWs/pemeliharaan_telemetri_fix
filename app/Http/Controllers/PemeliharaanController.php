@@ -197,7 +197,7 @@ class PemeliharaanController extends Controller
                 ]);
             
             }
-            if ($request->input('cheked9')){
+            if ($request->input('chekedsetting9')){
                 Setting2::create([
                     'pemeliharaan2_id' => $pemeliharaan->id,
                     'simulasi' => $request->input('simulasi_sebelum'),
@@ -213,7 +213,7 @@ class PemeliharaanController extends Controller
                     'kondisi' => '1',
                 ]);
             }
-            if ($request->input('cheked10')){
+            if ($request->input('chekedsetting10')){
                 Setting2::create([
                     'pemeliharaan2_id' => $pemeliharaan->id,
                     'simulasi' => $request->input('aktual_sebelum'),
@@ -248,9 +248,9 @@ class PemeliharaanController extends Controller
             abort(404, 'Pemeliharaan not found.');
         }
 
-        if (!in_array(auth()->user()->role, ['admin']) && $pemeliharaan->user_id !== auth()->id()) {
-            abort(403, 'You are not authorized to see this record.');
-        }
+        // if (!in_array(auth()->user()->role, ['admin']) && $pemeliharaan->user_id !== auth()->id()) {
+        //     abort(403, 'You are not authorized to see this record.');
+        // }
         $formKomponen = FormKomponen::where('pemeliharaan2_id', $id)-> pluck('detail_komponen_id')->toArray();
         $detailKomponen = DetailKomponen::all();
         $komponen = Komponen2::all();
@@ -292,16 +292,17 @@ class PemeliharaanController extends Controller
             abort(404, 'Pemeliharaan not found.');
         }
 
-        if (!in_array(auth()->user()->role, ['admin']) && $pemeliharaan->user_id !== auth()->id()) {
-            abort(403, 'You are not authorized to see this record.');
-        }
+        // if (!in_array(auth()->user()->role, ['admin']) && $pemeliharaan->user_id !== auth()->id()) {
+        //     abort(403, 'You are not authorized to see this record.');
+        // }
         $formKomponen = FormKomponen::where('pemeliharaan2_id', $id)-> pluck('detail_komponen_id')->toArray();
         $detailKomponen = DetailKomponen::all();
         $komponen = Komponen2::all();
         $alat = AlatTelemetri::all();
         $setting2 = Setting2::where('pemeliharaan2_id', $id)->get();
 
-        return view('pemeliharaans.edit', compact('pemeliharaan', 'formKomponen', 'detailKomponen', 'komponen', 'setting2', 'alat'));
+        return view('pemeliharaans.edit', compact('pemeliharaan', 'formKomponen', 'detailKomponen', 'komponen', 'setting2', 'alat'))
+        ->with('url_form',url('/pemeliharaans/'. $id));
     }
 
     /**
@@ -313,17 +314,17 @@ class PemeliharaanController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'tanggal' => ['required', 'date'],
-            'waktu' => ['required', 'date_format:H:i'],
-            'periode' => ['required', 'max:255', 'string'],
-            'cuaca' => ['required', 'max:255', 'string'],
-            'no_alatUkur' => ['required', 'numeric'],
-            'no_GSM' => ['required', 'numeric'],
-            'keterangan' => ['nullable', 'max:255', 'string'],
-            'alat_telemetri_id' => ['required', 'exists:alat_telemetris,id'],
-            'user_id' => ['required', 'exists:users,id'],
-        ]);
+        // $request->validate([
+        //     'tanggal' => ['required', 'date'],
+        //     'waktu' => ['required', 'date_format:H:i'],
+        //     'periode' => ['required', 'max:255', 'string'],
+        //     'cuaca' => ['required', 'max:255', 'string'],
+        //     'no_alatUkur' => ['required', 'numeric'],
+        //     'no_GSM' => ['required', 'numeric'],
+        //     'keterangan' => ['nullable', 'max:255', 'string'],
+        //     'alat_telemetri_id' => ['required', 'exists:alat_telemetris,id'],
+        //     'user_id' => ['required', 'exists:users,id'],
+        // ]);
 
         $sopir = Pemeliharaan2::find($id);
         if ($sopir->user_id !== auth()->id()) {

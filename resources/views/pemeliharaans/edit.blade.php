@@ -10,40 +10,9 @@
             <br>
         </div>
         <div class="card-body">
-        {{-- <div class="row">
-              <div class="form-group col-md-6">
-                <label>Nama Stasiun -- Jenis Alat</label>
-                <p class="form-control-static" style="border: 1px solid #ced4da; background-color: #e9ecef; padding: .375rem .75rem;">{{ $pemeliharaan->alatTelemetri->lokasiStasiun }} -- {{ $pemeliharaan->alatTelemetri->jenisAlat->namajenis }}</p>
-              <input type="hidden" name="pemeliharaan2_id" value="{{ $pemeliharaan->id }}">
-              </div>
-              <div class="form-group col-md-6">
-              <label>Tanggal Pemeliharaan</label>
-              <p class="form-control-static" style="border: 1px solid #ced4da; background-color: #e9ecef; padding: .375rem .75rem;">{{ $pemeliharaan->tanggal }}</p>
-              </div>
-              <div class="form-group col-md-6">
-              <label>Periode Pemeliharaan</label>
-              <p class="form-control-static" style="border: 1px solid #ced4da; background-color: #e9ecef; padding: .375rem .75rem;">{{ $pemeliharaan->periode }}</p>
-              </div>
-              <div class="form-group col-md-6">
-              <label>Waktu Pemeliharaan</label>
-              <p class="form-control-static" style="border: 1px solid #ced4da; background-color: #e9ecef; padding: .375rem .75rem;">{{ $pemeliharaan->waktu }}</p>
-              </div>
-              <div class="form-group col-md-6">
-              <label>Pelaksana Pemeliharaan</label>
-              <p class="form-control-static" style="border: 1px solid #ced4da; background-color: #e9ecef; padding: .375rem .75rem;">{{ $pemeliharaan->user->name }}</p>
-              </div>
-              <div class="form-group col-md-6">
-              <label>Cuaca</label>
-              <p class="form-control-static" style="border: 1px solid #ced4da; background-color: #e9ecef; padding: .375rem .75rem;">{{ $pemeliharaan->cuaca }}</p>
-              </div>
-              <div class="form-group col-md-6">
-              <label>No Alat Ukur</label>
-              <p class="form-control-static" style="border: 1px solid #ced4da; background-color: #e9ecef; padding: .375rem .75rem;">{{ $pemeliharaan->no_alatUkur }}</p>
-              </div>
-              <div class="form-group col-md-6">
-              <label>No GSM</label>
-              <p class="form-control-static" style="border: 1px solid #ced4da; background-color: #e9ecef; padding: .375rem .75rem;">{{ $pemeliharaan->no_GSM }}</p>
-              </div> --}}
+          <form method="POST" action="{{ $url_form }}" enctype="multipart/form-data">
+            @csrf
+            {!! (isset($pemeliharaan))? method_field('PUT'):''!!}
               <div class="row">
                 <div class="form-group col-md-6">
                   <label>Nama Stasiun -- Jenis Alat</label>
@@ -309,6 +278,8 @@
             </div>
               
             <a class="btn btn-md btn-primary" href="{{ url('/pemeliharaans') }}">Kembali</a>
+            <button type="submit" class="btn btn-md btn-success">Simpan</button>
+          </form>
         </div>
     </div>
 

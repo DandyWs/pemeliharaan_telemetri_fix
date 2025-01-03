@@ -282,11 +282,65 @@
         <table class="table" style="border: 1px solid black;">
             <tbody>
             @foreach ($komponen->chunk(2) as $chunk)
+            {{-- {{($chunk)}} --}}
+            
+            @if (($pemeliharaan->alatTelemetri->jenisAlat->namajenis == 'WQMS' && $chunk->first()->id != 9 && $chunk->first()->id != 10 )|| $pemeliharaan->alatTelemetri->jenisAlat->namajenis == 'AWLR' || $pemeliharaan->alatTelemetri->jenisAlat->namajenis == 'ARR' )
             <tr>
                 @foreach ($chunk as $komponen)
                 <td style="width: 50%; border: 1px solid black;">{{ chr(65 + $loop->parent->index * 2 + $loop->index) }}. {{ $komponen->nama }}
                 <br><br>
+                @if (($pemeliharaan->alatTelemetri->jenisAlat->namajenis == 'AWLR' || $pemeliharaan->alatTelemetri->jenisAlat->namajenis == 'ARR') && ($komponen->id == 9 || $komponen->id == 10))
+                    <table class="table table-bordered text-center">
+                        <thead>
+                            <tr>
+                                <th colspan="2">Sebelum Kalibrasi</th>
+                                <th colspan="2">Sesudah Kalibrasi</th>
+                            </tr>
+                            <tr>
+                                <th>Simulasi</th>
+                                <th>Display</th>
+                                <th>Simulasi</th>
+                                <th>Display</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    @if ($komponen->id == 9 && $setting2->where('kondisi', 0)->where('jenis', 'bucket')->first()) {{ $setting2->where('kondisi', 0)->where('jenis', 'bucket')->first()->simulasi }} 
+                                    @endif
+                                    @if ($komponen->id == 10 && $setting2->where('kondisi', 0)->where('jenis', 'water')->first()) {{ $setting2->where('kondisi', 0)->where('jenis', 'water')->first()->simulasi }}
+                                    @endif
+                                    &nbsp;
+                                </td>
+                                <td>
+                                    @if ($komponen->id == 9 && $setting2->where('kondisi', 0)->where('jenis', 'bucket')->first()) {{ $setting2->where('kondisi', 0)->where('jenis', 'bucket')->first()->display }} 
+                                    @endif
+                                    @if ($komponen->id == 10 && $setting2->where('kondisi', 0)->where('jenis', 'water')->first()) {{ $setting2->where('kondisi', 0)->where('jenis', 'water')->first()->display }}
+                                    @endif
+                                </td>
+                                <td>
+                                    @if ($komponen->id == 9 && $setting2->where('kondisi', 1)->where('jenis', 'bucket')->first()) {{ $setting2->where('kondisi', 1)->where('jenis', 'bucket')->first()->simulasi }} 
+                                    @endif
+                                    @if ($komponen->id == 10 && $setting2->where('kondisi', 1)->where('jenis', 'water')->first()) {{ $setting2->where('kondisi', 1)->where('jenis', 'water')->first()->simulasi }}
+                                    @endif
+                                </td>
+                                <td>
+                                    @if ($komponen->id == 9 && $setting2->where('kondisi', 1)->where('jenis', 'bucket')->first()) {{ $setting2->where('kondisi', 1)->where('jenis', 'bucket')->first()->display }} 
+                                    @endif
+                                    @if ($komponen->id == 10 && $setting2->where('kondisi', 1)->where('jenis', 'water')->first()) {{ $setting2->where('kondisi', 1)->where('jenis', 'water')->first()->display }}
+                                    @endif
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                
+                    
+                @endif
+
                 @foreach ($detailKomponen->where('komponen2_id', $komponen->id) as $detail)
+                
+                    
+               
                 <table class="table table-borderless">
                     <tr>
                         <td style="width:90%; padding: 0.2rem;">{{ $detail->namadetail }}</td>
@@ -301,15 +355,29 @@
                             <input type="hidden" name="pemeliharaan2_id[{{ $detail->id }}]" value="{{ isset($pemeliharaan) ? $pemeliharaan->id : '' }}" />
                             <input type="checkbox" name="cheked{{ $detail->id }}" {{ $cheked ? 'checked' : 'disabled' }} />
                         </td>
+                        
                     </tr>
                 </table>
+                
                 @endforeach
+                @if ($komponen->id==7)
+                        
+                            <table class="table table-borderless">
+                                <tr>
+                                    <td>Tegangan : </td>
+                                    <td>
+                                    {{ $pemeliharaan->tegangan }} volt               </td>     
+                                </tr>
+                            </table>
+                            
+                @endif
                 </td>
                 @endforeach
                 @if ($chunk->count() < 2)
                 <td style="width: 50%;"></td>
                 @endif
             </tr>
+            @endif
             @endforeach
             </tbody>
         </table>

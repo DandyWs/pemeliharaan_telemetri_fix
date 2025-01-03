@@ -14,6 +14,9 @@ use App\Models\DetailKomponen;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\Facades\DataTables;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\PemeliharaanExport;
+use App\Models\Setting2;
 
 class PrintController extends Controller
 {
@@ -74,53 +77,6 @@ class PrintController extends Controller
         // {
         //     return Excel::download(new PemeriksaanExport, 'laporan_pemeriksaan.xlsx');
         // }
-
-        public function data(){
-            if (auth()->user()->role == 'mekanik') {
-                // $data = Pemeliharaan2::with('AlatTelemetri')
-                // ->where('user_id', auth()->id())
-                // ->get();
-                $data = DB::table('pemeliharaan2s')
-                ->leftJoin('pemeriksaans', 'pemeliharaan2s.id', '=', 'pemeriksaans.pemeliharaan2_id')
-                ->leftJoin('alat_telemetris', 'pemeliharaan2s.alat_telemetri_id', '=', 'alat_telemetris.id')
-                ->leftJoin('jenis_alats', 'alat_telemetris.jenis_alat_id', '=', 'jenis_alats.id')
-                ->leftJoin('users', 'pemeliharaan2s.user_id', '=', 'users.id')
-                ->select('pemeliharaan2s.*', 'pemeriksaans.ttd', 'pemeriksaans.catatan', 'pemeriksaans.user_id', 'alat_telemetris.lokasiStasiun', 'jenis_alats.namajenis', 'users.name')
-                ->where('pemeliharaan2s.user_id', auth()->id())
-                ->get();
-            } else {
-                // $data = Pemeliharaan2::with('AlatTelemetri')->get();
-                $data = DB::table('pemeliharaan2s')
-                ->leftJoin('pemeriksaans', 'pemeliharaan2s.id', '=', 'pemeriksaans.pemeliharaan2_id')
-                ->leftJoin('alat_telemetris', 'pemeliharaan2s.alat_telemetri_id', '=', 'alat_telemetris.id')
-                ->leftJoin('jenis_alats', 'alat_telemetris.jenis_alat_id', '=', 'jenis_alats.id')
-                ->leftJoin('users', 'pemeliharaan2s.user_id', '=', 'users.id')
-                ->select('pemeliharaan2s.*', 'pemeriksaans.ttd', 'pemeriksaans.catatan', 'pemeriksaans.user_id', 'alat_telemetris.lokasiStasiun', 'jenis_alats.namajenis', 'users.name')
-                ->get();
-            }
-    
-            $data = $data->map(function ($item) {
-                return [
-                'id' => $item->id,
-                'tanggal' => $item->tanggal,
-                'waktu' => $item->waktu,
-                'periode' => $item->periode,
-                'cuaca' => $item->cuaca,
-                'no_alatUkur' => $item->no_alatUkur,
-                'no_GSM' => $item->no_GSM,
-                'alat_telemetri_id' => $item->lokasiStasiun,
-                'jenis_alat' => $item->namajenis,
-                'keterangan' => $item->keterangan,
-                'user_id' => $item->name,
-                'ttdMekanik' => $item->ttdMekanik,
-                'ttd' => $item->ttd,
-                ];
-            });
-            return DataTables::of($data)
-                        ->addIndexColumn()
-                        ->make(true);
-    
-        }
         
         public function exportData($id)
         {
@@ -132,6 +88,7 @@ class PrintController extends Controller
             $jenisAlat =  JenisAlat::all();
             $komponen = Komponen2::all();
             $detailKomponen = DetailKomponen::all();
+            $setting2 = Setting2::where('pemeliharaan2_id', $id)->get();
 
             // $data = Pemeliharaan2::find($id)->with([
             //     'user', 
@@ -151,9 +108,69 @@ class PrintController extends Controller
                 'formKomponen',
                 'jenisAlat',
                 'pemeriksaan',
-                'detailKomponen'))
+                'detailKomponen',
+                'setting2'))
                   ->setPaper('a4', 'portrait');
 
             return $pdf->download('laporan_pemeriksaan_' . $pemeliharaan->alatTelemetri->jenisAlat->namajenis . '_' . $pemeliharaan->alatTelemetri->lokasiStasiun . '.pdf');
+        }
+
+        public function exportPemeliharaan()
+        {
+            if (auth()->user()->role == 'mekanik') {
+                // $data = Pemeliharaan2::with('AlatTelemetri')
+                // ->where('user_id', auth()->id())
+                // ->get();
+                $data = DB::table('pemeliharaan2s')
+                ->leftJoin('pemeriksaans', 'pemeliharaan2s.id', '=', 'pemeriksaans.pemeliharaan2_id')
+                ->leftJoin('alat_telemetris', 'pemeliharaan2s.alat_telemetri_id', '=', 'alat_telemetris.id')
+                ->leftJoin('jenis_alats', 'alat_telemetris.jenis_alat_id', '=', 'jenis_alats.id')
+                ->leftJoin('users', 'pemeliharaan2s.user_id', '=', 'users.id')
+                ->select('pemeliharaan2s.*', 'pemeriksaans.ttd', 'pemeriksaans.catatan', 'pemeriksaans.user_id', 'alat_telemetris.lokasiStasiun', 'jenis_alats.namajenis', 'users.name')
+                ->where('pemeliharaan2s.user_id', auth()->id())
+                ->orderByDesc(DB::raw('CONCAT(pemeliharaan2s.tanggal, " ", pemeliharaan2s.waktu)'))
+                ->get();
+            } else {
+                // $data = Pemeliharaan2::with('AlatTelemetri')->get();
+                $data = DB::table('pemeliharaan2s')
+                ->leftJoin('pemeriksaans', 'pemeliharaan2s.id', '=', 'pemeriksaans.pemeliharaan2_id')
+                ->leftJoin('alat_telemetris', 'pemeliharaan2s.alat_telemetri_id', '=', 'alat_telemetris.id')
+                ->leftJoin('jenis_alats', 'alat_telemetris.jenis_alat_id', '=', 'jenis_alats.id')
+                ->leftJoin('users', 'pemeliharaan2s.user_id', '=', 'users.id')
+                ->select('pemeliharaan2s.*', 'pemeriksaans.ttd', 'pemeriksaans.catatan', 'pemeriksaans.user_id', 'alat_telemetris.lokasiStasiun', 'jenis_alats.namajenis', 'users.name')
+                ->orderByDesc(DB::raw('CONCAT(pemeliharaan2s.tanggal, " ", pemeliharaan2s.waktu)'))
+                ->get();
+            }
+
+            $pdf = Pdf::loadView('pemeriksaan.export_pemeliharaan', compact('data'))
+                      ->setPaper('a4', 'landscape');
+
+            return $pdf->download('laporan_pemeliharaan.pdf');
+        }
+
+        public function exportExcel()
+        {
+            if (auth()->user()->role == 'mekanik') {
+                $data = DB::table('pemeliharaan2s')
+                    ->leftJoin('pemeriksaans', 'pemeliharaan2s.id', '=', 'pemeriksaans.pemeliharaan2_id')
+                    ->leftJoin('alat_telemetris', 'pemeliharaan2s.alat_telemetri_id', '=', 'alat_telemetris.id')
+                    ->leftJoin('jenis_alats', 'alat_telemetris.jenis_alat_id', '=', 'jenis_alats.id')
+                    ->leftJoin('users', 'pemeliharaan2s.user_id', '=', 'users.id')
+                    ->select('pemeliharaan2s.*', 'pemeriksaans.ttd', 'pemeriksaans.catatan', 'pemeriksaans.user_id', 'alat_telemetris.lokasiStasiun', 'jenis_alats.namajenis', 'users.name')
+                    ->where('pemeliharaan2s.user_id', auth()->id())
+                    ->orderByDesc(DB::raw('CONCAT(pemeliharaan2s.tanggal, " ", pemeliharaan2s.waktu)'))
+                    ->get();
+            } else {
+                $data = DB::table('pemeliharaan2s')
+                    ->leftJoin('pemeriksaans', 'pemeliharaan2s.id', '=', 'pemeriksaans.pemeliharaan2_id')
+                    ->leftJoin('alat_telemetris', 'pemeliharaan2s.alat_telemetri_id', '=', 'alat_telemetris.id')
+                    ->leftJoin('jenis_alats', 'alat_telemetris.jenis_alat_id', '=', 'jenis_alats.id')
+                    ->leftJoin('users', 'pemeliharaan2s.user_id', '=', 'users.id')
+                    ->select('pemeliharaan2s.*', 'pemeriksaans.ttd', 'pemeriksaans.catatan', 'pemeriksaans.user_id', 'alat_telemetris.lokasiStasiun', 'jenis_alats.namajenis', 'users.name')
+                    ->orderByDesc(DB::raw('CONCAT(pemeliharaan2s.tanggal, " ", pemeliharaan2s.waktu)'))
+                    ->get();
+            }
+
+            return Excel::download(new PemeliharaanExport($data), 'pemeliharaan_data.xlsx');
         }
 }

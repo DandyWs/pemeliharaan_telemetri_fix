@@ -76,6 +76,8 @@ Route::group(['middleware' => 'auth'], function() {
 
     Route::get('/export-pdf', [PrintController::class, 'exportPDF']);
     Route::get('/export-data/{id}', [PrintController::class, 'exportData']);
+    Route::get('/export-pemeliharaan', [PrintController::class, 'exportPemeliharaan']);
+    Route::get('/excel', [PrintController::class, 'exportExcel']);
 
     Route::resource('/alat', AlatController::class)->parameter('alat','id');
     Route::post('alat/data',[AlatController::class,'data'])->name('data_alat');

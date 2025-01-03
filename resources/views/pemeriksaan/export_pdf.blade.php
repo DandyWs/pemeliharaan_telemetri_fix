@@ -74,7 +74,7 @@
                     <td style="border: 1px solid black; padding: 5px;">{{ $item->no_GSM }}</td>
                     <td style="border: 1px solid black; padding: 5px;">{{ $item->namajenis }}</td>
                     <td style="border: 1px solid black; padding: 5px;">{{ $item->lokasiStasiun }}</td>
-                    <td style="border: 1px solid black; padding: 5px;">{{ $item->name }}</td>
+                    <td style="border: 1px solid black; padding: 5px; nowrap">{{ $item->name }}</td>
                     <td style="border: 1px solid black; padding: 5px;">{{ $item->ttd ? 'Confirmed' : 'Not Confirmed' }}</td>
                 </tr>
                 @endforeach
