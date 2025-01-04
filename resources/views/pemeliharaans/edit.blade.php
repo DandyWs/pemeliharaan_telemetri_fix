@@ -10,7 +10,7 @@
             <br>
         </div>
         <div class="card-body">
-          <form method="POST" action="{{ $url_form }}" enctype="multipart/form-data">
+          <form action="{{ isset($pemeliharaan) ? $url_form : url('/pemeliharaans') }}" method="POST" enctype="multipart/form-data">
             @csrf
             {!! (isset($pemeliharaan))? method_field('PUT'):''!!}
               <div class="row">

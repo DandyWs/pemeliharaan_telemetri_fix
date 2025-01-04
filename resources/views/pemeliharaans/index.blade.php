@@ -119,9 +119,10 @@
             {   
                 data: 'id', name: 'id', searchable: false, sortable: false,
                 render: function (data, type, row, meta) {
-                    return row.ttd ? '<a href="{{ url('pemeriksaan/exportData') }}/'+data+'" class="btn btn-primary btn-sm mr-1 mb-1" ><i class="fa fa-print"></i> </a>'+`<a href="{{ url('pemeliharaans') }}/` + data +`"class="btn btn-sm btn-primary mb-1"><i class="fas fa fa-info-circle"></i></a>`:'<a href="{{ url('pemeliharaans') }}/' + data + '/edit" class="btn btn-warning btn-sm mr-1 mb-1"><i class="fa fa-edit"></i> </a>' +
-                        '<button class="btn btn-danger btn-sm btn-delete mb-1" data-id="' + data + '"><i class="fa fa-trash"></i> </button>' +
-                    `<a href="{{ url('pemeliharaans') }}/` + data +`"class="btn btn-sm btn-primary mb-1"><i class="fas fa fa-info-circle"></i></a>`;
+                    return row.ttd ? '<a href="{{ url('pemeriksaan/exportData') }}/'+data+'" class="btn btn-primary btn-sm mr-1 mb-1" ><i class="fa fa-print"></i> </a>'+`<a href="{{ url('pemeliharaans') }}/` + data +`"class="btn btn-sm btn-primary mb-1"><i class="fas fa fa-info-circle"></i></a>`:
+                    '<a href="{{ url('pemeliharaans') }}/' + data + '/edit" class="btn btn-warning btn-sm mr-1 mb-1"><i class="fa fa-edit"></i> </a>' +
+                        '<button class="btn btn-danger btn-sm btn-delete mr-1 mb-1" data-id="' + data + '"><i class="fa fa-trash"></i> </button>' +
+                    `<a href="{{ url('pemeliharaans') }}/` + data +`"class="btn btn-sm btn-primary mr-1 mb-1"><i class="fas fa fa-info-circle"></i></a>`;
                 }
                 }
             ]

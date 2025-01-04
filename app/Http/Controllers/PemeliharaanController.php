@@ -247,10 +247,10 @@ class PemeliharaanController extends Controller
         if (is_null($pemeliharaan)) {
             abort(404, 'Pemeliharaan not found.');
         }
-
-        // if (!in_array(auth()->user()->role, ['admin']) && $pemeliharaan->user_id !== auth()->id()) {
-        //     abort(403, 'You are not authorized to see this record.');
-        // }
+        // Check ownership
+        if (!in_array(auth()->user()->role, ['admin']) && $pemeliharaan->user_id !== auth()->id()) {
+            abort(403, 'You are not authorized to see this record.');
+        }
         $formKomponen = FormKomponen::where('pemeliharaan2_id', $id)-> pluck('detail_komponen_id')->toArray();
         $detailKomponen = DetailKomponen::all();
         $komponen = Komponen2::all();
@@ -281,17 +281,17 @@ class PemeliharaanController extends Controller
         // $detailKomponen = DetailKomponen::where('id', $pemeliharaan->detail_komponen_id)->get();
         // $komponen = Komponen2::where('id', $pemeliharaan->komponen_id)->get();
 
-        // // Check ownership
-        // if (!in_array(auth()->user()->role, ['admin'])&&$pemeliharaan->user_id !== auth()->id()) {
-        //     abort(403, 'You are not authorized to edit this record.');
-        // }
+        
         
         $pemeliharaan = Pemeliharaan2::where('id', $id)->first();
         // Debugging statements
         if (is_null($pemeliharaan)) {
             abort(404, 'Pemeliharaan not found.');
         }
-
+        // Check ownership
+        if (!in_array(auth()->user()->role, ['admin']) && $pemeliharaan->user_id !== auth()->id()) {
+            abort(403, 'You are not authorized to edit this record.');
+        }
         // if (!in_array(auth()->user()->role, ['admin']) && $pemeliharaan->user_id !== auth()->id()) {
         //     abort(403, 'You are not authorized to see this record.');
         // }
@@ -327,9 +327,9 @@ class PemeliharaanController extends Controller
         // ]);
 
         $sopir = Pemeliharaan2::find($id);
-        if ($sopir->user_id !== auth()->id()) {
-            abort(403, 'You are not authorized to edit this record.');
-        }
+        // if ($sopir->user_id !== auth()->id()) {
+        //     abort(403, 'You are not authorized to edit this record.');
+        // }
 
         // if ($request->hasFile('foto')) {
         //     $foto = $request->file('foto');
