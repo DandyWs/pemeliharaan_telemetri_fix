@@ -48,6 +48,7 @@ class PemeliharaanController extends Controller
             ->leftJoin('users', 'pemeliharaan2s.user_id', '=', 'users.id')
             ->select('pemeliharaan2s.*', 'pemeriksaans.ttd', 'pemeriksaans.catatan', 'pemeriksaans.user_id', 'alat_telemetris.lokasiStasiun', 'jenis_alats.namajenis', 'users.name')
             ->where('pemeliharaan2s.user_id', auth()->id())
+            ->orderByDesc(DB::raw('CONCAT(pemeliharaan2s.tanggal, " ", pemeliharaan2s.waktu)'))
             ->get();
         } else {
             // $data = Pemeliharaan2::with('AlatTelemetri')->get();
@@ -57,6 +58,7 @@ class PemeliharaanController extends Controller
             ->leftJoin('jenis_alats', 'alat_telemetris.jenis_alat_id', '=', 'jenis_alats.id')
             ->leftJoin('users', 'pemeliharaan2s.user_id', '=', 'users.id')
             ->select('pemeliharaan2s.*', 'pemeriksaans.ttd', 'pemeriksaans.catatan', 'pemeriksaans.user_id', 'alat_telemetris.lokasiStasiun', 'jenis_alats.namajenis', 'users.name')
+            ->orderByDesc(DB::raw('CONCAT(pemeliharaan2s.tanggal, " ", pemeliharaan2s.waktu)'))
             ->get();
         }
 

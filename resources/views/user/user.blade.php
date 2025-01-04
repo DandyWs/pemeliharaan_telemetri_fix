@@ -70,7 +70,11 @@
                 'type': 'POST',
             },
             columns: [
-            { data: 'id', searchable: false, sortable: false },
+                { data: null, searchable: false, sortable: false,
+              render: function (data, type, row, meta) {
+                  return meta.row + 1;
+              }
+            },
             { data: 'name', name: 'name', sortable: true, searchable: true },
             { data: 'email', name: 'email', sortable: false, searchable: true },
             { data: 'role', name: 'role', sortable: false, searchable: true },

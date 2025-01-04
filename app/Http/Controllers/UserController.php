@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Yajra\DataTables\Contracts\DataTable;
 use Yajra\DataTables\DataTables;
+use Illuminate\Support\Facades\DB;
 
 
 class UserController extends Controller
@@ -31,7 +32,7 @@ class UserController extends Controller
         return view('user.user');
     }
     public function data(){
-        $data = User::selectRaw('id, name, email ,role');
+        $data = User::selectRaw('id, name, email, role')->orderBy('id', 'desc');
         return DataTables::of($data)
                     ->addIndexColumn()
                     ->make(true);
