@@ -18,7 +18,7 @@ return new class extends Migration {
             $table->string('cuaca');
             $table->integer('no_alatUkur');
             $table->integer('no_GSM');
-            $table->string('keterangan');
+            $table->string('keterangan')->nullable();
             $table->string('ttdMekanik');
             $table->string('tegangan');
             $table->unsignedBigInteger('alat_telemetri_id');

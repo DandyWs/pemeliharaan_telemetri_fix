@@ -186,7 +186,7 @@
                 <textarea
                   name="catatan"
                   class="form-control @error('catatan') is-invalid @enderror"
-                  required
+                  
                 ></textarea>
                 @error('catatan')
                 <span class="error invalid-feedback">{{ $message }}</span>

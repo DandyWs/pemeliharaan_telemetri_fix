@@ -19,7 +19,7 @@
             <div class="container-fluid">
               <div class="row mb-2">
                 <div class="col-sm-6">
-                  <b><h1>Dashboard Form Pemeliharaan Jasa Tirta I</h1></b>
+                  <b><h1>Dashboard Form Pemeliharaan Alat Telemetri Jasa Tirta I</h1></b>
                 </div>
                 <div class="col-sm-6">
                   <ol class="breadcrumb float-sm-right">

@@ -126,9 +126,11 @@
                 data: 'id', name: 'id', searchable: false, sortable: false,
                 render: function (data, type, row, meta) {
                     if (row.ttd != null) {
-                        return '<a href="{{ url('export-data') }}/'+data+'" class="btn btn-primary btn-sm mt-1" ><i class="fa fa-print"></i> </a>';
+                        return '<a href="{{ url('export-data') }}/'+data+'" class="btn btn-primary btn-sm mt-1" ><i class="fa fa-print"></i> </a>'+
+                    '<a href="{{ url('pemeriksaan') }}/'+data+'" class="btn btn-info btn-sm mt-1"><i class="fa fa-info-circle"></i> </a>';
                     } else {
-                        return '<a href="{{ url('pemeriksaan') }}/' + data + '/edit" class="btn btn-success btn-sm mr-1 mt-1"><i class="fa fa-plus"></i> </a>';
+                        return '<a href="{{ url('pemeriksaan') }}/' + data + '/edit" class="btn btn-success btn-sm mr-1 mt-1"><i class="fa fa-plus"></i> </a>'+
+                        '<a href="{{ url('pemeriksaan') }}/'+data+'" class="btn btn-info btn-sm mt-1"><i class="fa fa-info-circle"></i> </a>';
                     }
                     // return '<a href="{{ url('pemeriksaan') }}/' + data + '/edit" class="btn btn-success btn-sm mr-1 mt-1"><i class="fa fa-plus"></i> </a>' +
                     //     // '<button class="btn btn-danger btn-sm btn-delete mt-1" data-id="' + data + '"><i class="fa fa-trash"></i> </button>' +

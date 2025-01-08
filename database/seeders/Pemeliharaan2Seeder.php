@@ -29,7 +29,7 @@ class Pemeliharaan2Seeder extends Seeder
                 'ttdMekanik' => 'mekanik/1.png',
                 'tegangan' => '220',
                 'alat_telemetri_id' => 1,
-                'user_id' => 1
+                'user_id' => 3
             ]
             ]);
     }

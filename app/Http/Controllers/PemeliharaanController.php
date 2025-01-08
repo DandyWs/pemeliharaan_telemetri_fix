@@ -121,7 +121,7 @@ class PemeliharaanController extends Controller
             'cuaca' => ['required', 'max:255', 'string'],
             'no_alatUkur' => ['required', 'numeric'],
             'no_GSM' => ['required', 'numeric'],
-            'keterangan' => ['nullable', 'max:255', 'string'],
+            // 'keterangan' => ['nullable', 'max:255', 'string'],
             'alat_telemetri_id' => ['required', 'exists:alat_telemetris,id'],
             'user_id' => ['required', 'exists:users,id'],
             // 'ttdMekanik' => ['required', 'max:255', 'string'],
@@ -341,6 +341,29 @@ class PemeliharaanController extends Controller
         //     $foto->storeAs('sopirprofile', $fotoName, 'public');
         //     $sopir->foto = $fotoName;
         // }
+        $file = null;
+        if ($request->has('ttdMekanik')) {
+            try {
+                $folderPath = "mekanik/";
+                $image_parts = explode(";base64,", $request->input('ttdMekanik'));
+                if (count($image_parts) === 2) {
+                    $image_type_aux = explode("image/", $image_parts[0]);
+                    $image_type = isset($image_type_aux[1]) ? $image_type_aux[1] : 'png';
+                    $image_base64 = base64_decode($image_parts[1]);
+                    $file = $folderPath . uniqid() . '.' . $image_type;
+    
+                    // Store the image in the public disk
+                    $filePath = public_path('assets/img/ttd/mekanik/' . basename($file));
+                    file_put_contents($filePath, $image_base64);
+                } else {
+                    throw new \Exception('Invalid base64 format.');
+                }
+            } catch (\Exception $e) {
+                $file = null;
+                // Log::error('Error storing ttd image: ' . $e->getMessage());
+                // return redirect()->back()->withErrors(['ttd' => 'Failed to store signature image.']);
+            }
+        }
 
         Pemeliharaan2::where('id', $id)->update([
             'tanggal' => $request->input('tanggal'),
@@ -349,13 +372,69 @@ class PemeliharaanController extends Controller
             'cuaca' => $request->input('cuaca'),
             'no_alatUkur' => $request->input('no_alatUkur'),
             'no_GSM' => $request->input('no_GSM'),
+            'tegangan' => $request->input('tegangan'),
+            'keterangan' => $request->input('keterangan'),
             'alat_telemetri_id' => $request->input('alat_telemetri_id'),
             'user_id' => $request->input('user_id'),
         ]);     
-
+        if ($file!=null) {
+            Pemeliharaan2::where('id', $id)->update([
+                'ttdMekanik' => $file,
+            ]);
+        }
         $sopir->save();
-
-
+        $setting2 = Setting2::where('pemeliharaan2_id', $id)->get();
+        foreach ($setting2 as $setting) {
+            $setting->delete();
+        }
+        $formKomponen = FormKomponen::where('pemeliharaan2_id', $id)->get();
+        foreach ($formKomponen as $form) {
+            $form->delete();
+        }
+        $detailKomponen = DetailKomponen::all();
+            foreach ($detailKomponen as $detail){
+                // dd($detail );
+                // dd($request->input('cheked24'));
+                if ($request->input('cheked'.$detail->id)) 
+                FormKomponen::create([
+                'pemeliharaan2_id' => $id,
+                'detail_komponen_id' => $detail->id,
+                'cheked' => '1',
+                ]);
+            
+            }
+            if ($request->input('chekedsetting9')){
+                Setting2::create([
+                    'pemeliharaan2_id' => $id,
+                    'simulasi' => $request->input('simulasi_sebelum'),
+                    'display' => $request->input('display_sebelum'),
+                    'jenis' => 'bucket',
+                    'kondisi' => '0',
+                ]);
+                Setting2::create([
+                    'pemeliharaan2_id' => $id,
+                    'simulasi' => $request->input('simulasi_sesudah'),
+                    'display' => $request->input('display_sesudah'),
+                    'jenis' => 'bucket',
+                    'kondisi' => '1',
+                ]);
+            }
+            if ($request->input('chekedsetting10')){
+                Setting2::create([
+                    'pemeliharaan2_id' => $id,
+                    'simulasi' => $request->input('aktual_sebelum'),
+                    'display' => $request->input('display_aktual_sebelum'),
+                    'jenis' => 'water',
+                    'kondisi' => '0',
+                ]);
+                Setting2::create([
+                    'pemeliharaan2_id' => $id,
+                    'simulasi' => $request->input('aktual_sesudah'),
+                    'display' => $request->input('display_aktual_sesudah'),
+                    'jenis' => 'water',
+                    'kondisi' => '1',
+                ]);
+            }
         return redirect('pemeliharaans')
             ->with('success', 'Pemeliharaan Berhasil Diubah');
     }

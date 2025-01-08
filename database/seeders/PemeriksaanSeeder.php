@@ -22,7 +22,7 @@ class PemeriksaanSeeder extends Seeder
                 'ttd' => 'manager/1.png',
                 'catatan' => 'Pemeriksaan bulanan',
                 'pemeliharaan2_id' => 1,
-                'user_id' => 1
+                'user_id' => 2
             ]
             ]);
     }

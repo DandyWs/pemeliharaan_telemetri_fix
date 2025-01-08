@@ -132,8 +132,9 @@
                             <label id="{{ $komp->id==9 || $komp->id==10 ? $komp->id : '' }}">{{ $komp->nama }}
                                 <input
                                 type="{{ $komp->id==9 || $komp->id==10 ? 'checkbox' : 'hidden' }}"
-                                name="cheked{{ $komp->id }}"
-                                {{ $komp->id==9 || $komp->id==10 ? 'checked' : '' }}
+                                name="chekedsetting{{ $komp->id }}"
+                                {{  $setting2->where('jenis', 'bucket')->first() && $komp->id==9 ? 'checked' : '' }}
+                                {{  $setting2->where('jenis', 'water')->first() && $komp->id==10 ? 'checked' : '' }}
                                 
                                 />
                             </label>

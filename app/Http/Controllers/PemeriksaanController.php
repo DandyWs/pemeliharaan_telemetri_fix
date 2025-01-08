@@ -143,7 +143,7 @@ class PemeriksaanController extends Controller
         // Validate the incoming request data
     $request->validate([
         'ttd' => ['required', 'string'],
-        'catatan' => ['required', 'max:255', 'string'],
+        // 'catatan' => ['required', 'max:255', 'string'],
         'pemeliharaan2_id' => ['required', 'exists:pemeliharaan2s,id'],
         'user_id' => ['required', 'exists:users,id'],
     ]);
@@ -194,13 +194,18 @@ class PemeriksaanController extends Controller
      */
     public function show($id)
     {
-        $data = Pemeliharaan2::where('id', $id)->first();
+        $data = Pemeriksaan::where('pemeliharaan2_id', $id)->first();
         // $data = Komponen2::selectRaw('id, nama ');
         // return DataTables::of($data)
         //             ->addIndexColumn()
         //             ->make(true);
         // dd($sopir);
-        return view('pemeliharaans.show', ['pemeliharaan' => $data]);
+        $pemeliharaan = Pemeliharaan2::where('id', $id)->first();
+        $formKomponen = FormKomponen::where('pemeliharaan2_id', $id)-> pluck('detail_komponen_id')->toArray();
+        $detailKomponen = DetailKomponen::all();
+        $komponen = Komponen2::all();
+        $setting2 = Setting2::where('pemeliharaan2_id', $id)->get();
+        return view('pemeriksaan.show', compact('data','pemeliharaan', 'formKomponen', 'detailKomponen', 'komponen', 'setting2'));
     }
 
     /**

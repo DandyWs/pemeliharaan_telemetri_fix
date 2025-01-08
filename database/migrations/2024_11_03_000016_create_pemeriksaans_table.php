@@ -13,7 +13,7 @@ return new class extends Migration {
         Schema::create('pemeriksaans', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('ttd');
-            $table->string('catatan');
+            $table->string('catatan')->nullable();
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('pemeliharaan2_id');
 
