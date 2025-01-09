@@ -177,26 +177,26 @@
                     <label>{{ $pemeliharaan->User->name }}</label>
                 </div>
             </div>
-            <h2 class=" card-header text-center"><strong>PEMERIKSAAN LAPORAN PEMELIHARAAN</strong></h2>
-            <div class="row">
+            <h2 class=" card-header text-center {{ $data ?  ' ' : 'd-none' }}"><strong>PEMERIKSAAN LAPORAN PEMELIHARAAN</strong></h2>
+            <div class="row {{ $data ?  ' ' : 'd-none' }}">
                 <div class="form-group col-md-6">
                     <label>User Pemeriksa</label>
                     <p class="form-control-static" style="border: 1px solid #ced4da; background-color: #e9ecef; padding: .375rem .75rem;">{{ Auth::user()->name }}</p>
                 </div>
                 <div class="form-group col-md-6">
                     <label>Catatan Pemeriksa</label>
-                    <p class="form-control-static" style="border: 1px solid #ced4da; background-color: #e9ecef; padding: .375rem .75rem;">{{ $data->catatan }}</p>
+                    <p class="form-control-static" style="border: 1px solid #ced4da; background-color: #e9ecef; padding: .375rem .75rem;">{{ $data->catatan ?? ' ' }}</p>
                 </div>
                 <div class="col-md-12 text-center">
                     <label>Mengetahui, <br> Ka. Tim Kalibrasi</label>
                     <br>
-                    <img src="{{ asset('assets/img/ttd/'.$data->ttd) }}" style="border: 1px solid #ced4da; background-color: #e9ecef; padding: .375rem .75rem;">
-                    <br><label>{{ $data->User->name }}</label>
+                    <img src="{{ $data ? asset('assets/img/ttd/'.$data->ttd) : ' ' }}" style="border: 1px solid #ced4da; background-color: #e9ecef; padding: .375rem .75rem;">
+                    <br><label>{{ $data->User->name ?? ' ' }}</label>
                 </div>
                 
             </div>
               
-            <a class="btn btn-md btn-primary" href="{{ url('/pemeliharaans') }}">Kembali</a>
+            <a class="btn btn-md btn-primary" href="{{ url('/pemeriksaan') }}">Kembali</a>
         </div>
     </div>
 
